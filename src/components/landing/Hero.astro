@@ -17,18 +17,19 @@ const showHeroFooter = false;
     <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2"></div>
     <Wrapper
       variant="standard"
-      class={`relative grid content-center flex-1 w-full pt-40 pb-16 ${grid}`}
+      class={`relative grid content-center flex-1 w-full pt-32 pb-12 sm:pt-36 sm:pb-16 lg:pt-40 ${grid}`}
     >
       <Text
         tag="h1"
         variant="display3XLHero"
+        data-nav-hero-title
         class:list={[
-          "relative -top-[10%] max-w-5xl tracking-tight text-balance text-inverse-foreground",
+          "relative max-w-5xl min-w-0 tracking-tight text-pretty text-inverse-foreground sm:text-balance lg:-top-[10%]",
           mainCol,
         ]}
       >
-        <span class="whitespace-nowrap">Grandes <em>experiencias</em>.</span><br />
-        Mejores <em>negocios</em>.
+        <span class="block">Grandes <em>experiencias</em>.</span>
+        <span class="block">Mejores <em>negocios</em>.</span>
       </Text>
     </Wrapper>
     {

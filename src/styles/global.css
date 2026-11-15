@@ -16,7 +16,9 @@
   --text-display-lg--line-height: 1;
   --text-display-xl: 12rem;
   --text-display-xl--line-height: 1;
-  /* display3XL × 1.25 (landing hero) */
+  /* display3XL × 1.25 (landing hero); xs/sm fit narrow viewports */
+  --text-hero-display-xs: 2.5rem;
+  --text-hero-display-xs--line-height: 1.05;
   --text-hero-display: 3.75rem;
   --text-hero-display--line-height: 1;
   --text-hero-display-sm: 4.6875rem;
@@ -53,6 +55,7 @@
 :root {
   font-family: var(--font-sans);
   font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+  scrollbar-gutter: stable;
 }
 /* Key words in headings: wrap them in <em> */
 h1 em,
