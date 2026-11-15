@@ -2,6 +2,10 @@
 dist/
 .astro/
 
+# og:image capture scratch
+scripts/.og-background.png
+scripts/.og-dev.log
+
 # dependencies
 node_modules/
 

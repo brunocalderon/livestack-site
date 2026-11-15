@@ -1,0 +1,31 @@
+---
+// Dev/build helper for `npm run og:image` — not linked from the site.
+import "@/styles/global.css";
+import GradientShader from "@/components/assets/GradientShader.astro";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200, height=630" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>OG capture</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body class="bg-background">
+    <div id="og-capture-root" class="relative size-full overflow-hidden">
+      <div aria-hidden="true" class="arch-gradient absolute inset-0"></div>
+      <GradientShader class="absolute inset-0 size-full" />
+      <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2"></div>
+    </div>
+  </body>
+</html>

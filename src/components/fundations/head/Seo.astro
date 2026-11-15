@@ -1,32 +1,39 @@
 ---
-
 import { AstroSeo } from "@lexingtonthemes/seo";
+
+const site = Astro.site ?? new URL("https://livestack.io");
+const pageUrl = new URL(Astro.url.pathname, site);
+const ogImage = new URL("/og-image.jpg", site);
+
+const title = "Livestack";
+const description =
+  "Grandes experiencias, mejores negocios. Conecta ventas, audiencias, pagos y operaciones en una sola plataforma.";
 ---
 
 <AstroSeo
-  title="Livestack"
-  description="A detailed description of your page content."
-  canonical="https://yourwebsite.com/current-page"
+  title={title}
+  description={description}
+  canonical={pageUrl.href}
   openGraph={{
-    url: "https://yourwebsite.com/current-page",
-    title: "Livestack",
-    description: "A detailed description of your page content.",
+    url: pageUrl.href,
+    title,
+    description,
     images: [
       {
-        url: "https://yourwebsite.com/og-image.jpg",
+        url: ogImage.href,
         width: 1200,
         height: 630,
-        alt: "Open Graph Image Alt",
+        alt: "Livestack",
         type: "image/jpeg",
       },
     ],
     site_name: "Livestack",
     type: "website",
-    locale: "en_US",
+    locale: "es_AR",
   }}
   twitter={{
-    handle: "@yourhandle",
-    site: "@yourwebsite",
+    handle: "@livestack",
+    site: "@livestack",
     cardType: "summary_large_image",
   }}
 />

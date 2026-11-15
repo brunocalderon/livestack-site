@@ -26,5 +26,10 @@ export default defineConfig({
     drafts: true,
   },
   site: "https://yourwebsite.com",
-  integrations: [sitemap(), mdx()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes("/og-capture"),
+    }),
+    mdx(),
+  ],
 });
