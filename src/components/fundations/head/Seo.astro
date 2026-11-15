@@ -8,6 +8,18 @@ const ogImage = new URL("/og-image.jpg", site);
 const title = "Livestack";
 const description =
   "Grandes experiencias, mejores negocios. Conecta ventas, audiencias, pagos y operaciones en una sola plataforma.";
+
+const ogWidth = "1200";
+const ogHeight = "630";
+
+const additionalMetaTags = [
+  { property: "og:image", content: ogImage.href },
+  { property: "og:image:width", content: ogWidth },
+  { property: "og:image:height", content: ogHeight },
+  { property: "og:image:type", content: "image/jpeg" },
+  { property: "og:image:alt", content: "Livestack" },
+  { name: "twitter:image", content: ogImage.href },
+];
 ---
 
 <AstroSeo
@@ -18,15 +30,6 @@ const description =
     url: pageUrl.href,
     title,
     description,
-    images: [
-      {
-        url: ogImage.href,
-        width: 1200,
-        height: 630,
-        alt: "Livestack",
-        type: "image/jpeg",
-      },
-    ],
     site_name: "Livestack",
     type: "website",
     locale: "es_AR",
@@ -36,4 +39,5 @@ const description =
     site: "@livestack",
     cardType: "summary_large_image",
   }}
+  additionalMetaTags={additionalMetaTags}
 />

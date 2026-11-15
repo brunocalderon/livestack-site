@@ -25,7 +25,7 @@ export default defineConfig({
     skipInline: false,
     drafts: true,
   },
-  site: "https://yourwebsite.com",
+  site: "https://livestack.io",
   integrations: [
     sitemap({
       filter: (page) => !page.includes("/og-capture"),
