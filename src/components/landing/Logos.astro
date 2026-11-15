@@ -87,10 +87,9 @@ const statGridPlacements = [
       <div class="grid sm:grid-cols-2 lg:grid-cols-3">
         {
           statEntries.map((card, index) => (
-            <a
-              href={`/customers/${card.entry.id}`}
+            <div
               class:list={[
-                "flex flex-col justify-between p-6 min-h-72 group",
+                "flex flex-col justify-between p-6 min-h-72",
                 card.tint,
                 statGridPlacements[index],
               ]}
@@ -121,7 +120,7 @@ const statGridPlacements = [
                   </div>
                 )
               }
-            </a>
+            </div>
           ))
         }
       </div>
@@ -130,10 +129,7 @@ const statGridPlacements = [
           visibleEntries
             .filter((card) => card.type === "quote")
             .map((card) => (
-              <a
-                href={`/customers/${card.entry.id}`}
-                class="grid bg-muted sm:col-span-2 sm:grid-cols-2 group"
-              >
+              <div class="grid bg-muted sm:col-span-2 sm:grid-cols-2 group">
                 <div class="relative overflow-hidden aspect-4/5 sm:aspect-auto">
                   <Image
                     src={card.image}
@@ -167,7 +163,7 @@ const statGridPlacements = [
                     )
                   }
                 </div>
-              </a>
+              </div>
             ))
       }
     </div>
