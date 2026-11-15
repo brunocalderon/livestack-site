@@ -1,0 +1,18 @@
+---
+description: Global conventions for the Navy Lexington Astro theme: imports, fundations folder, grid, tokens, shader, minimal diffs, Lexington links.
+alwaysApply: true
+---
+
+# Navy (Lexington Themes): global rules
+
+- **Design first:** Read `.cursor/skills/navy-design/SKILL.md` before building or changing UI.
+- **Imports:** Use the `@/` alias for `src/` and keep the comment groups in frontmatter: `// Fundations`, `// Sections`, `// Components`, `// Content`, `// Assets`.
+- **`fundations` spelling:** The directory is `src/components/fundations/` (intentional). Never rename it.
+- **Building blocks:** Sections use `Wrapper`, `LabeledGrid` (side label plus content) and `CtaPanel`; all text goes through `Text.astro`, buttons through `Button.astro`, inline links through `ArrowLink.astro`. Icons are components in `src/components/fundations/icons/`.
+- **Grid:** The 12-column split lives in `src/components/fundations/containers/grid.ts` (`grid`, `sideCol`, `mainCol`, `mainStart`). Change it there so the navigation, heroes and every `LabeledGrid` stay aligned.
+- **Tokens only:** Colours come from `src/styles/colors.css` (`background`, `foreground`, `muted-foreground`, `faint-foreground`, `muted`, `border`, `input`, `primary`, `primary-foreground`, `primary-highlight`, `inverse`, `inverse-foreground`, `inverse-highlight`, `mist`, `lilac`, `frost`). No Tailwind default palettes, no hex values in markup, no arbitrary values in brackets.
+- **Shader:** The grainy gradient comes from `src/components/assets/GradientShader.astro`; always keep its CSS fallback behind it (`.arch-gradient`, `.arch-gradient-flip` or `.band-gradient` in `src/styles/global.css`).
+- **Type:** Switzer, set as `--font-sans` in `src/styles/global.css`. Never introduce another font.
+- **Motion:** Lenis smooth scroll lives in `src/components/fundations/scripts/SmoothScroll.astro`, wired in `BaseLayout`. Don't add per-component animation libraries.
+- **Scope:** Prefer the smallest change that satisfies the task. Avoid drive-by refactors or new dependencies unless they appear in `package.json`.
+- **Lexington references:** Use the URLs in `AGENTS.md` (template, documentation, changelog, support) instead of inventing support paths.

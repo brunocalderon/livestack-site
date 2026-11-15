@@ -1,0 +1,31 @@
+---
+// Fundations
+import Button from "@/components/fundations/elements/Button.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import CtaPanel from "@/components/fundations/containers/CtaPanel.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-32">
+    <CtaPanel tone="muted">
+      <Fragment slot="title">Report a <em>vulnerability</em></Fragment>
+      <Fragment slot="text">
+        Found something? Write to security@navy.test. We reply within one
+        business day, keep you updated until it is fixed and credit you in our
+        changelog if you like.
+      </Fragment>
+      <ArrowLink href="#_">Read our disclosure policy</ArrowLink>
+    </CtaPanel>
+    <CtaPanel tone="inverse">
+      <Fragment slot="title">Need more for <em>your review</em>?</Fragment>
+      <Fragment slot="text">
+        We can share our SOC 2 report, penetration test summary and a completed
+        security questionnaire under NDA.
+      </Fragment>
+      <Button isLink={true} size="base" variant="accent" href="/forms/contact">
+        Talk to our team
+      </Button>
+    </CtaPanel>
+  </Wrapper>
+</section>

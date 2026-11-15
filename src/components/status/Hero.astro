@@ -1,0 +1,47 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+---
+
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+  <GradientShader class="absolute inset-0 size-full" />
+  <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-120"></div>
+  <Wrapper variant="standard" class="relative flex flex-col justify-center pt-32 pb-24 min-h-160">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="tracking-tight text-balance text-inverse-foreground"
+        >
+          Navy <em>status</em>
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-md mt-6 text-inverse-foreground/70 text-pretty">
+          Live health of the Navy check network, dashboard and alerts. We run
+          this page on Navy itself.
+        </Text>
+        <Button isLink={true} size="base" variant="muted" href="#subscribe" class="mt-8 w-fit">
+          Subscribe to updates
+        </Button>
+      </div>
+    </div>
+  </Wrapper>
+</section>
+<section>
+  <Wrapper variant="standard" class="pt-24 pb-24">
+    <div class="p-8 bg-primary lg:p-10">
+      <Text tag="p" variant="displayMD" class="tracking-tight text-primary-foreground">
+        All systems <em>operational</em>
+      </Text>
+      <Text tag="p" variant="textSM" class="mt-2 text-primary-foreground/75">
+        Checked from 18 regions, 30 seconds ago
+      </Text>
+    </div>
+  </Wrapper>
+</section>

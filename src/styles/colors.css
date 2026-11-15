@@ -1,0 +1,30 @@
+@theme {
+  /* A cool lavender-white ground and deep indigo ink in three steps */
+  --color-background: oklch(98.8% 0.006 275);
+  /* Livestack nav bar (#F2F0EF) */
+  --color-nav: oklch(95.3% 0.003 67);
+  --color-foreground: oklch(20% 0.04 275);
+  --color-muted-foreground: oklch(48% 0.03 275);
+  --color-faint-foreground: oklch(64% 0.025 275);
+  /* A cool light fill for inputs and panels, hairlines and control borders */
+  --color-muted: oklch(97.2% 0.01 275);
+  --color-border: oklch(91% 0.016 275);
+  --color-input: oklch(82% 0.025 275);
+  /* The one accent, the electric ultramarine of the shader wave: the accent
+     button, checks, uptime bars and focus rings */
+  --color-primary: oklch(52% 0.22 268);
+  --color-primary-foreground: oklch(1 0 0);
+  /* The lit top of the accent button's gradient */
+  --color-primary-highlight: oklch(60% 0.2 268);
+  /* Navy-black from the core of the wave: panels, the default button and
+     text selection */
+  --color-inverse: oklch(16% 0.05 270);
+  --color-inverse-foreground: oklch(1 0 0);
+  /* The lit top of the default button's gradient */
+  --color-inverse-highlight: oklch(30% 0.06 270);
+  /* Pale tints pulled from the wave's glow. Grounds for stat cards and small
+     highlights, always with ink text */
+  --color-mist: oklch(95% 0.02 275);
+  --color-lilac: oklch(91% 0.045 280);
+  --color-frost: oklch(94% 0.025 245);
+}

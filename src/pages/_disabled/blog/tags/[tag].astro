@@ -1,0 +1,30 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+// Sections
+import TagHero from "@/components/blog/TagHero.astro";
+import TagPosts from "@/components/blog/TagPosts.astro";
+import Subscribe from "@/components/blog/Subscribe.astro";
+// Content
+import { getCollection } from "astro:content";
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts");
+  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
+  return uniqueTags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: allPosts
+        .filter((post) => post.data.tags.includes(tag))
+        .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()),
+    },
+  }));
+}
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={tag}>
+  <TagHero tag={tag} count={posts.length} />
+  <TagPosts tag={tag} posts={posts} />
+  <Subscribe />
+</BaseLayout>

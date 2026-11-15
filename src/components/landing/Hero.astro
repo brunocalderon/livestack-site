@@ -1,0 +1,56 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+/** Set true to show hero subcopy and CTA link */
+const showHeroFooter = false;
+---
+
+<section class="relative overflow-hidden">
+  <div class="flex flex-col min-h-svh">
+    <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+    <GradientShader class="absolute inset-0 size-full" />
+    <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2"></div>
+    <Wrapper
+      variant="standard"
+      class={`relative grid content-center flex-1 w-full pt-40 pb-16 ${grid}`}
+    >
+      <Text
+        tag="h1"
+        variant="display3XLHero"
+        class:list={[
+          "relative -top-[10%] max-w-5xl tracking-tight text-balance text-inverse-foreground",
+          mainCol,
+        ]}
+      >
+        <span class="whitespace-nowrap">Grandes <em>experiencias</em>.</span><br />
+        Mejores <em>negocios</em>.
+      </Text>
+    </Wrapper>
+    {
+      showHeroFooter && (
+        <Wrapper
+          variant="standard"
+          class={`relative flex flex-col justify-between w-full pb-10 gap-6 sm:flex-row sm:items-end lg:grid ${grid}`}
+        >
+          <Text
+            tag="p"
+            variant="textSM"
+            class:list={["max-w-md text-muted-foreground text-pretty lg:col-span-5", mainStart]}
+          >
+            Conecta tus ventas, audiencias, pagos y operaciones en una sola plataforma. Vende más, opera mejor y
+            haz crecer tu negocio.
+          </Text>
+          <ArrowLink href="/pricing" class="lg:col-span-4 lg:justify-self-end">
+            Explora Livestack
+          </ArrowLink>
+        </Wrapper>
+      )
+    }
+  </div>
+</section>
+

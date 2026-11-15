@@ -1,0 +1,39 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+// Icons
+import ChevronLeft from "@/components/fundations/icons/ChevronLeft.astro";
+interface Props {
+  tag: string;
+  count: number;
+}
+const { tag, count } = Astro.props;
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-40 pb-16 lg:pt-52">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <a
+          href="/blog/tags"
+          class="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ChevronLeft class="size-3.5" aria-hidden="true" />
+          All topics
+        </a>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="mt-8 capitalize tracking-tight text-balance text-foreground"
+        >
+          {tag}
+        </Text>
+        <Text tag="p" variant="textBase" class="mt-6 text-muted-foreground">
+          {count} {count === 1 ? "post" : "posts"} about {tag.toLowerCase()}.
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+</section>

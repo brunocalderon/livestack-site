@@ -1,0 +1,44 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+import CtaPanel from "@/components/fundations/containers/CtaPanel.astro";
+// Components
+import TeamEntry2 from "@/components/team/TeamEntry2.astro";
+// Content
+import { getCollection } from "astro:content";
+const founders = ["maya-lombardi", "marco-bianchi"];
+const team = (await getCollection("team")).sort((a, b) => {
+  const rank = (id: string) => (founders.includes(id) ? founders.indexOf(id) : founders.length);
+  return rank(a.id) - rank(b.id) || a.data.name.localeCompare(b.data.name);
+});
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="Team">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        The people <em>on call</em> for you
+      </Text>
+      <ArrowLink href="/team/home" class="mt-8">Meet the whole team</ArrowLink>
+      <div slot="full">
+        <ul role="list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {team.map((post, index) => <TeamEntry2 post={post} index={index} />)}
+        </ul>
+        <CtaPanel class="mt-16">
+          <Fragment slot="title">We are <em>hiring</em></Fragment>
+          <Fragment slot="text">
+            Remote roles in engineering, design and support. Everyone joins
+            the on-call rotation, and everyone gets paid for it.
+          </Fragment>
+          <Button isLink={true} size="base" variant="accent" href="#_">
+            See open roles
+          </Button>
+        </CtaPanel>
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

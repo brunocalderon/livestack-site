@@ -1,0 +1,35 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+// Content
+const { post } = Astro.props;
+const url = "/integrations/" + post.id;
+const { integration, description, logo, details } = post.data;
+const builtBy = details.find((detail) => detail.title === "Built by")?.value;
+---
+
+<li class="border-b border-border">
+  <a href={url} class="grid items-center py-5 group gap-x-6 gap-y-2 grid-cols-12">
+    <Image src={logo.url} alt={logo.alt} width={80} height={80} class="size-6 col-span-2 md:col-span-1" />
+    <Text tag="h3" variant="textBase" class="font-medium text-foreground transition-colors group-hover:text-muted-foreground col-span-8 md:col-span-3">
+      {integration}
+    </Text>
+    <ChevronRight
+      aria-hidden="true"
+      class="justify-self-end size-4 text-faint-foreground transition group-hover:translate-x-0.5 group-hover:text-foreground col-span-2 md:order-last md:col-span-1"
+    />
+    <Text tag="p" variant="textSM" class="col-span-12 text-muted-foreground line-clamp-2 md:col-span-5">
+      {description}
+    </Text>
+    {
+      builtBy && (
+        <Text tag="p" variant="textXS" class="hidden uppercase text-muted-foreground md:block md:col-span-2">
+          {builtBy}
+        </Text>
+      )
+    }
+  </a>
+</li>

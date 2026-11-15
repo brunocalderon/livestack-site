@@ -1,0 +1,84 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const practices = [
+  {
+    title: "Infrastructure",
+    text: "Navy runs on two cloud providers in every region, so no single provider can take your monitoring down.",
+    items: [
+      { title: "Isolated environments", text: "Production is separated from staging and development, with no shared credentials." },
+      { title: "Redundant by design", text: "Every service runs in at least two availability zones and fails over automatically." },
+      { title: "Daily backups", text: "Encrypted backups are taken daily, stored in a second region and restored in a test every month." },
+    ],
+  },
+  {
+    title: "Data protection",
+    text: "Your monitor settings, check results and incidents are encrypted everywhere they live.",
+    items: [
+      { title: "Encryption in transit", text: "All traffic uses TLS 1.2 or newer, including traffic between our own services." },
+      { title: "Encryption at rest", text: "Databases and backups are encrypted with AES-256 and keys are rotated every year." },
+      { title: "Data residency", text: "Data is stored in the EU by default. Business plans can choose the United States." },
+    ],
+  },
+  {
+    title: "Access control",
+    text: "Only the people who need access have it, and every action is logged.",
+    items: [
+      { title: "Single sign-on", text: "Sign in with Okta, Google Workspace or Microsoft Entra ID, and require it for every member." },
+      { title: "Roles and audit log", text: "Four roles cover every team, and the audit log records every change to monitors and policies." },
+      { title: "Least privilege", text: "Navy engineers access production only through short-lived, approved sessions." },
+    ],
+  },
+  {
+    title: "Application security",
+    text: "Security is part of how we write, review and ship every change.",
+    items: [
+      { title: "Code review", text: "Every change is reviewed by a second engineer and scanned for known vulnerabilities." },
+      { title: "Penetration tests", text: "An external firm tests the dashboard, API and status pages twice a year." },
+      { title: "Dependency updates", text: "Dependencies are tracked automatically and critical patches ship within 48 hours." },
+    ],
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <LabeledGrid label="Practices">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        How we keep your data <em>safe</em>
+      </Text>
+      <div class="flex flex-col mt-12 border-b border-border">
+        {
+          practices.map((practice) => (
+            <div class="py-12 border-t border-border">
+              <Text tag="h3" variant="displaySM" class="text-balance text-foreground">
+                {practice.title}
+              </Text>
+              <Text tag="p" variant="textBase" class="max-w-xl mt-3 text-muted-foreground text-pretty">
+                {practice.text}
+              </Text>
+              <dl class="grid mt-10 gap-8 sm:grid-cols-3">
+                {practice.items.map((item) => (
+                  <div>
+                    <dt>
+                      <Text tag="span" variant="textSM" class="font-medium text-foreground">
+                        {item.title}
+                      </Text>
+                    </dt>
+                    <dd class="mt-2">
+                      <Text tag="span" variant="textSM" class="text-muted-foreground text-pretty">
+                        {item.text}
+                      </Text>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ))
+        }
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

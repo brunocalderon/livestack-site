@@ -1,0 +1,25 @@
+---
+// Fundations
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Components
+import BlogEntry from "@/components/blog/BlogEntry.astro";
+import BlogTags from "@/components/blog/BlogTags.astro";
+// Content
+import { getCollection } from "astro:content";
+const allPosts = (await getCollection("posts")).sort(
+  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+const posts = allPosts.slice(1);
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-24 pb-32">
+    <LabeledGrid label="All posts">
+      <BlogTags />
+      <div slot="full" class="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => <BlogEntry post={post} />)}
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

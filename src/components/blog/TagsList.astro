@@ -1,0 +1,53 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Content
+import { getCollection } from "astro:content";
+const allPosts = (await getCollection("posts")).sort(
+  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))].map((tag) => {
+  const posts = allPosts.filter((post) => post.data.tags.includes(tag));
+  return { tag, count: posts.length, latest: posts.slice(0, 2) };
+});
+const grounds = ["bg-inverse", "bg-primary", "bg-lilac", "bg-muted"];
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-32">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      {
+        tags.map(({ tag, count, latest }, index) => {
+          const ground = grounds[index % grounds.length];
+          const dark = ground === "bg-inverse" || ground === "bg-primary";
+          return (
+            <a href={`/blog/tags/${tag}`} class:list={["flex flex-col p-6 gap-24 group lg:gap-62", ground]}>
+              <Text tag="span" variant="textXS" class:list={["uppercase", dark ? "text-inverse-foreground/75" : "text-muted-foreground"]}>
+                {count} {count === 1 ? "post" : "posts"}
+              </Text>
+              <div>
+                <Text tag="h2" variant="textBase" class:list={["font-medium capitalize", dark ? "text-inverse-foreground" : "text-foreground"]}>
+                  {tag}
+                </Text>
+                <ul class="flex flex-col mt-1 gap-1">
+                  {latest.map((post) => (
+                    <li>
+                      <Text tag="span" variant="textSM" class:list={["line-clamp-1", dark ? "text-inverse-foreground/75" : "text-muted-foreground"]}>
+                        {post.data.title}
+                      </Text>
+                    </li>
+                  ))}
+                </ul>
+                <ArrowLink tag="span" tone={dark ? "inverse" : undefined} class="mt-6">
+                  View posts
+                </ArrowLink>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+  </Wrapper>
+</section>

@@ -1,0 +1,176 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import lucia from "@/images/landing/lucia.jpg";
+import henrik from "@/images/landing/henrik.jpg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Icons
+import ArrowRight from "@/components/fundations/icons/ArrowRight.astro";
+// Content
+import { getEntry } from "astro:content";
+const cards = [
+  {
+    type: "stat",
+    customer: "3",
+    valueLines: ["Más", "ventas."],
+    label: "Genera ingresos antes, durante y después de cada experiencia.",
+    tint: "bg-mist",
+  },
+  {
+    type: "stat",
+    customer: "1",
+    valueLines: ["Menos", "fricción."],
+    label: "Reduce las filas y simplifica cada interacción con tus clientes.",
+    tint: "bg-lilac",
+  },
+  { type: "quote", customer: "5", person: "Lucía Moreno", role: "Head of Platform", image: lucia },
+  { type: "quote", customer: "6", person: "Henrik Lund", role: "SRE Lead", image: henrik },
+  {
+    type: "stat",
+    customer: "2",
+    valueLines: ["Mayor", "control."],
+    label: "Entiende lo que sucede en tu negocio en tiempo real.",
+    tint: "bg-frost",
+  },
+  {
+    type: "stat",
+    customer: "4",
+    valueLines: ["Más clientes", "que vuelven."],
+    label: "Construye relaciones que trascienden cada experiencia.",
+    tint: "bg-mist",
+  },
+];
+const entries = await Promise.all(
+  cards.map(async (card) => ({ ...card, entry: (await getEntry("customers", card.customer))! }))
+);
+/** Set true to show customer name/logo footers on stat and quote cards */
+const showCardFooters = false;
+/** Set true to show large testimonial quote tiles (photo + quote) */
+const showQuoteCards = false;
+/** Set true to show the customer stories link below the section intro */
+const showStoriesLink = false;
+const visibleEntries = showQuoteCards ? entries : entries.filter((card) => card.type === "stat");
+const statEntries = visibleEntries.filter((card) => card.type === "stat");
+/** lg: row1 card | card | gap; row2 gap | card | card (order: 3, 1, 2, 4) */
+const statGridPlacements = [
+  "lg:col-start-1 lg:row-start-1",
+  "lg:col-start-2 lg:row-start-1",
+  "lg:col-start-2 lg:row-start-2",
+  "lg:col-start-3 lg:row-start-2",
+];
+---
+
+<section id="que-hacemos">
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="The Livestack advantage">
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="max-w-lg tracking-tight text-balance text-foreground lg:max-w-none lg:whitespace-nowrap"
+      >
+        Menos sistemas. <em>Más oportunidades</em>.
+      </Text>
+      <Text tag="p" variant="textBase" class="max-w-md mt-4 text-muted-foreground text-pretty">
+        Livestack conecta cada etapa de tu negocio para crear experiencias más fluidas, operaciones más
+        eficientes y nuevas oportunidades de ingresos.
+      </Text>
+      {showStoriesLink && (
+        <ArrowLink href="/customers/home" class="mt-8">
+          Read customer stories
+        </ArrowLink>
+      )}
+    <div slot="full">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3">
+        {
+          statEntries.map((card, index) => (
+            <a
+              href={`/customers/${card.entry.id}`}
+              class:list={[
+                "flex flex-col justify-between p-6 min-h-72 group",
+                card.tint,
+                statGridPlacements[index],
+              ]}
+            >
+              <div>
+                <Text tag="p" variant="displayLG" class="tracking-tight text-foreground">
+                  {card.valueLines[0]}
+                  <br />
+                  {card.valueLines[1]}
+                </Text>
+                <Text tag="p" variant="textSM" class="max-w-xs mt-2 text-muted-foreground text-pretty">
+                  {card.label}
+                </Text>
+              </div>
+              {
+                showCardFooters && (
+                  <div class="flex items-center justify-between gap-4 pt-10">
+                    <span class="flex items-center gap-2">
+                      <Image src={card.entry.data.logo.url} alt="" width={24} height={24} class="size-5" />
+                      <Text tag="span" variant="textSM" class="font-medium tracking-tight text-foreground">
+                        {card.entry.data.customer}
+                      </Text>
+                    </span>
+                    <ArrowRight
+                      size="sm"
+                      class="transition-transform duration-300 text-foreground group-hover:translate-x-0.5"
+                    />
+                  </div>
+                )
+              }
+            </a>
+          ))
+        }
+      </div>
+      {
+        showQuoteCards &&
+          visibleEntries
+            .filter((card) => card.type === "quote")
+            .map((card) => (
+              <a
+                href={`/customers/${card.entry.id}`}
+                class="grid bg-muted sm:col-span-2 sm:grid-cols-2 group"
+              >
+                <div class="relative overflow-hidden aspect-4/5 sm:aspect-auto">
+                  <Image
+                    src={card.image}
+                    alt={card.person}
+                    width={600}
+                    height={800}
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 object-cover transition-transform duration-500 size-full group-hover:scale-102"
+                  />
+                </div>
+                <div class="flex flex-col justify-between p-6 gap-10">
+                  <blockquote>
+                    <Text tag="p" variant="textLG" class="text-foreground text-pretty">
+                      “{card.entry.data.testimonial}”
+                    </Text>
+                  </blockquote>
+                  {
+                    showCardFooters && (
+                      <div class="flex items-end justify-between gap-4">
+                        <div>
+                          <Text tag="p" variant="textSM" class="font-medium text-foreground">
+                            {card.person}
+                          </Text>
+                          <Text tag="p" variant="textSM" class="text-muted-foreground">
+                            {card.role}, {card.entry.data.customer}
+                          </Text>
+                        </div>
+                        <Image src={card.entry.data.logo.url} alt="" width={24} height={24} class="size-6" />
+                      </div>
+                    )
+                  }
+                </div>
+              </a>
+            ))
+      }
+    </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

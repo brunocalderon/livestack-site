@@ -1,0 +1,27 @@
+---
+// Assets
+import livestackLogo from "@/images/brand/livestack-logo.png";
+import { Image } from "astro:assets";
+
+interface Props {
+  class?: string;
+  tone?: "adaptive" | "light" | "dark";
+}
+
+const { class: className, tone = "light", ...rest } = Astro.props;
+
+const toneClass: Record<NonNullable<Props["tone"]>, string> = {
+  adaptive: "brightness-0 nav-dark:brightness-100",
+  light: "brightness-0",
+  dark: "brightness-100",
+};
+---
+
+<Image
+  src={livestackLogo}
+  alt="Livestack"
+  width={livestackLogo.width}
+  height={livestackLogo.height}
+  class:list={["h-10 w-auto max-w-full object-contain object-left transition-[filter]", toneClass[tone], className]}
+  {...rest}
+/>

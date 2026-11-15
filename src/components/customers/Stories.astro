@@ -1,0 +1,26 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Components
+import CustomerEntry1 from "@/components/customers/CustomerEntry1.astro";
+// Content
+import { getCollection } from "astro:content";
+const [, ...customers] = (await getCollection("customers")).sort((a, b) =>
+  a.id.localeCompare(b.id, undefined, { numeric: true })
+);
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-24 pb-32">
+    <LabeledGrid label="Stories">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        More teams <em>on Navy</em>
+      </Text>
+      <ul slot="full" role="list" class="grid grid-cols-1 border-t border-l border-border md:grid-cols-2 lg:grid-cols-3">
+        {customers.map((post) => <CustomerEntry1 post={post} />)}
+      </ul>
+    </LabeledGrid>
+  </Wrapper>
+</section>

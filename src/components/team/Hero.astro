@@ -1,0 +1,28 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-40 pb-24 lg:pt-52">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="max-w-3xl tracking-tight text-balance text-foreground"
+        >
+          The people who hold <em>the pager</em>
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-lg mt-6 text-muted-foreground">
+          Navy is built by a small remote team of engineers and designers who
+          have all been on call. Here are some of them.
+        </Text>
+        <ArrowLink href="/about" class="mt-8">Read our story</ArrowLink>
+      </div>
+    </div>
+  </Wrapper>
+</section>

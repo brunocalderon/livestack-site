@@ -1,0 +1,42 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Content
+import { getCollection } from "astro:content";
+const [featured] = (await getCollection("customers")).sort((a, b) =>
+  a.id.localeCompare(b.id, undefined, { numeric: true })
+);
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-24">
+    <a href={`/customers/${featured.id}`} class="flex flex-col p-8 group gap-24 bg-lilac lg:p-10">
+      <div class="flex items-center justify-between gap-4">
+        <Image src={featured.data.logo.url} alt={featured.data.logo.alt} width={48} height={48} class="size-6" />
+        <Text tag="p" variant="textXS" class="uppercase text-muted-foreground">
+          Featured story
+        </Text>
+      </div>
+      <blockquote>
+        <Text tag="p" variant="displayMD" class="max-w-4xl tracking-tight text-balance text-foreground">
+          “{featured.data.testimonial}”
+        </Text>
+      </blockquote>
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <Text tag="p" variant="textBase" class="font-medium text-foreground">
+            {featured.data.customer}
+          </Text>
+          <Text tag="p" variant="textSM" class="max-w-sm mt-1 text-muted-foreground">
+            {featured.data.results[0]}
+          </Text>
+        </div>
+        <ArrowLink tag="span" class="shrink-0">Read the story</ArrowLink>
+      </div>
+    </a>
+  </Wrapper>
+</section>

@@ -1,0 +1,69 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import GradientShader from "@/components/assets/GradientShader.astro";
+import workspace1 from "@/images/about/1.jpg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+const facts = [
+  { value: "2021", label: "Founded" },
+  { value: "38", label: "People on the team" },
+  { value: "11", label: "Countries we work from" },
+  { value: "4,000", label: "Teams on Navy" },
+];
+---
+
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-x-0 top-0 h-160 arch-gradient"></div>
+  <GradientShader class="absolute inset-x-0 top-0 w-full h-160" />
+  <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-80"></div>
+  <Wrapper variant="standard" class="relative flex flex-col justify-center pt-32 pb-24 min-h-160">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="max-w-3xl tracking-tight text-balance text-inverse-foreground"
+        >
+          We build the monitoring we wanted when we were <em>on call</em>
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-lg mt-6 text-inverse-foreground/70 text-pretty">
+          Navy is a small, remote team of engineers and designers who have all
+          held the pager. We make uptime monitoring, on-call and status pages
+          for teams who want fewer, better alerts.
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+  <Wrapper variant="standard" class="relative pb-24">
+    <div class:list={["grid", grid]}>
+      <dl class:list={["grid grid-cols-2 gap-8 md:grid-cols-4", mainCol, mainStart]}>
+        {
+          facts.map((fact) => (
+            <div class="flex flex-col-reverse">
+              <dt>
+                <Text tag="span" variant="textSM" class="block mt-1 text-muted-foreground">
+                  {fact.label}
+                </Text>
+              </dt>
+              <dd>
+                <Text tag="span" variant="displaySM" class="block tracking-tight text-foreground">
+                  {fact.value}
+                </Text>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+    <Image
+      src={workspace1}
+      alt="An engineer writing notes at a desk"
+      width={1800}
+      height={1000}
+      class="object-cover w-full mt-16 aspect-4/3 md:aspect-video"
+    />
+  </Wrapper>
+</section>

@@ -1,0 +1,93 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import Header from "@/components/system/Header.astro";
+import Row from "@/components/system/Row.astro";
+const groups = [
+  {
+    name: "Ground and ink",
+    text: "The cool lavender-white page and three text steps.",
+    colors: [
+      { name: "Background", token: "--color-background", value: "oklch(98.8% 0.006 275)", class: "bg-background ring-1 ring-inset ring-border" },
+      { name: "Foreground", token: "--color-foreground", value: "oklch(20% 0.04 275)", class: "bg-foreground" },
+      { name: "Muted foreground", token: "--color-muted-foreground", value: "oklch(48% 0.03 275)", class: "bg-muted-foreground" },
+      { name: "Faint foreground", token: "--color-faint-foreground", value: "oklch(64% 0.025 275)", class: "bg-faint-foreground" },
+    ],
+  },
+  {
+    name: "Fills and lines",
+    text: "Inputs, table rows and the lines between them.",
+    colors: [
+      { name: "Muted", token: "--color-muted", value: "oklch(97.2% 0.01 275)", class: "bg-muted" },
+      { name: "Border", token: "--color-border", value: "oklch(91% 0.016 275)", class: "bg-border" },
+      { name: "Input", token: "--color-input", value: "oklch(82% 0.025 275)", class: "bg-input" },
+    ],
+  },
+  {
+    name: "Accent",
+    text: "The accent button, checks and focus rings.",
+    colors: [
+      { name: "Primary", token: "--color-primary", value: "oklch(52% 0.22 268)", class: "bg-primary" },
+      { name: "Primary foreground", token: "--color-primary-foreground", value: "oklch(1 0 0)", class: "bg-primary-foreground ring-1 ring-inset ring-border" },
+      { name: "Primary highlight", token: "--color-primary-highlight", value: "oklch(60% 0.2 268)", class: "bg-primary-highlight" },
+    ],
+  },
+  {
+    name: "Tints",
+    text: "Pale grounds from the wave glow for stat cards and highlights.",
+    colors: [
+      { name: "Mist", token: "--color-mist", value: "oklch(95% 0.02 275)", class: "bg-mist" },
+      { name: "Lilac", token: "--color-lilac", value: "oklch(91% 0.045 280)", class: "bg-lilac" },
+      { name: "Frost", token: "--color-frost", value: "oklch(94% 0.025 245)", class: "bg-frost" },
+    ],
+  },
+  {
+    name: "Inverse",
+    text: "The default button, dark panels and text selection.",
+    colors: [
+      { name: "Inverse", token: "--color-inverse", value: "oklch(16% 0.05 270)", class: "bg-inverse" },
+      { name: "Inverse foreground", token: "--color-inverse-foreground", value: "oklch(1 0 0)", class: "bg-inverse-foreground ring-1 ring-inset ring-border" },
+      { name: "Inverse highlight", token: "--color-inverse-highlight", value: "oklch(30% 0.06 270)", class: "bg-inverse-highlight" },
+    ],
+  },
+];
+---
+
+<Header
+  label="Colors"
+  text="The tokens every component reads, in src/styles/colors.css. Change these first."
+>
+  <Fragment slot="title">Color <em>tokens</em></Fragment>
+</Header>
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <div class="border-t border-border">
+      {
+        groups.map((group) => (
+          <Row name={group.name} text={group.text}>
+            <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+              {group.colors.map((color) => (
+                <li class="flex flex-col gap-3">
+                  <span class:list={["aspect-4/3", color.class]} aria-hidden="true" />
+                  <div>
+                    <Text tag="p" variant="textSM" class="font-medium text-foreground">
+                      {color.name}
+                    </Text>
+                    <Text tag="p" variant="textXS" class="mt-1 text-muted-foreground">
+                      {color.token}
+                    </Text>
+                    <Text tag="p" variant="textXS" class="text-faint-foreground">
+                      {color.value}
+                    </Text>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Row>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

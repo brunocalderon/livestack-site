@@ -1,0 +1,40 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+---
+
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+  <GradientShader class="absolute inset-0 size-full" />
+  <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-120"></div>
+  <Wrapper variant="standard" class="relative flex flex-col justify-center pt-32 pb-24 min-h-160">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="max-w-3xl tracking-tight text-balance text-inverse-foreground"
+        >
+          Security you can hand to your <em>auditors</em>
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-lg mt-6 text-inverse-foreground/70 text-pretty">
+          Navy watches your production systems, so we hold ourselves to the
+          same standards you do. Here is how we protect your data and keep the
+          service running.
+        </Text>
+        <div class="flex flex-wrap items-center mt-8 gap-6">
+          <Button isLink={true} size="base" variant="muted" href="#_">
+            Download the security overview
+          </Button>
+          <ArrowLink href="/status" tone="inverse">See our status page</ArrowLink>
+        </div>
+      </div>
+    </div>
+  </Wrapper>
+</section>

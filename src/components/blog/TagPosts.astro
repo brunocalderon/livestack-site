@@ -1,0 +1,26 @@
+---
+// Fundations
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Components
+import BlogEntry from "@/components/blog/BlogEntry.astro";
+import BlogTags from "@/components/blog/BlogTags.astro";
+// Content
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  tag: string;
+  posts: CollectionEntry<"posts">[];
+}
+const { tag, posts } = Astro.props;
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-32">
+    <LabeledGrid label="Topics">
+      <BlogTags active={tag} />
+      <div slot="full" class="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => <BlogEntry post={post} />)}
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

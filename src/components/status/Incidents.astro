@@ -1,0 +1,88 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const today = new Date();
+const dayLabel = (daysAgo: number) =>
+  new Date(today.getTime() - daysAgo * 86400000).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+const incidents = [
+  {
+    daysAgo: 3,
+    title: "Delayed SMS alerts in Europe",
+    impact: "minor",
+    updates: [
+      { status: "Resolved", time: "10:42 UTC", text: "SMS delivery is back to normal. All delayed alerts were delivered, the longest after 6 minutes." },
+      { status: "Monitoring", time: "10:18 UTC", text: "Traffic has moved to our secondary SMS provider. We are watching delivery times." },
+      { status: "Identified", time: "09:57 UTC", text: "Our primary SMS provider is having issues with carriers in Germany and Austria." },
+      { status: "Investigating", time: "09:49 UTC", text: "Some SMS alerts in Europe are arriving late. Push, email and voice are not affected." },
+    ],
+  },
+  {
+    daysAgo: 12,
+    title: "Slow status page subscriber emails",
+    impact: "minor",
+    updates: [
+      { status: "Resolved", time: "16:20 UTC", text: "A queue backlog caused subscriber emails to arrive up to 20 minutes late. The backlog is cleared and we added capacity." },
+      { status: "Investigating", time: "15:52 UTC", text: "We are looking into delays in emails sent to status page subscribers." },
+    ],
+  },
+];
+const history = Array.from({ length: 14 }, (_, daysAgo) => ({
+  daysAgo,
+  label: dayLabel(daysAgo),
+  items: incidents.filter((incident) => incident.daysAgo === daysAgo),
+})).filter((day) => day.items.length > 0 || day.daysAgo < 7);
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <LabeledGrid label="Incidents">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        Past <em>incidents</em>
+      </Text>
+    <ol class="flex flex-col mt-12 border-b border-border">
+      {
+        history.map((day) => (
+          <li class="flex flex-col py-8 border-t gap-4 border-border">
+            <Text tag="p" variant="textSM" class="text-muted-foreground">
+              {day.label}
+            </Text>
+            <div>
+              {day.items.length === 0 ? (
+                <Text tag="p" variant="textSM" class="text-faint-foreground">
+                  No incidents reported.
+                </Text>
+              ) : (
+                day.items.map((incident) => (
+                  <div>
+                    <Text tag="h3" variant="textBase" class="font-medium text-foreground">
+                      {incident.title}
+                    </Text>
+                    <ol class="flex flex-col pl-4 mt-4 border-l gap-5 border-border">
+                      {incident.updates.map((update) => (
+                        <li>
+                          <Text tag="p" variant="textSM" class="text-foreground">
+                            <span class="font-medium">{update.status}</span>
+                            <span class="ml-2 text-faint-foreground">{update.time}</span>
+                          </Text>
+                          <Text tag="p" variant="textSM" class="mt-1 text-muted-foreground">
+                            {update.text}
+                          </Text>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    </LabeledGrid>
+  </Wrapper>
+</section>

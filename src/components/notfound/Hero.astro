@@ -1,0 +1,40 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+---
+
+<section class="relative overflow-hidden">
+  <div class="flex flex-col min-h-svh">
+    <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+    <GradientShader class="absolute inset-0 size-full" />
+    <Wrapper
+      variant="standard"
+      class={`relative grid content-center flex-1 w-full pt-40 pb-16 ${grid}`}
+    >
+      <div class:list={[mainCol, mainStart]}>
+        <Text tag="p" variant="textSM" class="font-medium uppercase text-inverse-foreground/70">
+          Error 404
+        </Text>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="max-w-2xl mt-6 tracking-tight text-balance text-inverse-foreground"
+        >
+          No todo sale según lo <em>planeado</em>.
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-md mt-4 text-inverse-foreground/70 text-pretty">
+          Incluso las mejores experiencias tienen imprevistos. La página que buscas no existe, pero
+          todavía hay mucho por descubrir.
+        </Text>
+        <Button isLink={true} variant="default" size="sm" href="/" class="mt-8 w-fit">
+          Volver al inicio
+        </Button>
+      </div>
+    </Wrapper>
+  </div>
+</section>

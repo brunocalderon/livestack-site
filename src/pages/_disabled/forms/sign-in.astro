@@ -1,0 +1,83 @@
+---
+// Assets
+import Logo from "@/components/assets/Logo.astro";
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+// Components
+import AuthPanel from "@/components/forms/AuthPanel.astro";
+// Icons
+import GoogleColor from "@/components/fundations/icons/GoogleColor.astro";
+const input =
+  "block w-full h-10 px-3 text-sm rounded-lg border-0 bg-background text-foreground ring-1 ring-inset ring-border placeholder:text-faint-foreground transition focus:ring-2 focus:ring-primary focus:outline-none";
+---
+
+<BaseLayout hideNav={true} hideFooter={true}>
+  <div class="grid overflow-hidden h-svh lg:grid-cols-2">
+    <div class="flex flex-col min-h-0 px-6 py-8 sm:px-12">
+      <a href="/" class="inline-flex lg:hidden">
+        <span class="sr-only">Back to home</span>
+        <Logo tone="light" />
+      </a>
+      <div class="flex items-center flex-1 min-h-0">
+        <div class="w-full max-w-sm mx-auto">
+          <Text tag="h1" variant="displaySM" class="text-balance text-foreground">
+            Sign in to <em>Navy</em>
+          </Text>
+          <Text tag="p" variant="textSM" class="mt-2 text-muted-foreground">
+            Welcome back. Your monitors kept running while you were away.
+          </Text>
+          <Button size="base" variant="muted" gap="xs" type="button" class="w-full mt-10">
+            <GoogleColor />
+            Sign in with Google
+          </Button>
+          <div class="flex items-center gap-4 my-6 text-xs text-faint-foreground">
+            <span class="flex-1 h-px bg-border"></span>
+            or
+            <span class="flex-1 h-px bg-border"></span>
+          </div>
+          <form class="flex flex-col gap-5">
+            <div>
+              <label for="email" class="text-sm font-medium text-foreground">Work email</label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="lucia@lexington.test" class:list={[input, "mt-2"]} />
+            </div>
+            <div>
+              <div class="flex items-baseline justify-between">
+                <label for="password" class="text-sm font-medium text-foreground">Password</label>
+                <a href="#_" class="text-xs transition-colors text-muted-foreground hover:text-foreground">Forgot password?</a>
+              </div>
+              <input required id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" aria-required="true" class:list={[input, "mt-2"]} />
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="login-remember"
+                name="login-remember"
+                class="rounded size-4 border-input text-inverse focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              />
+              <label for="login-remember" class="text-sm text-muted-foreground">
+                Remember me for 30 days
+              </label>
+            </div>
+            <Button size="base" variant="default" type="submit" class="w-full mt-2">
+              Sign in
+            </Button>
+          </form>
+          <Text tag="p" variant="textSM" class="mt-6 text-muted-foreground">
+            New to Navy?{" "}
+            <a href="/forms/sign-up" class="font-medium transition-colors text-foreground hover:text-muted-foreground">Create an account</a>
+          </Text>
+          <Text tag="p" variant="textXS" class="pt-6 mt-10 border-t text-faint-foreground border-border">
+            Protected by SSO on Business plans.
+          </Text>
+        </div>
+      </div>
+    </div>
+    <AuthPanel
+      quote="Requiring three regions to agree before paging anyone took our false alarms to almost zero."
+      name="Lucía Navarro"
+      role="Head of Reliability, Lexington"
+    />
+  </div>
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+// Content
+const { post, index = 0 } = Astro.props;
+const url = "/team/" + post.id;
+const { name, role, image, bio } = post.data;
+const intro = bio?.split("\n")[0].split(". ").slice(1, 2).join("");
+const tones = [
+  { ground: "bg-inverse", ink: "text-inverse-foreground", soft: "text-inverse-foreground/75" },
+  { ground: "bg-primary", ink: "text-inverse-foreground", soft: "text-inverse-foreground/75" },
+  { ground: "bg-lilac", ink: "text-foreground", soft: "text-muted-foreground" },
+  { ground: "bg-muted", ink: "text-foreground", soft: "text-muted-foreground" },
+];
+const tone = tones[index % tones.length];
+---
+
+<li>
+  <a href={url} class="flex flex-col h-full group">
+    <div class="overflow-hidden aspect-square">
+      <Image
+        width={800}
+        height={800}
+        src={image.url}
+        alt={name}
+        class="object-cover object-top size-full transition duration-500 ease-out group-hover:scale-102"
+      />
+    </div>
+    <div class:list={["flex flex-col flex-1 p-6 gap-12", tone.ground]}>
+      <Text tag="p" variant="textXS" class:list={["uppercase", tone.soft]}>
+        {role}
+      </Text>
+      <div>
+        <Text tag="h3" variant="textBase" class:list={["font-medium", tone.ink]}>
+          {name}
+        </Text>
+        {
+          intro && (
+            <Text tag="p" variant="textSM" class:list={["mt-1 line-clamp-2", tone.soft]}>
+              {intro.endsWith(".") ? intro : `${intro}.`}
+            </Text>
+          )
+        }
+      </div>
+    </div>
+  </a>
+</li>

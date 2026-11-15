@@ -1,0 +1,62 @@
+---
+// The header every system page shares: the system pages in the side column,
+// then the title and a short line under it. Wrap the key word of the title
+// in <em> through the `title` slot.
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+interface Props {
+  label: string;
+  text: string;
+}
+const { label, text } = Astro.props;
+const pages = [
+  { label: "Overview", href: "/system/overview" },
+  { label: "Colors", href: "/system/colors" },
+  { label: "Typography", href: "/system/typography" },
+  { label: "Buttons", href: "/system/buttons" },
+  { label: "Links", href: "/system/links" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-40 pb-16 lg:pt-56">
+    <LabeledGrid>
+      <nav slot="side" aria-label="System pages">
+        <Text tag="p" variant="textSM" class="font-medium uppercase text-foreground">
+          <span aria-hidden="true">///</span> System
+        </Text>
+        <ul role="list" class="flex flex-wrap mt-4 gap-x-4 gap-y-2 lg:flex-col">
+          {
+            pages.map((page) => (
+              <li>
+                <a
+                  href={page.href}
+                  aria-current={page.label === label ? "page" : undefined}
+                  class:list={[
+                    "text-sm transition-colors",
+                    page.label === label
+                      ? "text-foreground"
+                      : "text-faint-foreground hover:text-foreground",
+                  ]}
+                >
+                  {page.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <Text
+        tag="h1"
+        variant="displayLG"
+        class="max-w-3xl tracking-tight text-balance text-foreground"
+      >
+        <slot name="title" />
+      </Text>
+      <Text tag="p" variant="textBase" class="max-w-lg mt-6 text-muted-foreground text-pretty">
+        {text}
+      </Text>
+    </LabeledGrid>
+  </Wrapper>
+</section>

@@ -1,0 +1,77 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import ChevronLeft from "@/components/fundations/icons/ChevronLeft.astro";
+// Components
+import Header from "@/components/system/Header.astro";
+import Row from "@/components/system/Row.astro";
+import ButtonRows from "@/components/system/ButtonRows.astro";
+const pill = "inline-flex items-center px-3 text-xs rounded-md h-7 transition-colors";
+---
+
+<Header
+  label="Links"
+  text="The text links used across the site, then every button as a link."
+>
+  <Fragment slot="title">All link <em>styles</em></Fragment>
+</Header>
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <div class="border-t border-border">
+      <Row name="Navigation" text="Ink, lighter on hover. White over the hero and the footer.">
+        <div class="flex flex-wrap gap-6">
+          <a href="#_" class="text-sm transition-colors text-foreground hover:text-muted-foreground">Integrations</a>
+          <a href="#_" class="text-sm transition-colors text-foreground hover:text-muted-foreground">Customers</a>
+          <a href="#_" class="text-sm transition-colors text-foreground hover:text-muted-foreground">Pricing</a>
+        </div>
+      </Row>
+      <Row name="Arrow link" text="ArrowLink, for the next step after a section. Three sizes and three tones.">
+        <div class="flex flex-wrap items-center gap-8">
+          <ArrowLink href="#_" size="xs">Read the story</ArrowLink>
+          <ArrowLink href="#_">See pricing</ArrowLink>
+          <ArrowLink href="#_" size="base">Read customer stories</ArrowLink>
+          <ArrowLink href="#_" tone="muted">View all posts</ArrowLink>
+        </div>
+        <div class="flex flex-wrap items-center p-6 mt-6 gap-8 bg-inverse">
+          <ArrowLink href="#_" tone="inverse">See pricing</ArrowLink>
+          <ArrowLink href="#_" tone="inverse" size="base">Talk to the team</ArrowLink>
+        </div>
+      </Row>
+      <Row name="Back link" text="Above the title on every detail page.">
+        <a
+          href="#_"
+          class="inline-flex items-center gap-1 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground"
+        >
+          <ChevronLeft class="size-3.5" aria-hidden="true" />
+          All posts
+        </a>
+      </Row>
+      <Row name="Pills" text="Tags and page switchers. The current one is ink.">
+        <div class="flex flex-wrap gap-2">
+          <a href="#_" class:list={[pill, "bg-inverse text-inverse-foreground"]} aria-current="page">All</a>
+          <a href="#_" class:list={[pill, "bg-muted text-muted-foreground hover:bg-inverse hover:text-inverse-foreground"]}>Engineering</a>
+          <a href="#_" class:list={[pill, "bg-muted text-muted-foreground hover:bg-inverse hover:text-inverse-foreground"]}>Guides</a>
+        </div>
+      </Row>
+      <Row name="Footer" text="Light on the dark footer, full white on hover.">
+        <ul role="list" class="flex flex-col gap-3 p-6 bg-inverse">
+          <li><a href="#_" class="text-sm transition-colors text-inverse-foreground/60 hover:text-inverse-foreground">About</a></li>
+          <li><a href="#_" class="text-sm transition-colors text-inverse-foreground/60 hover:text-inverse-foreground">Security</a></li>
+          <li><a href="#_" class="text-sm transition-colors text-inverse-foreground/60 hover:text-inverse-foreground">Status</a></li>
+        </ul>
+      </Row>
+      <Row name="Inline" text="Underlined inside running text, muted on hover.">
+        <Text tag="p" variant="textSM" class="max-w-xl text-muted-foreground">
+          Need a custom plan? Write to{" "}
+          <a href="#_" class="border-b border-foreground text-foreground transition-colors hover:text-muted-foreground">sales@navy.test</a>{" "}
+          and we will reply within a day.
+        </Text>
+      </Row>
+    </div>
+    <div class="mt-16">
+      <ButtonRows isLink />
+    </div>
+  </Wrapper>
+</section>

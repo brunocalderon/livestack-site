@@ -1,0 +1,147 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import Header from "@/components/system/Header.astro";
+import Row from "@/components/system/Row.astro";
+const pageSections = [
+  {
+    title: "Static",
+    text: "The landing pages, the forms and the system pages.",
+    columns: [
+      {
+        category: "Pages",
+        links: [
+          { text: "Home", href: "/" },
+          { text: "Pricing", href: "/pricing" },
+          { text: "About", href: "/about" },
+          { text: "Status", href: "/status" },
+          { text: "Security", href: "/security" },
+          { text: "404", href: "/404" },
+        ],
+      },
+      {
+        category: "Forms",
+        links: [
+          { text: "Contact", href: "/forms/contact" },
+          { text: "Sign in", href: "/forms/sign-in" },
+          { text: "Sign up", href: "/forms/sign-up" },
+        ],
+      },
+      {
+        category: "System",
+        links: [
+          { text: "Overview", href: "/system/overview" },
+          { text: "Colors", href: "/system/colors" },
+          { text: "Typography", href: "/system/typography" },
+          { text: "Buttons", href: "/system/buttons" },
+          { text: "Links", href: "/system/links" },
+        ],
+      },
+      {
+        category: "Resources",
+        links: [
+          { text: "License", href: "https://lexingtonthemes.com/legal/license" },
+          { text: "Documentation", href: "https://lexingtonthemes.com/documentation" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Content collections",
+    text: "An index and a detail page for every collection.",
+    columns: [
+      {
+        category: "Blog",
+        links: [
+          { text: "Home", href: "/blog/home" },
+          { text: "Post", href: "/blog/posts/10" },
+          { text: "Tag index", href: "/blog/tags" },
+          { text: "Tag", href: "/blog/tags/Engineering" },
+          { text: "RSS", href: "/rss.xml" },
+        ],
+      },
+      {
+        category: "Help center",
+        links: [
+          { text: "Home", href: "/helpcenter/home" },
+          { text: "Article", href: "/helpcenter/1" },
+        ],
+      },
+      {
+        category: "Integrations",
+        links: [
+          { text: "Home", href: "/integrations/home" },
+          { text: "Integration", href: "/integrations/1" },
+        ],
+      },
+      {
+        category: "Changelog",
+        links: [
+          { text: "Home", href: "/changelog/home" },
+          { text: "Release", href: "/changelog/1" },
+        ],
+      },
+      {
+        category: "Team",
+        links: [
+          { text: "Home", href: "/team/home" },
+          { text: "Member", href: "/team/carmen-vidal" },
+        ],
+      },
+      {
+        category: "Customers",
+        links: [
+          { text: "Home", href: "/customers/home" },
+          { text: "Customer", href: "/customers/1" },
+        ],
+      },
+      {
+        category: "Info pages",
+        links: [
+          { text: "Terms", href: "/infopages/terms" },
+          { text: "Privacy", href: "/infopages/privacy" },
+        ],
+      },
+    ],
+  },
+];
+---
+
+<Header
+  label="Overview"
+  text="Every page and collection in Navy, in one place."
+>
+  <Fragment slot="title">See <em>all</em> pages</Fragment>
+</Header>
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <div class="border-t border-border">
+      {
+        pageSections.map((section) => (
+          <Row name={section.title} text={section.text}>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+              {section.columns.map((column) => (
+                <div>
+                  <Text tag="h3" variant="textSM" class="text-foreground">
+                    {column.category}
+                  </Text>
+                  <ul role="list" class="mt-3 flex flex-col gap-2 text-xs text-muted-foreground">
+                    {column.links.map((link) => (
+                      <li>
+                        <a href={link.href} class="transition-colors hover:text-foreground">
+                          {link.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Row>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

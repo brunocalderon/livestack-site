@@ -1,0 +1,164 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import BaseLayout from "./BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import { grid, sideCol, mainCol, mainStart } from "@/components/fundations/containers/grid";
+// Icons
+import Check from "@/components/fundations/icons/Check.astro";
+import ChevronLeft from "@/components/fundations/icons/ChevronLeft.astro";
+// Components
+import IntegrationsEntries1 from "@/components/integrations/IntegrationsEntries1.astro";
+// Content
+import { getCollection } from "astro:content";
+const { frontmatter } = Astro.props;
+const related = (await getCollection("integrations"))
+  .filter(
+    (entry) =>
+      entry.data.integration !== frontmatter.integration &&
+      entry.data.tags.some((tag) => frontmatter.tags.includes(tag))
+  )
+  .slice(0, 3);
+const category = frontmatter.tags[0];
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-40 pb-16 lg:pt-52">
+      <div class:list={["grid", grid]}>
+        <div class:list={[mainCol, mainStart]}>
+          <a
+            href="/integrations/home"
+            class="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <ChevronLeft class="size-3.5" aria-hidden="true" />
+            Integrations
+          </a>
+          <Image
+            width={128}
+            height={128}
+            src={frontmatter.logo.url}
+            alt={frontmatter.logo.alt}
+            class="mt-8 size-10"
+          />
+          <Text
+            tag="h1"
+            variant="displayLG"
+            class="mt-8 tracking-tight text-balance text-foreground"
+          >
+            {frontmatter.integration}
+          </Text>
+          <Text tag="p" variant="textLG" class="max-w-2xl mt-6 text-muted-foreground text-pretty">
+            {frontmatter.description}
+          </Text>
+          <Button isLink href="#connect" size="base" variant="default" class="mt-8 w-fit">
+            Connect {frontmatter.integration}
+          </Button>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="pb-24">
+      <div class:list={["grid pt-12 border-t gap-12 border-border", grid]}>
+        <aside class={sideCol}>
+          <dl class="flex flex-col gap-5 lg:sticky lg:top-28">
+            {
+              frontmatter.details.map((detail) => (
+                <div class="pb-5 border-b border-border">
+                  <dt>
+                    <Text tag="span" variant="textXS" class="uppercase text-muted-foreground">
+                      {detail.title}
+                    </Text>
+                  </dt>
+                  <dd class="mt-1">
+                    <Text tag="span" variant="textSM" class="text-foreground">
+                      {detail.url ? (
+                        <a class="transition-colors hover:text-muted-foreground" href={detail.url}>
+                          {detail.value}
+                        </a>
+                      ) : (
+                        detail.value
+                      )}
+                    </Text>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </aside>
+        <div class:list={["max-w-2xl", mainCol]}>
+          <Wrapper variant="prose" class="prose-headings:tracking-tight">
+            <slot />
+          </Wrapper>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="pb-24">
+      <div
+        id="connect"
+        class="grid p-8 scroll-mt-28 gap-10 bg-inverse lg:grid-cols-12 lg:gap-x-8 lg:p-10"
+      >
+        <div class="flex flex-col lg:col-span-5">
+          <Text tag="h2" variant="displayMD" class="text-balance text-inverse-foreground">
+            Connect <em>{frontmatter.integration}</em>
+          </Text>
+          <Text tag="p" variant="textSM" class="max-w-sm mt-4 text-inverse-foreground/75">
+            You can disconnect at any time from Settings. Read our{" "}
+            <a class="underline text-inverse-foreground hover:text-inverse-foreground/75" href="/infopages/privacy">
+              privacy policy
+            </a>.
+          </Text>
+        </div>
+        <div class="lg:col-span-4">
+          <Text tag="p" variant="textXS" class="uppercase text-inverse-foreground/75">
+            Navy will be able to
+          </Text>
+          <ul role="list" class="flex flex-col gap-3 mt-4">
+            {
+              frontmatter.permissions.map((permission) => (
+                <li class="flex gap-3">
+                  <Check size="sm" class="mt-0.5 shrink-0 text-inverse-foreground" aria-hidden="true" />
+                  <Text tag="span" variant="textSM" class="text-inverse-foreground">
+                    {permission}
+                  </Text>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="flex lg:col-span-3 lg:items-end lg:justify-end">
+          <Button size="base" variant="accent" type="button">
+            Allow access
+          </Button>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  {
+    related.length > 0 && (
+      <section>
+        <Wrapper variant="standard" class="pb-32">
+          <LabeledGrid label="Related">
+            <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+              More in <em>{category}</em>
+            </Text>
+            <ArrowLink href="/integrations/home" class="mt-8">View all integrations</ArrowLink>
+            <ul slot="full" role="list" class="border-t border-border">
+              {related.map((post) => (
+                <IntegrationsEntries1 post={post} />
+              ))}
+            </ul>
+          </LabeledGrid>
+        </Wrapper>
+      </section>
+    )
+  }
+</BaseLayout>

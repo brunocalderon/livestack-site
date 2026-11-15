@@ -1,0 +1,73 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import portrait from "@/images/customers/avatar1.jpeg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const results = [
+  { value: "92%", label: "fewer false alarm pages" },
+  { value: "2 min", label: "to acknowledge a real incident" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="Customers">
+      <Text tag="h2" variant="displayMD" class="text-balance text-foreground">
+        What a <em>quiet</em> on-call looks like
+      </Text>
+      <figure slot="full" class="grid lg:grid-cols-12">
+        <Image
+          src={portrait}
+          alt="Lucía Navarro"
+          width={900}
+          height={1100}
+          loading="lazy"
+          decoding="async"
+          class="object-cover size-full aspect-4/5 lg:col-span-3 lg:aspect-auto"
+        />
+        <div class="flex flex-col justify-between p-8 gap-16 bg-mist lg:col-span-9 lg:p-12">
+          <blockquote>
+            <Text tag="p" variant="displayMD" class="text-balance text-foreground">
+              “Requiring three regions to agree before paging anyone took our
+              false alarms to almost zero. Our on-call engineers finally sleep
+              through the night.”
+            </Text>
+          </blockquote>
+          <div class="grid gap-10 md:grid-cols-2 md:items-end">
+            <figcaption>
+              <Text tag="p" variant="textBase" class="font-medium text-foreground">
+                Lucía Navarro
+              </Text>
+              <Text tag="p" variant="textSM" class="mt-1 text-muted-foreground">
+                Head of Reliability, Lexington
+              </Text>
+              <ArrowLink href="/customers/home" class="mt-6">Read customer stories</ArrowLink>
+            </figcaption>
+            <dl class="grid grid-cols-2 gap-8">
+              {
+                results.map((result) => (
+                  <div class="flex flex-col-reverse">
+                    <dt>
+                      <Text tag="span" variant="textSM" class="block mt-1 text-muted-foreground">
+                        {result.label}
+                      </Text>
+                    </dt>
+                    <dd>
+                      <Text tag="span" variant="displaySM" class="block tracking-tight text-primary">
+                        {result.value}
+                      </Text>
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </div>
+      </figure>
+    </LabeledGrid>
+  </Wrapper>
+</section>

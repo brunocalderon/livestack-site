@@ -1,0 +1,111 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// One incident, step by step down the escalation policy. The steps that ran
+// are dark, the skipped ones fade out to the page.
+const timeline = [
+  {
+    ground: "bg-inverse",
+    title: ["Eventos", "& festivales"],
+    text: "On call this week, reached by push and SMS.",
+    done: true,
+  },
+  {
+    ground: "bg-primary",
+    title: ["Clubs", "& nightlife"],
+    text: "Escalation stops here. Nobody else is woken up.",
+    done: true,
+  },
+  {
+    ground: "bg-lilac",
+    title: ["Bares", "& restaurantes"],
+    text: "Backup, called if nobody answers within 5 minutes.",
+  },
+  {
+    ground: "bg-muted",
+    title: ["Fitness", "& wellness"],
+    text: "Engineering lead, called after 15 minutes.",
+  },
+  {
+    ground: "bg-mist",
+    title: ["Venues", "& entretenimiento"],
+    text: "Engineering lead, called after 15 minutes.",
+  },
+  {
+    ground: "bg-frost",
+    title: ["Comunidades", "& membresías"],
+    text: "Engineering lead, called after 15 minutes.",
+  },
+];
+/** Set true to show the alert channels link below the section intro */
+const showAlertChannelsLink = false;
+/** Set true to show supporting copy under each industry card title */
+const showIndustryDescriptions = false;
+---
+
+<section id="industrias">
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="Built for your industry">
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="max-w-xl tracking-tight text-balance text-foreground lg:max-w-none lg:whitespace-nowrap"
+      >
+        Diferentes negocios. <em>Una misma ambición.</em>
+      </Text>
+      <Text
+        tag="p"
+        variant="textBase"
+        class="max-w-xl mt-4 text-muted-foreground text-pretty"
+      >
+      Las soluciones de Livestack esta creada para quienes reúnen personas, generan emociones y transforman momentos en experiencias memorables.
+      </Text>
+      {showAlertChannelsLink && (
+        <ArrowLink href="/integrations/home" class="mt-8">
+          See every alert channel
+        </ArrowLink>
+      )}
+      <ol slot="full" role="list" class="grid sm:grid-cols-2 lg:grid-cols-3">
+        {
+          timeline.map((step) => (
+            <li
+              class:list={["flex flex-col justify-end p-6 aspect-3/2", step.ground]}
+            >
+              <div>
+                <Text
+                  tag="p"
+                  variant="displayLG"
+                  class:list={[
+                    "tracking-tight text-balance",
+                    step.done ? "text-inverse-foreground" : "text-foreground",
+                  ]}
+                >
+                  {step.title[0]}
+                  <br />
+                  {step.title[1]}
+                </Text>
+                {showIndustryDescriptions && (
+                  <Text
+                    tag="p"
+                    variant="textSM"
+                    class:list={[
+                      "mt-1 text-pretty",
+                      step.done
+                        ? "text-inverse-foreground/75"
+                        : "text-muted-foreground",
+                    ]}
+                  >
+                    {step.text}
+                  </Text>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </LabeledGrid>
+  </Wrapper>
+</section>

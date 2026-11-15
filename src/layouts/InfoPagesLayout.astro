@@ -1,0 +1,124 @@
+---
+// Fundations
+import BaseLayout from "./BaseLayout.astro";
+import GradientShader from "@/components/assets/GradientShader.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, sideCol, mainCol, mainStart } from "@/components/fundations/containers/grid";
+// Content
+import { getCollection } from "astro:content";
+const { frontmatter, headings = [], currentId } = Astro.props;
+const sections = headings.filter((heading: { depth: number }) => heading.depth === 2);
+const pages = (await getCollection("infopages")).sort((a, b) => a.data.page.localeCompare(b.data.page));
+const pubDate = new Date(frontmatter.pubDate);
+const date = pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout navTone="dark">
+  <section class="relative overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+    <GradientShader class="absolute inset-0 size-full" />
+    <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-120"></div>
+    <Wrapper variant="standard" class="relative flex flex-col justify-center pt-32 pb-24 min-h-160">
+      <div class:list={["grid", grid]}>
+        <div class:list={[mainCol, mainStart]}>
+          <nav aria-label="Legal pages" class="flex flex-wrap gap-x-6 gap-y-2">
+            {
+              pages.map((page) => (
+                <a
+                  href={`/infopages/${page.id}`}
+                  aria-current={page.id === currentId ? "page" : undefined}
+                  class:list={[
+                    "text-xs uppercase transition-colors",
+                    page.id === currentId
+                      ? "text-inverse-foreground underline underline-offset-4"
+                      : "text-inverse-foreground/70 hover:text-inverse-foreground",
+                  ]}
+                >
+                  {page.data.page}
+                </a>
+              ))
+            }
+          </nav>
+          <Text
+            tag="h1"
+            variant="displayLG"
+            class="max-w-3xl mt-10 tracking-tight text-balance text-inverse-foreground"
+          >
+            {frontmatter.page}
+          </Text>
+          {
+            frontmatter.description && (
+              <Text tag="p" variant="textLG" class="max-w-2xl mt-6 text-inverse-foreground/70 text-pretty">
+                {frontmatter.description}
+              </Text>
+            )
+          }
+          <Text tag="p" variant="textXS" class="mt-8 uppercase text-inverse-foreground/70">
+            Last updated <time datetime={pubDate.toISOString()}>{date}</time>
+          </Text>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="pt-24 pb-32">
+      <div class:list={["grid gap-12", grid]}>
+        <aside class={sideCol}>
+          {
+            sections.length > 0 && (
+              <nav aria-label="On this page" class="lg:sticky lg:top-28">
+                <Text tag="p" variant="textXS" class="uppercase text-muted-foreground">
+                  On this page
+                </Text>
+                <ol class="flex flex-col mt-4 gap-3">
+                  {sections.map((section: { slug: string; text: string }) => (
+                    <li>
+                      <a
+                        href={`#${section.slug}`}
+                        data-toc-link={section.slug}
+                        class="block text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {section.text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )
+          }
+        </aside>
+        <div class:list={["max-w-2xl", mainCol]}>
+          <Wrapper variant="prose" class="prose-headings:tracking-tight prose-h2:scroll-mt-28">
+            <slot />
+          </Wrapper>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((link) => {
+          const match = link.dataset.tocLink === entry.target.id;
+          link.classList.toggle("text-foreground", match);
+          link.classList.toggle("text-muted-foreground", !match);
+        });
+      });
+    },
+    { rootMargin: "-20% 0px -70% 0px" }
+  );
+  links.forEach((link) => {
+    const target = document.getElementById(link.dataset.tocLink ?? "");
+    if (target) observer.observe(target);
+  });
+</script>

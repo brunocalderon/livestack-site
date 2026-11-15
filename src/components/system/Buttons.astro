@@ -1,0 +1,19 @@
+---
+// Fundations
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import Header from "@/components/system/Header.astro";
+import ButtonRows from "@/components/system/ButtonRows.astro";
+---
+
+<Header
+  label="Buttons"
+  text="Every variant at every size, with text and icon only."
+>
+  <Fragment slot="title">All button <em>variants</em></Fragment>
+</Header>
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <ButtonRows />
+  </Wrapper>
+</section>

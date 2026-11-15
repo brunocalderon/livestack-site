@@ -1,0 +1,234 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Icons
+import Check from "@/components/fundations/icons/Check.astro";
+import Minus from "@/components/fundations/icons/Minus.astro";
+// Content
+import { plans } from "@/components/pricing/plans";
+const pricingFeatures = [
+  {
+    title: "Checks",
+    description: "Every way to watch a service, from every region.",
+    features: [
+      {
+        title: "HTTP and keyword checks",
+        description: "Check status codes, response times and the text on the page.",
+        values: ["yes", "yes", "yes", "yes"],
+      },
+      {
+        title: "Ping, TCP and DNS",
+        description: "Watch servers, ports and records, not just websites.",
+        values: ["yes", "yes", "yes", "yes"],
+      },
+      {
+        title: "Cron heartbeats",
+        description: "Get alerted when a scheduled job stops checking in.",
+        values: ["yes", "yes", "yes", "yes"],
+      },
+      {
+        title: "SSL expiry",
+        description: "Warnings 30, 14 and 7 days before a certificate expires.",
+        values: ["yes", "yes", "yes", "yes"],
+      },
+      {
+        title: "Check regions",
+        description: "Pick where checks run from.",
+        values: ["3", "6", "18", "18 + private"],
+      },
+    ],
+  },
+  {
+    title: "Alerts",
+    description: "The right person hears about it, and only when it is real.",
+    features: [
+      {
+        title: "Multi-region confirmation",
+        description: "Three regions confirm an outage before anyone is alerted.",
+        values: ["yes", "yes", "yes", "yes"],
+      },
+      {
+        title: "Alert channels",
+        description: "Email, SMS, Slack, Discord, PagerDuty and webhooks.",
+        values: ["Email", "All", "All", "All"],
+      },
+      {
+        title: "Escalation policies",
+        description: "Page the next person when the first one does not respond.",
+        values: ["no", "no", "yes", "yes"],
+      },
+      {
+        title: "On-call schedules",
+        description: "Rotations, overrides and handoffs in one calendar.",
+        values: ["no", "no", "yes", "yes"],
+      },
+    ],
+  },
+  {
+    title: "Status pages",
+    description: "Tell customers what is happening before they ask.",
+    features: [
+      {
+        title: "Custom domain",
+        description: "Host your status page on your own domain with managed SSL.",
+        values: ["no", "yes", "yes", "yes"],
+      },
+      {
+        title: "Email subscribers",
+        description: "Updates go out to subscribers the moment you post them.",
+        values: ["100", "1,000", "Unlimited", "Unlimited"],
+      },
+      {
+        title: "Private pages",
+        description: "Internal status pages behind SSO.",
+        values: ["no", "no", "yes", "yes"],
+      },
+    ],
+  },
+  {
+    title: "Team and security",
+    description: "Access, history and support for the whole team.",
+    features: [
+      {
+        title: "Team members",
+        description: "Invite everyone who needs to see or respond to incidents.",
+        values: ["2", "10", "Unlimited", "Unlimited"],
+      },
+      {
+        title: "SSO and audit log",
+        description: "Sign in with your identity provider and review every change.",
+        values: ["no", "no", "yes", "SAML and SCIM"],
+      },
+      {
+        title: "API, CLI and Terraform",
+        description: "Manage monitors as code with the tools you already use.",
+        values: ["yes", "yes", "yes", "yes"],
+      },
+      {
+        title: "Support",
+        description: "Email on Team, priority on Business, a dedicated engineer on Enterprise.",
+        values: ["Community", "Email", "Priority", "Dedicated"],
+      },
+    ],
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <LabeledGrid label="Compare">
+    <Text tag="h2" variant="displayMD" class="text-balance text-foreground">
+      Compare <em>every</em> plan
+    </Text>
+    <div slot="full" class="overflow-x-auto scrollbar-hide">
+      <table class="w-full text-sm table-fixed min-w-4xl">
+        <colgroup>
+          <col class="w-1/4" />
+          {plans.map(() => <col />)}
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col" class="px-5 pb-6 font-normal text-left align-bottom">
+              <span class="sr-only">Features</span>
+            </th>
+            {
+              plans.map((plan) => (
+                <th
+                  scope="col"
+                  class="pt-6 pb-6 pl-2 pr-6 font-normal text-left align-bottom"
+                >
+                  <span class="flex items-center gap-2 font-medium text-foreground">
+                    {plan.title}
+                    {plan.popular && (
+                      <span class="text-xs uppercase text-primary">
+                        Popular
+                      </span>
+                    )}
+                  </span>
+                  <span class="block mt-1 text-muted-foreground">
+                    <span class="text-foreground">{plan.price}</span>{plan.period && ` ${plan.period}`}
+                  </span>
+                  <Button
+                    isLink={true}
+                    href={plan.cta.href}
+                    variant={plan.popular ? "accent" : "muted"}
+                    size="sm"
+                    class="w-full mt-4"
+                  >
+                    {plan.cta.text}
+                  </Button>
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            pricingFeatures.map((group) => (
+              <>
+                <tr>
+                  <th scope="colgroup" class="px-5 pt-12 pb-4 font-normal text-left align-bottom">
+                    <span class="block font-medium uppercase text-foreground">{group.title}</span>
+                    <span class="block mt-1 text-muted-foreground">{group.description}</span>
+                  </th>
+                  {plans.map(() => (
+                    <td />
+                  ))}
+                </tr>
+                {group.features.map((feature, index) => (
+                  <tr class:list={[index % 2 === 0 && "bg-muted"]}>
+                    <th scope="row" class="px-5 py-5 font-normal text-left align-top">
+                      <span class="block font-medium text-foreground">{feature.title}</span>
+                      <span class="block mt-1 text-xs text-muted-foreground">{feature.description}</span>
+                    </th>
+                    {feature.values.map((value) => (
+                      <td class="py-5 pl-2 pr-6 align-middle">
+                        {value === "yes" ? (
+                          <span class="flex items-center size-6 text-primary">
+                            <Check size="sm" />
+                            <span class="sr-only">Included</span>
+                          </span>
+                        ) : value === "no" ? (
+                          <span class="flex items-center size-6 text-faint-foreground">
+                            <Minus size="xs" />
+                            <span class="sr-only">Not included</span>
+                          </span>
+                        ) : (
+                          <span class="text-foreground">{value}</span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </>
+            ))
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="pt-6"></td>
+            {
+              plans.map((plan) => (
+                <td class="pt-6 pb-6 pl-2 pr-6">
+                  <Button
+                    isLink={true}
+                    href={plan.cta.href}
+                    variant={plan.popular ? "accent" : "muted"}
+                    size="sm"
+                    class="w-full"
+                  >
+                    {plan.cta.text}
+                  </Button>
+                </td>
+              ))
+            }
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

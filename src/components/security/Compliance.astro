@@ -1,0 +1,44 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+const compliance = [
+  { kind: "Audit", title: "SOC 2 Type II", text: "Audited every year by an independent firm." },
+  { kind: "Certification", title: "ISO 27001", text: "Certified information security management." },
+  { kind: "Regulation", title: "GDPR", text: "EU data residency and a standard DPA." },
+  { kind: "Regulation", title: "HIPAA", text: "Business associate agreements on Business plans." },
+];
+const tones = [
+  { ground: "bg-inverse", ink: "text-inverse-foreground", soft: "text-inverse-foreground/75" },
+  { ground: "bg-primary", ink: "text-inverse-foreground", soft: "text-inverse-foreground/75" },
+  { ground: "bg-lilac", ink: "text-foreground", soft: "text-muted-foreground" },
+  { ground: "bg-muted", ink: "text-foreground", soft: "text-muted-foreground" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-24 pb-24">
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-4">
+      {
+        compliance.map((item, index) => {
+          const tone = tones[index % tones.length];
+          return (
+            <li class:list={["flex flex-col p-6 gap-24 lg:gap-62", tone.ground]}>
+              <Text tag="p" variant="textXS" class:list={["uppercase", tone.soft]}>
+                {item.kind}
+              </Text>
+              <div>
+                <Text tag="h2" variant="textBase" class:list={["font-medium", tone.ink]}>
+                  {item.title}
+                </Text>
+                <Text tag="p" variant="textSM" class:list={["mt-1 text-pretty", tone.soft]}>
+                  {item.text}
+                </Text>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Wrapper>
+</section>

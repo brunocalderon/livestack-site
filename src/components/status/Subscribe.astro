@@ -1,0 +1,31 @@
+---
+// Fundations
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import CtaPanel from "@/components/fundations/containers/CtaPanel.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-32">
+    <CtaPanel id="subscribe" tone="lilac">
+      <Fragment slot="title">Get incident updates <em>by email</em></Fragment>
+      <Fragment slot="text">
+        We email you when an incident starts, with every update, and when it
+        is resolved. Nothing else.
+      </Fragment>
+      <form class="flex flex-col w-full gap-2 sm:flex-row md:w-96">
+        <label for="status-email" class="sr-only">Email address</label>
+        <input
+          id="status-email"
+          name="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="you@company.test"
+          class="block w-full h-10 px-3 text-sm border-0 rounded-lg bg-background text-foreground ring-1 ring-inset ring-border placeholder:text-faint-foreground transition focus:ring-2 focus:ring-primary focus:outline-none"
+        />
+        <Button size="base" variant="default" type="submit">Subscribe</Button>
+      </form>
+    </CtaPanel>
+  </Wrapper>
+</section>

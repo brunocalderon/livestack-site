@@ -1,0 +1,31 @@
+---
+// Fundations
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import CtaPanel from "@/components/fundations/containers/CtaPanel.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <CtaPanel tone="muted">
+      <Fragment slot="title">Get the next post <em>in your inbox</em></Fragment>
+      <Fragment slot="text">
+        One email a month with new posts, product updates and the odd
+        postmortem worth reading. Unsubscribe in one click.
+      </Fragment>
+      <form class="flex flex-col w-full gap-2 sm:flex-row md:w-96">
+        <label for="subscribe-email" class="sr-only">Email address</label>
+        <input
+          id="subscribe-email"
+          name="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="you@company.test"
+          class="block w-full h-10 px-3 text-sm border-0 rounded-lg bg-background text-foreground ring-1 ring-inset ring-border placeholder:text-faint-foreground transition focus:ring-2 focus:ring-primary focus:outline-none"
+        />
+        <Button size="base" variant="default" type="submit">Subscribe</Button>
+      </form>
+    </CtaPanel>
+  </Wrapper>
+</section>

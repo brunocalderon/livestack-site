@@ -1,0 +1,47 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+// Icons
+import Search from "@/components/fundations/icons/Search.astro";
+---
+
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+  <GradientShader class="absolute inset-0 size-full" />
+  <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-120"></div>
+  <Wrapper variant="standard" class="relative flex flex-col justify-center pt-32 pb-24 min-h-160">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="tracking-tight text-balance text-inverse-foreground"
+        >
+          How can <em>we help</em>?
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-md mt-6 text-inverse-foreground/70 text-pretty">
+          Guides for setting up monitors, alerts, on-call and status pages.
+        </Text>
+        <div class="relative max-w-lg mt-8">
+          <label for="help-search" class="sr-only">Search articles</label>
+          <Search
+            size="xs"
+            aria-hidden="true"
+            class="absolute -translate-y-1/2 pointer-events-none left-3 top-1/2 text-faint-foreground"
+          />
+          <input
+            id="help-search"
+            type="search"
+            autocomplete="off"
+            placeholder="Search articles"
+            class="block w-full h-10 pr-3 text-sm border-0 rounded-lg pl-9 bg-background text-foreground ring-1 ring-inset ring-border placeholder:text-faint-foreground transition focus:ring-2 focus:ring-primary focus:outline-none"
+          />
+        </div>
+      </div>
+    </div>
+  </Wrapper>
+</section>

@@ -1,0 +1,75 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+/** Set true to show the status page plans link */
+const showPlansLink = false;
+const features = [
+  {
+    title: "1. Genera demanda.",
+    text: "Llega a nuevas audiencias y transforma el interés en ventas.",
+  },
+  {
+    title: "2. Maximiza cada oportunidad.",
+    text: "Monetiza accesos, productos, servicios y experiencias.",
+  },
+  {
+    title: "3. Haz que todo fluya.",
+    text: "Simplifica los pagos, los accesos y la operación.",
+  },
+  {
+    title: "4. Construye relaciones.",
+    text: "Convierte asistentes ocasionales en clientes recurrentes.",
+  },
+  {
+    title: "5. Crece con inteligencia.",
+    text: "Transforma los datos de hoy en las oportunidades de mañana.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="The experience lifecycle">
+      <div class="grid gap-12 lg:grid-cols-9 lg:gap-x-8">
+        <div class="lg:col-span-4">
+          <Text
+            tag="h2"
+            variant="displayMD"
+            class="tracking-tight text-balance text-foreground"
+          >
+            Antes, durante, <em>y mucho después.</em>
+          </Text>
+          <Text tag="p" variant="textBase" class="mt-4 text-muted-foreground text-pretty">
+            Cada experiencia representa una oportunidad para atraer, vender, conectar y fidelizar.
+          </Text>
+          {showPlansLink && (
+            <ArrowLink href="/pricing" class="mt-8">
+              See status page plans
+            </ArrowLink>
+          )}
+        </div>
+        <dl class="border-b lg:col-span-5 border-border">
+          {
+            features.map((feature) => (
+              <div class="grid py-6 border-t gap-2 sm:grid-cols-2 sm:gap-8 border-border">
+                <dt>
+                  <Text tag="span" variant="textBase" class="font-medium text-foreground">
+                    {feature.title}
+                  </Text>
+                </dt>
+                <dd>
+                  <Text tag="span" variant="textSM" class="text-muted-foreground text-pretty">
+                    {feature.text}
+                  </Text>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

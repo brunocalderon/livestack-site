@@ -1,0 +1,77 @@
+---
+// Assets
+import Logo from "@/components/assets/Logo.astro";
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+// Components
+import AuthPanel from "@/components/forms/AuthPanel.astro";
+// Icons
+import GoogleColor from "@/components/fundations/icons/GoogleColor.astro";
+const input =
+  "block w-full h-10 px-3 text-sm rounded-lg border-0 bg-background text-foreground ring-1 ring-inset ring-border placeholder:text-faint-foreground transition focus:ring-2 focus:ring-primary focus:outline-none";
+---
+
+<BaseLayout hideNav={true} hideFooter={true}>
+  <div class="grid overflow-hidden h-svh lg:grid-cols-2">
+    <div class="flex flex-col min-h-0 px-6 py-8 sm:px-12">
+      <a href="/" class="inline-flex lg:hidden">
+        <span class="sr-only">Back to home</span>
+        <Logo tone="light" />
+      </a>
+      <div class="flex items-center flex-1 min-h-0">
+        <div class="w-full max-w-sm mx-auto">
+          <Text tag="h1" variant="displaySM" class="text-balance text-foreground">
+            Create your <em>Navy</em> account
+          </Text>
+          <Text tag="p" variant="textSM" class="mt-2 text-muted-foreground">
+            Ten monitors free, no credit card. Your first check runs in under a
+            minute.
+          </Text>
+          <Button size="base" variant="muted" gap="xs" type="button" class="w-full mt-10">
+            <GoogleColor />
+            Sign up with Google
+          </Button>
+          <div class="flex items-center gap-4 my-6 text-xs text-faint-foreground">
+            <span class="flex-1 h-px bg-border"></span>
+            or
+            <span class="flex-1 h-px bg-border"></span>
+          </div>
+          <form class="flex flex-col gap-5">
+            <div>
+              <label for="name" class="text-sm font-medium text-foreground">Full name</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Lucía Navarro" class:list={[input, "mt-2"]} />
+            </div>
+            <div>
+              <label for="email" class="text-sm font-medium text-foreground">Work email</label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="lucia@lexington.test" class:list={[input, "mt-2"]} />
+            </div>
+            <div>
+              <label for="password" class="text-sm font-medium text-foreground">Password</label>
+              <input required id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 12 characters" aria-required="true" class:list={[input, "mt-2"]} />
+            </div>
+            <Button size="base" variant="default" type="submit" class="w-full mt-2">
+              Create account
+            </Button>
+          </form>
+          <Text tag="p" variant="textSM" class="mt-6 text-muted-foreground">
+            Already have an account?{" "}
+            <a href="/forms/sign-in" class="font-medium transition-colors text-foreground hover:text-muted-foreground">Sign in</a>
+          </Text>
+          <Text tag="p" variant="textXS" class="pt-6 mt-10 border-t text-faint-foreground border-border">
+            By signing up you agree to the
+            <a href="/infopages/terms" class="underline hover:text-foreground">terms</a>
+            and
+            <a href="/infopages/privacy" class="underline hover:text-foreground">privacy policy</a>.
+          </Text>
+        </div>
+      </div>
+    </div>
+    <AuthPanel
+      quote="We moved 400 endpoints over in an afternoon, and the false alarms stopped that same night."
+      name="Erik Lindqvist"
+      role="Platform lead, Lexington"
+    />
+  </div>
+</BaseLayout>

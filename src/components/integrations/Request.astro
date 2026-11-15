@@ -1,0 +1,25 @@
+---
+// Fundations
+import Button from "@/components/fundations/elements/Button.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import CtaPanel from "@/components/fundations/containers/CtaPanel.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-32">
+    <CtaPanel tone="inverse">
+      <Fragment slot="title">Missing a tool <em>you rely on</em>?</Fragment>
+      <Fragment slot="text">
+        Tell us what you need, or build it yourself with webhooks and the Navy
+        API.
+      </Fragment>
+      <div class="flex flex-wrap items-center gap-6">
+        <Button isLink={true} size="base" variant="accent" href="/forms/contact">
+          Request an integration
+        </Button>
+        <ArrowLink href="#_" tone="inverse">Read the API docs</ArrowLink>
+      </div>
+    </CtaPanel>
+  </Wrapper>
+</section>

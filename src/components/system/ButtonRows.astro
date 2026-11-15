@@ -1,0 +1,55 @@
+---
+// Every Button variant at every size, then icon only, as buttons or as
+// links. Shared by /system/buttons and /system/links.
+import Button from "@/components/fundations/elements/Button.astro";
+import Plus from "@/components/fundations/icons/Plus.astro";
+import Row from "@/components/system/Row.astro";
+interface Props {
+  isLink?: boolean;
+}
+const { isLink = false } = Astro.props;
+const variants = [
+  { name: "Default", value: "default", text: "Ink, for the main action of a page." },
+  { name: "Accent", value: "accent", text: "Ultramarine, for sign ups and upgrades." },
+  { name: "Muted", value: "muted", text: "A light fill, for secondary actions." },
+];
+const sizes = [
+  { name: "XXS", value: "xxs", icon: "sm" },
+  { name: "XS", value: "xs", icon: "sm" },
+  { name: "SM", value: "sm", icon: "base" },
+  { name: "Base", value: "base", icon: "base" },
+  { name: "MD", value: "md", icon: "lg" },
+  { name: "LG", value: "lg", icon: "lg" },
+  { name: "XL", value: "xl", icon: "xl" },
+];
+const linkProps = isLink ? { isLink: true, href: "#_" } : {};
+---
+
+<div class="border-t border-border">
+  {
+    variants.map((variant) => (
+      <Row name={variant.name} text={variant.text}>
+        <div class="flex flex-wrap items-end gap-3">
+          {sizes.map((size) => (
+            <Button size={size.value} variant={variant.value} {...linkProps}>
+              {`${variant.name} ${size.name}`}
+            </Button>
+          ))}
+        </div>
+        <div class="mt-6 flex flex-wrap items-end gap-3">
+          {sizes.map((size) => (
+            <Button
+              size={size.value}
+              variant={variant.value}
+              iconOnly
+              aria-label={`${variant.name} ${size.name} icon`}
+              {...linkProps}
+            >
+              <Plus slot="icon" size={size.icon} />
+            </Button>
+          ))}
+        </div>
+      </Row>
+    ))
+  }
+</div>

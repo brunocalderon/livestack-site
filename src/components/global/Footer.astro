@@ -1,0 +1,179 @@
+---
+// Assets
+import Logo from "@/components/assets/Logo.astro";
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+import { grid, sideCol, mainCol } from "@/components/fundations/containers/grid";
+const footerLinks = [
+  {
+    heading: "Product",
+    links: [
+      { label: "Integrations", href: "/integrations/home" },
+      { label: "Customers", href: "/customers/home" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Changelog", href: "/changelog/home" },
+      { label: "Status", href: "/status" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Team", href: "/team/home" },
+      { label: "Blog", href: "/blog/home" },
+      { label: "Security", href: "/security" },
+      { label: "Help center", href: "/helpcenter/home" },
+      { label: "Contact", href: "/forms/contact" },
+    ],
+  },
+  {
+    heading: "Theme",
+    links: [
+      { label: "Overview", href: "/system/overview" },
+      { label: "Buttons", href: "/system/buttons" },
+      { label: "Links", href: "/system/links" },
+      { label: "Colors", href: "/system/colors" },
+      { label: "Typography", href: "/system/typography" },
+    ],
+  },
+  {
+    heading: "Lexington",
+    links: [
+      { label: "Buy Navy", href: "https://lexingtonthemes.com/templates/navy" },
+      {
+        label: "License",
+        href: "https://www.lexingtonthemes.com/legal/license",
+      },
+      {
+        label: "Documentation",
+        href: "https://www.lexingtonthemes.com/documentation",
+      },
+      {
+        label: "@lexingtonthemes",
+        href: "https://twitter.com/lexingtonthemes",
+      },
+    ],
+  },
+];
+const legal = [
+  { label: "Privacy", href: "/infopages/privacy" },
+  { label: "Terms", href: "/infopages/terms" },
+];
+/** Set true to show status line and footer link columns */
+const showFooterNav = false;
+/** Set true to show Privacy and Terms links */
+const showLegalLinks = false;
+---
+
+<footer id="nosotros" data-nav-clear class="relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 arch-gradient-flip-footer"></div>
+  <GradientShader flip rise={0.24} class="absolute inset-0 size-full" />
+  <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 bottom-0 h-[58%]"></div>
+  <Wrapper variant="standard" class="relative pt-24">
+    <LabeledGrid>
+      <Text
+        slot="side"
+        tag="p"
+        variant="textSM"
+        class="font-medium uppercase text-nav"
+      >
+        <span aria-hidden="true">///</span> Let's build what's next
+      </Text>
+      <div>
+        <Text
+          tag="h2"
+          variant="displayMD"
+          class="tracking-tight text-balance text-nav lg:max-w-none lg:whitespace-nowrap"
+        >
+          El futuro de las experiencias, <em>está conectado.</em>
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-md mt-4 text-nav text-pretty">
+          Descubre todo lo que tu negocio puede hacer con Livestack.
+        </Text>
+        <Button
+          isLink={true}
+          variant="muted"
+          size="sm"
+          href="/conversemos"
+          class="mt-8 w-fit bg-nav from-nav to-muted"
+        >
+          Conversemos
+        </Button>
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+  <Wrapper variant="standard" class="relative pb-10 pt-40">
+    {
+      showFooterNav && (
+        <div class={`grid gap-y-12 ${grid}`}>
+          <div class={sideCol}>
+            <a
+              href="/status"
+              class="text-xs uppercase transition-colors text-inverse-foreground/80 hover:text-inverse-foreground"
+            >
+              All systems operational
+            </a>
+          </div>
+          <div class:list={["grid grid-cols-2 gap-10 md:grid-cols-4", mainCol]}>
+            {footerLinks.map((section) => (
+              <div>
+                <Text tag="h3" variant="textSM" class="font-medium text-inverse-foreground">
+                  {section.heading}
+                </Text>
+                <ul role="list" class="flex flex-col mt-4 gap-3">
+                  {section.links.map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        class="text-sm transition-colors text-inverse-foreground/60 hover:text-inverse-foreground"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+    <div
+      class:list={[
+        `grid items-center pt-8 gap-y-4 border-inverse-foreground/10 ${grid}`,
+        showFooterNav ? "mt-16 border-t" : "",
+      ]}
+    >
+      <a href="/" class:list={["inline-flex", sideCol]}>
+        <span class="sr-only">Go to homepage</span>
+        <Logo tone="dark" />
+      </a>
+      <div class:list={["flex flex-col justify-between gap-4 sm:flex-row", mainCol]}>
+        <Text tag="p" variant="textXS" class="text-inverse-foreground/50">
+          © 2026 Livestack. Powering the experience economy.
+        </Text>
+        {
+          showLegalLinks && (
+            <ul role="list" class="flex gap-6">
+              {legal.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-xs transition-colors text-inverse-foreground/50 hover:text-inverse-foreground"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+  </Wrapper>
+</footer>
+

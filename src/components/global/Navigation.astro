@@ -1,0 +1,236 @@
+---
+// Fundations
+import Logo from "@/components/assets/Logo.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, sideCol } from "@/components/fundations/containers/grid";
+// Icons
+import ArrowRight from "@/components/fundations/icons/ArrowRight.astro";
+// The bar turns transparent with white links over an element marked
+// `data-nav-dark` (the hero), transparent with ink links over `data-nav-clear`
+// (the light top of the footer), and solid elsewhere.
+const navigationLinks = [
+  { title: "Que hacemos", href: "/#que-hacemos" },
+  { title: "Soluciones", href: "/#soluciones" },
+  { title: "Industrias", href: "/#industrias" },
+  { title: "Nosotros", href: "/#nosotros" },
+];
+const secondaryLinks: { title: string; href: string }[] = [];
+// tone sets the first paint; "dark" for pages that open on an ink band
+const { tone = "light", minimal = false } = Astro.props;
+/** Set true when main nav links and CTAs should show again */
+const showMenu = !minimal;
+/** Set true to show the Overview link in the desktop bar and mobile menu */
+const showOverviewLink = false;
+/** Set true to show Sign in in the desktop bar and mobile menu */
+const showSignInLink = false;
+const linkClass =
+  "text-sm text-foreground transition-colors hover:text-muted-foreground nav-dark:text-inverse-foreground nav-dark:hover:text-inverse-foreground/70";
+---
+
+<div
+  id="nav-wrapper"
+  data-nav={tone}
+  data-minimal={minimal ? "" : undefined}
+  class:list={[
+    "fixed inset-x-0 top-0 w-full mx-auto z-51 transition-colors duration-300",
+    minimal ? "bg-transparent" : "bg-nav nav-dark:bg-transparent nav-clear:bg-transparent",
+  ]}
+>
+  <Wrapper variant="standard" class="pt-5 pb-5 nav-dark:pb-2.5 nav-clear:pb-2.5">
+    <div class={`relative flex items-center justify-between md:gap-12 lg:grid lg:gap-y-0 ${grid}`}>
+      <a href="/" class:list={["md:flex-1", sideCol]}>
+        <span class="sr-only">Go to homepage</span>
+        <Logo tone="adaptive" class="transition-[filter]" />
+      </a>
+      {
+        showMenu && (
+          <>
+            <button
+              id="menu-toggle"
+              type="button"
+              aria-label="Open menu"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              class="flex items-center justify-center -mr-2 size-9 md:hidden text-foreground nav-dark:text-inverse-foreground"
+            >
+              <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-width="1.5" d="M4 9h16M4 15h16" />
+              </svg>
+            </button>
+            <nav aria-label="Main" class="hidden md:contents">
+              <ul
+                role="list"
+                class="flex flex-row items-center justify-center gap-6 lg:col-span-6 lg:justify-start"
+              >
+                {navigationLinks.map((link) => (
+                  <li>
+                    <a href={link.href} class={linkClass}>
+                      {link.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div class="flex items-center justify-end flex-1 gap-4 lg:col-span-3">
+                {showOverviewLink && (
+                  <a href="/system/overview" class={linkClass}>
+                    Overview
+                  </a>
+                )}
+                {showSignInLink && (
+                  <a href="/forms/sign-in" class={linkClass}>
+                    Sign in
+                  </a>
+                )}
+                <Button isLink={true} size="xs" variant="default" href="/conversemos">
+                  Conversemos
+                </Button>
+              </div>
+            </nav>
+          </>
+        )
+      }
+    </div>
+  </Wrapper>
+</div>
+
+{
+  showMenu && (
+    <div
+      id="mobile-menu"
+      data-lenis-prevent
+      class="fixed inset-0 flex flex-col overflow-y-auto opacity-0 pointer-events-none z-52 h-svh overscroll-contain bg-nav transition-opacity duration-300 ease-out md:hidden group data-open:opacity-100 data-open:pointer-events-auto"
+    >
+      <Wrapper variant="standard" class="w-full py-2.5">
+        <div class="flex items-center justify-between">
+          <a href="/">
+            <span class="sr-only">Go to homepage</span>
+            <Logo tone="light" />
+          </a>
+          <button
+            id="menu-close"
+            type="button"
+            aria-label="Close menu"
+            class="flex items-center justify-center -mr-2 size-9 text-foreground"
+          >
+            <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-width="1.5" d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+      </Wrapper>
+      <Wrapper variant="standard" class="flex flex-col flex-1 w-full pt-10">
+        <Text tag="p" variant="textXS" class="uppercase text-faint-foreground">
+          <span aria-hidden="true">///</span> Menu
+        </Text>
+        <nav aria-label="Mobile">
+          <ul role="list" class="mt-4 border-t border-border">
+            {navigationLinks.map((link, index) => (
+              <li
+                class="border-b opacity-0 translate-y-2 border-border transition duration-500 ease-out group-data-open:opacity-100 group-data-open:translate-y-0"
+                style={`transition-delay: ${80 + index * 40}ms`}
+              >
+                <a href={link.href} class="flex items-center justify-between py-4 group/link">
+                  <Text tag="span" variant="displaySM" class="tracking-tight text-foreground">
+                    {link.title}
+                  </Text>
+                  <ArrowRight
+                    size="sm"
+                    class="transition-transform text-faint-foreground group-hover/link:translate-x-0.5"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+          {(showOverviewLink || secondaryLinks.length > 0) && (
+            <ul role="list" class="flex flex-wrap mt-8 gap-x-6 gap-y-3">
+              {showOverviewLink && (
+                <li>
+                  <a
+                    href="/system/overview"
+                    class="text-sm transition-colors text-muted-foreground hover:text-foreground"
+                  >
+                    Overview
+                  </a>
+                </li>
+              )}
+              {secondaryLinks.map((link) => (
+                <li>
+                  <a href={link.href} class="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                    {link.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </nav>
+        <div
+          class:list={[
+            "grid gap-2 pt-10 pb-8 mt-auto",
+            showSignInLink ? "grid-cols-2" : "grid-cols-1",
+          ]}
+        >
+          {showSignInLink && (
+            <Button isLink={true} size="base" variant="muted" href="/forms/sign-in">
+              Sign in
+            </Button>
+          )}
+          <Button isLink={true} size="base" variant="default" href="/conversemos">
+            Conversemos
+          </Button>
+        </div>
+      </Wrapper>
+    </div>
+  )
+}
+
+<script>
+  const navWrapper = document.getElementById("nav-wrapper")!;
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuToggle = document.getElementById("menu-toggle");
+  const menuClose = document.getElementById("menu-close");
+
+  if (mobileMenu && menuToggle && menuClose) {
+    function toggleMenu(open: boolean) {
+      mobileMenu.toggleAttribute("data-open", open);
+      menuToggle.setAttribute("aria-expanded", String(open));
+      if (open) menuClose.focus();
+      else menuToggle.focus();
+    }
+    menuToggle.addEventListener("click", () => toggleMenu(true));
+    menuClose.addEventListener("click", () => toggleMenu(false));
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => toggleMenu(false));
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && mobileMenu.hasAttribute("data-open")) toggleMenu(false);
+    });
+  }
+
+  // Dark or clear while the middle of the bar sits over a marked element
+  if (!navWrapper.hasAttribute("data-minimal")) {
+    const darkElements = document.querySelectorAll<HTMLElement>("[data-nav-dark]");
+    const clearElements = document.querySelectorAll<HTMLElement>("[data-nav-clear]");
+    let ticking = false;
+    function updateTone() {
+      const middle = navWrapper.offsetHeight / 2;
+      const under = (elements: NodeListOf<HTMLElement>) =>
+        Array.from(elements).some((element) => {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= middle && rect.bottom >= middle;
+        });
+      navWrapper.dataset.nav = under(darkElements) ? "dark" : under(clearElements) ? "clear" : "light";
+      ticking = false;
+    }
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateTone);
+        ticking = true;
+      }
+    }
+    window.addEventListener("scroll", requestTick, { passive: true });
+    window.addEventListener("resize", requestTick);
+    updateTone();
+  }
+</script>

@@ -1,0 +1,57 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+const stats = [
+  { value: "4,000", label: "Teams on Navy" },
+  { value: "2B", label: "Checks every month" },
+  { value: "99%", label: "Fewer false alerts" },
+  { value: "38s", label: "Median time to alert" },
+];
+---
+
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+  <GradientShader class="absolute inset-0 size-full" />
+  <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-120"></div>
+  <Wrapper variant="standard" class="relative flex flex-col justify-between pt-40 pb-12 gap-24 min-h-160">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="max-w-3xl tracking-tight text-balance text-inverse-foreground"
+        >
+          Teams that sleep through <em>the night</em>
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-lg mt-6 text-inverse-foreground/70 text-pretty">
+          How engineering teams use Navy to catch outages first, page the right
+          person and keep their customers in the loop.
+        </Text>
+      </div>
+    </div>
+    <div class:list={["grid", grid]}>
+      <dl class:list={["grid grid-cols-2 gap-8 md:grid-cols-4", mainCol, mainStart]}>
+        {
+          stats.map((stat) => (
+            <div class="flex flex-col-reverse">
+              <dt class="mt-2">
+                <Text tag="span" variant="textSM" class="text-muted-foreground">
+                  {stat.label}
+                </Text>
+              </dt>
+              <dd>
+                <Text tag="span" variant="displayMD" class="tracking-tight text-foreground">
+                  {stat.value}
+                </Text>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Wrapper>
+</section>

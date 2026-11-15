@@ -1,0 +1,14 @@
+---
+description: Navy file-based routing, dynamic segments, and layout usage under src/pages.
+globs: src/pages/**
+---
+
+# Pages and routing (Navy)
+
+- **Layouts:** Collection detail routes use their layout from `src/layouts/` (`BlogLayout`, `ChangeLogLayout`, `CustomersLayout`, `HelpcenterLayout`, `InfoPagesLayout`, `IntegrationsLayout`, `TeamLayout`). Everything else uses `BaseLayout.astro` and composes sections from `src/components/<page>/`.
+- **Layout props:** `<BaseLayout hideNav hideFooter>` removes the navigation and footer (the 404 uses both); `navTone="dark"` is for pages that open on an ink band.
+- **Dynamic routes:** `[...slug].astro` maps one segment to the entry `id` with `getStaticPaths` + `getCollection` + `render()` (e.g. `/blog/posts/5`, `/infopages/terms`). Customers, changelog, help center, integrations and team routes also return `trailingSlash: false`.
+- **Indexes:** Each collection's index is a `home.astro` beside its `[...slug].astro` (e.g. `/blog/home`, `/team/home`). Blog tags live at `/blog/tags` and `/blog/tags/[tag]`.
+- **Forms:** Sign in, sign up and contact live under `/forms/`.
+- **Overview:** Add every new page to `src/pages/system/overview.astro`.
+- **RSS:** `src/pages/rss.xml.js` reads the `posts` collection; keep it in sync if you change the blog URL.

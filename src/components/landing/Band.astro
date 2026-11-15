@@ -1,0 +1,10 @@
+---
+// A full-bleed shader band between sections, no content
+import GradientShader from "@/components/assets/GradientShader.astro";
+---
+
+<div aria-hidden="true" class="relative overflow-hidden h-120">
+  <div class="absolute inset-0 band-gradient"></div>
+  <GradientShader band class="absolute inset-0 size-full" />
+  <div data-nav-dark class="absolute inset-x-0 top-1/3 h-1/3"></div>
+</div>

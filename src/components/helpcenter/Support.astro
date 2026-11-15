@@ -1,0 +1,25 @@
+---
+// Fundations
+import Button from "@/components/fundations/elements/Button.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import CtaPanel from "@/components/fundations/containers/CtaPanel.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-32">
+    <CtaPanel tone="lilac">
+      <Fragment slot="title">Still <em>stuck</em>?</Fragment>
+      <Fragment slot="text">
+        Our support team are engineers who have been on call. Most questions
+        get an answer within two hours.
+      </Fragment>
+      <div class="flex flex-wrap items-center gap-6">
+        <ArrowLink href="/status">Check Navy's status</ArrowLink>
+        <Button isLink={true} size="base" variant="default" href="/forms/contact">
+          Contact support
+        </Button>
+      </div>
+    </CtaPanel>
+  </Wrapper>
+</section>

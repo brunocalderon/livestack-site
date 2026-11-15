@@ -1,0 +1,21 @@
+---
+// Fundations
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import CtaPanel from "@/components/fundations/containers/CtaPanel.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-32">
+    <CtaPanel tone="primary">
+      <Fragment slot="title">We are <em>hiring</em></Fragment>
+      <Fragment slot="text">
+        Fully remote, across eleven countries. If you care about calm,
+        reliable software, we would like to hear from you.
+      </Fragment>
+      <Button isLink={true} size="base" variant="default" href="#_">
+        See open roles
+      </Button>
+    </CtaPanel>
+  </Wrapper>
+</section>

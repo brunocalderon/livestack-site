@@ -1,0 +1,45 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Content
+import { render } from "astro:content";
+const { post, latest = false } = Astro.props;
+const { Content } = await render(post);
+const url = "/changelog/" + post.id;
+const { page, description } = post.data;
+const pubDate = new Date(post.data.pubDate);
+const date = pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<li class="py-16 border-t border-border first:pt-0 first:border-t-0">
+  <article class="max-w-2xl">
+    <div class="flex items-center gap-3">
+      {
+        latest && (
+          <Text tag="span" variant="textXS" class="uppercase text-primary">
+            Latest
+          </Text>
+        )
+      }
+      <Text tag="p" variant="textXS" class="uppercase text-muted-foreground">
+        <time datetime={pubDate.toISOString()}>{date}</time>
+      </Text>
+    </div>
+    <Text tag="h2" variant="displayMD" class="mt-6 tracking-tight text-balance text-foreground">
+      <a href={url} class="transition-colors hover:text-muted-foreground">{page}</a>
+    </Text>
+    <Text tag="p" variant="textLG" class="mt-4 text-muted-foreground text-pretty">
+      {description}
+    </Text>
+    <Wrapper variant="prose" class="mt-8 prose-headings:tracking-tight">
+      <Content />
+    </Wrapper>
+    <ArrowLink href={url} class="mt-8">Read the release</ArrowLink>
+  </article>
+</li>

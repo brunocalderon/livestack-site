@@ -1,0 +1,30 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+// Content
+const { post } = Astro.props;
+const url = "/helpcenter/" + post.id;
+const { title, intro } = post.data;
+---
+
+<li data-help-article data-search={`${title} ${intro}`.toLowerCase()}>
+  <a href={url} class="flex items-start justify-between h-full py-5 border-b group gap-4 border-border">
+    <span>
+      <Text
+        tag="span"
+        variant="textSM"
+        class="block font-medium text-foreground transition-colors group-hover:text-muted-foreground"
+      >
+        {title}
+      </Text>
+      <Text tag="span" variant="textSM" class="block mt-1 text-muted-foreground line-clamp-2">
+        {intro}
+      </Text>
+    </span>
+    <ChevronRight
+      aria-hidden="true"
+      class="mt-0.5 size-4 shrink-0 text-faint-foreground transition group-hover:translate-x-0.5 group-hover:text-foreground"
+    />
+  </a>
+</li>

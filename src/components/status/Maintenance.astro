@@ -1,0 +1,35 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const today = new Date();
+const dayLabel = (daysAgo: number) =>
+  new Date(today.getTime() - daysAgo * 86400000).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+const maintenance = {
+  title: "Database upgrade for the EU storage region",
+  when: `${dayLabel(-6)}, 02:00 to 03:00 UTC`,
+  text: "Dashboards in the EU region may be read-only for up to ten minutes. Checks and alerts keep running.",
+};
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <LabeledGrid label="Maintenance">
+      <div class="pt-6 border-t border-border">
+        <Text tag="p" variant="textSM" class="uppercase text-muted-foreground">
+          {maintenance.when}
+        </Text>
+        <Text tag="h2" variant="displaySM" class="mt-4 text-balance text-foreground">
+          {maintenance.title}
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-xl mt-3 text-muted-foreground text-pretty">
+          {maintenance.text}
+        </Text>
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

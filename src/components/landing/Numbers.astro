@@ -1,0 +1,80 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const stats = [
+  {
+    value: "18",
+    unit: "",
+    label: "Check regions",
+    text: "On six continents, each on two cloud providers.",
+  },
+  {
+    value: "30",
+    unit: "s",
+    label: "Check interval",
+    text: "On every plan, from the very first monitor.",
+  },
+  {
+    value: "40",
+    unit: "s",
+    label: "Median time to alert",
+    text: "From the first failed check to a phone ringing.",
+  },
+  {
+    value: "2B",
+    unit: "+",
+    label: "Checks a month",
+    text: "Across every region, every minute of the day.",
+  },
+];
+/** Set true to show the stat figures grid */
+const showStats = false;
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="What we believe">
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="max-w-xl tracking-tight text-balance text-foreground"
+      >
+      La tecnología debería <em>potenciar las experiencias</em>, no interponerse en ellas.
+      </Text>
+      <Text tag="p" variant="textBase" class="max-w-xl mt-4 text-muted-foreground text-pretty">
+        Creamos tecnología para que los negocios puedan dedicar menos tiempo a gestionar sistemas y más tiempo a generar momentos que importan.
+        <br/><em>Tu marca. Tu audiencia. Tu negocio.</em>
+      </Text>
+      {
+        showStats && (
+          <div slot="full">
+            <dl class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {stats.map((stat) => (
+                <div class="flex flex-col">
+                  <dt class="order-2 mt-6">
+                    <Text tag="span" variant="textBase" class="font-medium text-foreground">
+                      {stat.label}
+                    </Text>
+                  </dt>
+                  <dd class="order-1">
+                    <Text tag="span" variant="display3XL" class="tracking-tight text-foreground">
+                      {stat.value}
+                      {stat.unit && <span class="text-primary">{stat.unit}</span>}
+                    </Text>
+                  </dd>
+                  <dd class="order-3 mt-1">
+                    <Text tag="p" variant="textSM" class="text-muted-foreground text-pretty">
+                      {stat.text}
+                    </Text>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )
+      }
+    </LabeledGrid>
+  </Wrapper>
+</section>

@@ -1,0 +1,68 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Components
+import HelpCenterEntry from "@/components/helpcenter/HelpCenterEntry.astro";
+// Content
+import { getCollection } from "astro:content";
+const entries = (await getCollection("helpcenter")).sort((a, b) => a.data.order - b.data.order);
+const descriptions: Record<string, string> = {
+  "Getting started": "Set up monitors and bring your team in.",
+  "Alerts and on-call": "Route alerts to the right person, every time.",
+  "Status pages": "Keep customers informed during incidents.",
+};
+const categories = [...new Set(entries.map((entry) => entry.data.category))].map((category) => ({
+  category,
+  description: descriptions[category],
+  items: entries.filter((entry) => entry.data.category === category),
+}));
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-24 pb-24">
+    <div class="flex flex-col gap-24">
+      {
+        categories.map((group) => (
+          <div data-help-group>
+            <LabeledGrid label={group.category}>
+              {group.description && (
+                <Text tag="h2" variant="displaySM" class="max-w-xl text-balance text-foreground">
+                  {group.description}
+                </Text>
+              )}
+              <ul class="grid mt-8 border-t gap-x-8 sm:grid-cols-2 border-border">
+                {group.items.map((post) => (
+                  <HelpCenterEntry post={post} />
+                ))}
+              </ul>
+            </LabeledGrid>
+          </div>
+        ))
+      }
+    </div>
+    <Text tag="p" variant="textSM" id="help-empty" class="hidden py-16 text-muted-foreground">
+      No articles match your search.
+    </Text>
+  </Wrapper>
+</section>
+<script>
+  const input = document.getElementById("help-search") as HTMLInputElement | null;
+  const empty = document.getElementById("help-empty");
+  input?.addEventListener("input", () => {
+    const query = input.value.trim().toLowerCase();
+    let visible = 0;
+    document.querySelectorAll<HTMLElement>("[data-help-group]").forEach((group) => {
+      let groupVisible = 0;
+      group.querySelectorAll<HTMLElement>("[data-help-article]").forEach((article) => {
+        const match = !query || (article.dataset.search ?? "").includes(query);
+        article.hidden = !match;
+        if (match) groupVisible++;
+      });
+      group.hidden = groupVisible === 0;
+      visible += groupVisible;
+    });
+    empty?.classList.toggle("hidden", visible > 0);
+  });
+</script>

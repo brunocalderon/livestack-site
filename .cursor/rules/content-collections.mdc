@@ -1,0 +1,15 @@
+---
+description: Content collection schemas, references, frontmatter discipline, and image() fields for Navy src/content and content.config.
+globs: src/content/**,src/content.config.ts
+---
+
+# Content collections (Navy)
+
+- **Single source of truth:** `src/content.config.ts` defines `posts`, `team`, `customers`, `integrations`, `helpcenter`, `changelog` and `infopages` (the legal pages) with Zod + `glob` loaders under `src/content/<folder>/`. Optional fields are only those marked `.optional()` or `.default()`.
+- **References:** `posts.team` is a `team` entry id (filename without `.md`), e.g. `team: "samuel-ortiz"`. Renaming a team file means updating every post that points at it.
+- **Tags:** `posts.tags` is a list of strings; `/blog/tags` and `/blog/tags/[tag]` are built from them.
+- **Help center:** `category` groups articles (`Getting started`, `Alerts and on-call`, `Status pages`) and `order` sorts them within it.
+- **Dates:** `pubDate` on `posts`, `changelog` and `infopages` is coerced to a `Date`.
+- **`image()` fields:** `posts.image`, `team.image`, `customers.logo` and `integrations.logo` are `{ url, alt }` objects with `url` like `/src/images/...`. Keep paths valid and the shape stable.
+- **People and copy:** Names in demo content are Spanish, Nordic, English or Italian. Team `socials` links use `#_`, emails end in `.test`.
+- **Copy-paste templates:** `src/content/posts/5.md`, `src/content/team/samuel-ortiz.md`, `src/content/customers/1.md`, `src/content/integrations/1.md`, `src/content/helpcenter/1.md`, `src/content/changelog/1.md`, `src/content/infopages/privacy.md`.

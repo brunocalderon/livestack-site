@@ -1,0 +1,64 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import Header from "@/components/system/Header.astro";
+import Row from "@/components/system/Row.astro";
+const styles = [
+  { name: "Display 6XL", variant: "display6XL", display: true },
+  { name: "Display 5XL", variant: "display5XL", display: true },
+  { name: "Display 4XL", variant: "display4XL", display: true },
+  { name: "Display 3XL", variant: "display3XL", display: true },
+  { name: "Display 2XL", variant: "display2XL", display: true },
+  { name: "Display XL", variant: "displayXL", use: "The hero headline", display: true },
+  { name: "Display LG", variant: "displayLG", display: true },
+  { name: "Display MD", variant: "displayMD", use: "Page and section titles", display: true },
+  { name: "Display SM", variant: "displaySM", display: true },
+  { name: "Display XS", variant: "displayXS", display: true },
+  { name: "Text XL", variant: "textXL", display: false },
+  { name: "Text LG", variant: "textLG", display: false },
+  { name: "Text Base", variant: "textBase", use: "Card titles and lead lines", display: false },
+  { name: "Text SM", variant: "textSM", use: "Body copy and descriptions", display: false },
+  { name: "Text XS", variant: "textXS", use: "Navigation, meta and labels", display: false },
+];
+---
+
+<Header
+  label="Typography"
+  text="Every Text variant in Switzer, plus the uppercase label and the italic key word."
+>
+  <Fragment slot="title">Type <em>scale</em></Fragment>
+</Header>
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <div class="border-t border-border">
+      {
+        styles.map((style) => (
+          <Row name={style.name} text={style.use}>
+            <Text
+              tag="p"
+              variant={style.variant}
+              class:list={[
+                "truncate",
+                style.display ? "tracking-tight text-foreground" : "text-muted-foreground",
+              ]}
+            >
+              Hear about outages first
+            </Text>
+          </Row>
+        ))
+      }
+      <Row name="Key word" text="Wrap one or two words of an h1 or h2 in <em>: Switzer semibold italic.">
+        <Text tag="p" variant="displayMD" class="tracking-tight text-foreground">
+          Hear about outages <em class="font-semibold">first</em>
+        </Text>
+      </Row>
+      <Row name="Label" text="Side labels and small tags: Text SM, uppercase.">
+        <Text tag="p" variant="textSM" class="font-medium uppercase text-foreground">
+          <span aria-hidden="true">///</span> On call
+        </Text>
+      </Row>
+    </div>
+  </Wrapper>
+</section>

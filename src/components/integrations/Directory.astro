@@ -1,0 +1,52 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Components
+import IntegrationsEntries1 from "@/components/integrations/IntegrationsEntries1.astro";
+// Content
+import { getCollection } from "astro:content";
+const allIntegrations = (await getCollection("integrations")).sort((a, b) =>
+  a.data.integration.localeCompare(b.data.integration)
+);
+const descriptions: Record<string, string> = {
+  alerts: "Get alerted where your team already works.",
+  "developer tools": "Deploy markers, monitors as code and checks for your stack.",
+  publishing: "Share incident updates and postmortems beyond the status page.",
+  "status pages": "Design, theme and extend your public status page.",
+};
+const categories = Array.from(new Set(allIntegrations.flatMap((post) => post.data.tags)))
+  .sort()
+  .map((tag) => ({
+    tag,
+    slug: tag.replace(/\s+/g, "-"),
+    description: descriptions[tag],
+    items: allIntegrations.filter((post) => post.data.tags.includes(tag)),
+  }));
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-24 pb-24">
+    <div class="flex flex-col gap-24">
+      {
+        categories.map((category) => (
+          <div id={category.slug} class="scroll-mt-28">
+            <LabeledGrid label={category.tag}>
+              {category.description && (
+                <Text tag="h2" variant="displaySM" class="max-w-xl text-balance text-foreground">
+                  {category.description}
+                </Text>
+              )}
+              <ul role="list" class="mt-8 border-t border-border">
+                {category.items.map((post) => (
+                  <IntegrationsEntries1 post={post} />
+                ))}
+              </ul>
+            </LabeledGrid>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

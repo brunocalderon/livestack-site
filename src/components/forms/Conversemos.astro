@@ -1,0 +1,191 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+const input =
+  "block w-full h-10 px-3 text-sm rounded-lg border-0 bg-background text-foreground ring-1 ring-inset ring-border placeholder:text-faint-foreground transition focus:ring-2 focus:ring-primary focus:outline-none";
+const textarea =
+  "block w-full px-3 py-2.5 text-sm border-0 rounded-lg resize-none bg-background text-foreground ring-1 ring-inset ring-border placeholder:text-faint-foreground transition focus:ring-2 focus:ring-primary focus:outline-none";
+const channels = [
+  {
+    title: "Ventas",
+    text: "Planes, implementación y propuestas para tu negocio.",
+    email: "ventas@livestack.test",
+  },
+  {
+    title: "Soporte",
+    text: "Ayuda con productos y operación en vivo.",
+    email: "soporte@livestack.test",
+  },
+  {
+    title: "Alianzas",
+    text: "Integraciones, prensa y oportunidades estratégicas.",
+    email: "alianzas@livestack.test",
+  },
+];
+/** Set true to show Ventas / Soporte / Alianzas contact blocks above the form */
+const showChannels = false;
+---
+
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-x-0 top-0 h-160 arch-gradient-lower"></div>
+  <GradientShader drop={0.22} class="absolute inset-x-0 top-0 w-full h-160" />
+  <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 top-0 h-80"></div>
+  <Wrapper variant="standard" class="relative flex flex-col justify-center pt-32 pb-24 min-h-160">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="tracking-tight text-balance text-inverse-foreground"
+        >
+          Grandes <em>experiencias</em> comienzan con una conversación.
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-md mt-6 text-inverse-foreground text-pretty">
+          Cuéntanos sobre tu negocio, tus desafíos y hacia dónde quieres llegar. Descubramos
+          juntos cómo Livestack puede ayudarte a vender más, operar mejor y seguir creciendo.
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+  <Wrapper variant="standard" class="relative pb-24">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        {showChannels && (
+          <dl class="grid gap-8 sm:grid-cols-3">
+            {
+              channels.map((channel) => (
+                <div>
+                  <dt>
+                    <Text tag="span" variant="textXS" class="uppercase text-muted-foreground">
+                      {channel.title}
+                    </Text>
+                  </dt>
+                  <dd class="mt-3">
+                    <Text tag="span" variant="textBase" class="block font-medium text-foreground">
+                      {channel.email}
+                    </Text>
+                    <Text tag="span" variant="textSM" class="block mt-1 text-muted-foreground text-pretty">
+                      {channel.text}
+                    </Text>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        )}
+        <form
+          class:list={[
+            "flex flex-col gap-5",
+            showChannels && "pt-12 mt-12 border-t border-border",
+          ]}
+        >
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="conversemos-firstName" class="text-sm font-medium text-foreground">
+                Nombre
+              </label>
+              <input
+                id="conversemos-firstName"
+                name="firstName"
+                type="text"
+                autocomplete="given-name"
+                class:list={[input, "mt-2"]}
+              />
+            </div>
+            <div>
+              <label for="conversemos-lastName" class="text-sm font-medium text-foreground">
+                Apellido
+              </label>
+              <input
+                id="conversemos-lastName"
+                name="lastName"
+                type="text"
+                autocomplete="family-name"
+                class:list={[input, "mt-2"]}
+              />
+            </div>
+          </div>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="conversemos-email" class="text-sm font-medium text-foreground">
+                E-mail
+              </label>
+              <input
+                id="conversemos-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                class:list={[input, "mt-2"]}
+              />
+            </div>
+            <div>
+              <label for="conversemos-phone" class="text-sm font-medium text-foreground">
+                Teléfono
+              </label>
+              <input
+                id="conversemos-phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                inputmode="tel"
+                class:list={[input, "mt-2"]}
+              />
+            </div>
+          </div>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="conversemos-company" class="text-sm font-medium text-foreground">
+                Empresa u organización
+              </label>
+              <input
+                id="conversemos-company"
+                name="company"
+                type="text"
+                autocomplete="organization"
+                class:list={[input, "mt-2"]}
+              />
+            </div>
+            <div>
+              <label for="conversemos-industry" class="text-sm font-medium text-foreground">
+                Industria
+              </label>
+              <select id="conversemos-industry" name="industry" class:list={[input, "mt-2"]}>
+                <option value="" disabled selected hidden>
+                  Selecciona una opción
+                </option>
+                <option value="eventos-y-festivales">Eventos y festivales</option>
+                <option value="clubs-y-nightlife">Clubs y nightlife</option>
+                <option value="bares-restaurantes-cafeterias">Bares, restaurantes y cafeterías</option>
+                <option value="fitness-y-wellness">Fitness y wellness</option>
+                <option value="venues-y-entretenimiento">Venues y entretenimiento</option>
+                <option value="comunidades-y-membresias">Comunidades y membresías</option>
+                <option value="other">Otra</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="conversemos-message" class="text-sm font-medium text-foreground">
+              Cómo podemos ayudarte
+            </label>
+            <textarea
+              id="conversemos-message"
+              name="message"
+              rows="5"
+              placeholder="Cuéntanos un poco sobre tu negocio, tus desafíos o lo que te gustaría conseguir."
+              class:list={[textarea, "mt-2"]}
+            />
+          </div>
+          <Button size="base" variant="default" type="submit" class="self-start mt-2">
+            Enviar mensaje
+          </Button>
+        </form>
+      </div>
+    </div>
+  </Wrapper>
+</section>

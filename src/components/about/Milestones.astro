@@ -1,0 +1,46 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+import { grid, sideCol, mainCol } from "@/components/fundations/containers/grid";
+const milestones = [
+  { year: "2021", text: "Navy launches with HTTP checks from six regions." },
+  { year: "2022", text: "Status pages arrive, with email subscribers." },
+  { year: "2023", text: "On-call schedules and escalation policies." },
+  { year: "2024", text: "The Terraform provider and the Navy CLI." },
+  { year: "2026", text: "18 regions and 4,000 teams on Navy." },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="Milestones">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        Five years of <em>fewer</em> pages
+      </Text>
+      <ol slot="full" role="list" class="border-b border-border">
+        {
+          milestones.map((milestone, index) => (
+            <li class:list={["grid items-baseline py-8 border-t gap-4 border-border", grid]}>
+              <Text
+                tag="p"
+                variant="display3XL"
+                class:list={[
+                  "tracking-tight",
+                  sideCol,
+                  index === milestones.length - 1 ? "text-primary" : "text-foreground",
+                ]}
+              >
+                {milestone.year}
+              </Text>
+              <Text tag="p" variant="textLG" class:list={["text-muted-foreground text-pretty", mainCol]}>
+                {milestone.text}
+              </Text>
+            </li>
+          ))
+        }
+      </ol>
+    </LabeledGrid>
+  </Wrapper>
+</section>

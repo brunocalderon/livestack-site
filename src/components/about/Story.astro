@@ -1,0 +1,30 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const story = [
+  "Navy started in 2021, after one of our founders spent a weekend answering pages for an outage that turned out to be a single flaky network route. Every tool we tried either missed real outages or cried wolf, and on-call engineers had learned to ignore both.",
+  "So we built the monitor we wanted: checks from many regions, an outage only when three of them agree, and alerts that go to one person instead of a whole channel. The status page came next, because customers deserve to hear about problems from you first.",
+  "Today Navy runs more than two billion checks a month for 4,000 teams, from two-person startups to companies with rotations in every time zone. The goal hasn't changed: when your phone buzzes at 3 a.m., it should be worth waking up for.",
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="Story">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        Why Navy <em>exists</em>
+      </Text>
+      <div class="flex flex-col max-w-2xl mt-10 gap-6">
+        {
+          story.map((paragraph) => (
+            <Text tag="p" variant="textLG" class="text-muted-foreground text-pretty">
+              {paragraph}
+            </Text>
+          ))
+        }
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

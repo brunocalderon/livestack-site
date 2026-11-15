@@ -1,0 +1,36 @@
+---
+// How to use:
+//
+// The panel beside the sign-in and sign-up forms: the moving gradient with
+// the logo and a customer quote on its dark top.
+//
+// <AuthPanel quote="..." name="Lucía Navarro" role="Head of Reliability, Lexington" />
+import Logo from "@/components/assets/Logo.astro";
+import GradientShader from "@/components/assets/GradientShader.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+const { quote, name, role } = Astro.props;
+---
+
+<div class="relative flex-col hidden p-12 overflow-hidden lg:flex">
+  <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+  <GradientShader class="absolute inset-0 size-full" />
+  <a href="/" class="relative inline-flex">
+    <span class="sr-only">Back to home</span>
+    <Logo tone="dark" />
+  </a>
+  <figure class="relative max-w-lg mt-20">
+    <blockquote>
+      <Text tag="p" variant="displaySM" class="text-balance text-inverse-foreground">
+        “{quote}”
+      </Text>
+    </blockquote>
+    <figcaption class="mt-8">
+      <Text tag="p" variant="textSM" class="font-medium text-inverse-foreground">
+        {name}
+      </Text>
+      <Text tag="p" variant="textSM" class="mt-0.5 text-inverse-foreground/60">
+        {role}
+      </Text>
+    </figcaption>
+  </figure>
+</div>

@@ -1,0 +1,35 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+// Icons
+import ChevronLeft from "@/components/fundations/icons/ChevronLeft.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-40 pb-16 lg:pt-52">
+    <div class:list={["grid", grid]}>
+      <div class:list={[mainCol, mainStart]}>
+        <a
+          href="/blog/home"
+          class="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ChevronLeft class="size-3.5" aria-hidden="true" />
+          All posts
+        </a>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="mt-8 tracking-tight text-balance text-foreground"
+        >
+          Browse by <em>topic</em>
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-lg mt-6 text-muted-foreground">
+          Every post is filed under a topic, from engineering deep dives to
+          on-call habits and status page advice.
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+</section>

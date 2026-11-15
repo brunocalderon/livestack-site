@@ -1,0 +1,54 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const principles = [
+  {
+    title: "Every alert is real",
+    text: "We would rather confirm an outage for ten more seconds than wake someone up for nothing.",
+  },
+  {
+    title: "Quiet by default",
+    text: "No dashboards to babysit. Navy stays out of the way until something actually breaks.",
+  },
+  {
+    title: "Honest status",
+    text: "Our own status page is public, including the incidents we would rather forget.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="Principles">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        How we <em>work</em>
+      </Text>
+      <div slot="full" class="grid md:grid-cols-3">
+        {
+          principles.map((principle, index) => (
+            <div
+              class:list={[
+                "flex flex-col justify-between p-8 gap-24 lg:aspect-square",
+                ["bg-mist", "bg-lilac", "bg-frost"][index],
+              ]}
+            >
+              <Text tag="p" variant="textSM" class="font-medium uppercase text-foreground">
+                {String(index + 1).padStart(2, "0")}
+              </Text>
+              <div>
+                <Text tag="h3" variant="displaySM" class="text-balance text-foreground">
+                  {principle.title}
+                </Text>
+                <Text tag="p" variant="textBase" class="mt-3 text-muted-foreground text-pretty">
+                  {principle.text}
+                </Text>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

@@ -1,0 +1,24 @@
+---
+// Topic links for the blog. Pass the current tag as `active` to highlight it.
+import { getCollection } from "astro:content";
+const { active } = Astro.props;
+const tags = [...new Set((await getCollection("posts")).flatMap((post) => post.data.tags))];
+const link = "text-xs uppercase transition-colors";
+const idle = "text-muted-foreground hover:text-foreground";
+const current = "text-foreground underline underline-offset-4";
+---
+
+<nav aria-label="Tags" class="flex flex-wrap gap-x-6 gap-y-3">
+  <a href="/blog/home" aria-current={active ? undefined : "page"} class:list={[link, active ? idle : current]}>All</a>
+  {
+    tags.map((tag) => (
+      <a
+        href={`/blog/tags/${tag}`}
+        aria-current={tag === active ? "page" : undefined}
+        class:list={[link, tag === active ? current : idle]}
+      >
+        {tag}
+      </a>
+    ))
+  }
+</nav>

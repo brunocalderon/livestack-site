@@ -1,0 +1,94 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const steps = [
+  {
+    title: "Acceso Premier",
+    kicker: "Ticketing & Access",
+    text: ["De interesados a asistentes. Plataforma para venta de accesos, white label y especializada en espectáculos en vivo."],
+  },
+  {
+    title: "NAW",
+    kicker: "Wallet & Pagos.",
+    text: ["Unificamos pagos, cashless, puntos de venta, compra autoatendida y entregas más rápidas, liberando a tu personal para que vendan más."],
+  },
+  {
+    title: "LandingKit",
+    kicker: "Growth & Performance",
+    text: [
+      "Formularios, listas, embajadores y landings, para convertir conexiones en crecimiento y gestionar a tu audiencia.",
+    ],
+  },
+  {
+    title: "Signal",
+    kicker: "Marketing & Engagement",
+    text: [
+      "E-mail y mensajería con segmentación y automatización. Entrega el mensaje correcto en el momento correcto.",
+    ],
+  },
+  {
+    title: "Círculo",
+    kicker: "Membership & Loyalty",
+    text: "Que una visita se convierta en muchas. Membresía, comunidades y fidelización.",
+  },
+  {
+    title: "Backstage",
+    kicker: "Operations & Finance",
+    text: "Todo bajo control. Operación, inventario y gestión financiera.",
+  },
+];
+---
+
+<section id="soluciones">
+  <Wrapper variant="standard" class="flex flex-col justify-center py-24">
+    <LabeledGrid label="The platform">
+      <Text
+        tag="h2"
+        variant="displayMD"
+        class="max-w-xl tracking-tight text-balance text-foreground lg:max-w-none lg:whitespace-nowrap"
+      >
+        Todo funciona mejor, cuando <em>está conectado.</em>
+      </Text>
+      <Text tag="p" variant="textBase" class="max-w-md mt-4 text-muted-foreground text-pretty">
+        Especializados por separado. Poderosos en conjunto. Seis soluciones diseñadas para resolver desafíos
+        específicos de tu negocio. Utiliza las que necesitas hoy e incorpora nuevas capacidades a medida que creces.
+      </Text>
+      <div class="grid mt-16 gap-x-10 gap-y-24 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          steps.map((step) => (
+            <div>
+              <Text tag="h3" variant="textBase" class="font-medium text-foreground">
+                {step.title}
+              </Text>
+              {"kicker" in step && step.kicker && (
+                <Text tag="p" variant="textSM" class="mt-1 font-medium text-muted-foreground text-pretty">
+                  {step.kicker}
+                </Text>
+              )}
+              {Array.isArray(step.text) ? (
+                step.text.map((line, lineIndex) => (
+                  <Text
+                    tag="p"
+                    variant="textSM"
+                    class:list={[
+                      "text-muted-foreground text-pretty",
+                      lineIndex === 0 ? "mt-2" : "mt-1",
+                    ]}
+                  >
+                    {line}
+                  </Text>
+                ))
+              ) : (
+                <Text tag="p" variant="textSM" class="mt-2 text-muted-foreground text-pretty">
+                  {step.text}
+                </Text>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

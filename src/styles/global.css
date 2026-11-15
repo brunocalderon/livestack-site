@@ -1,0 +1,135 @@
+@import "tailwindcss";
+@import "./colors.css";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+@plugin "tailwind-scrollbar-hide";
+/* The navigation over an ink band, set by its scroll script */
+@custom-variant nav-dark (&:where([data-nav="dark"], [data-nav="dark"] *));
+@custom-variant nav-clear (&:where([data-nav="clear"], [data-nav="clear"] *));
+@utility list-dash {
+  list-style-type: "– ";
+}
+@theme {
+  /* Typography*/
+  --font-sans: "Switzer", sans-serif;
+  --text-display-lg: 10rem;
+  --text-display-lg--line-height: 1;
+  --text-display-xl: 12rem;
+  --text-display-xl--line-height: 1;
+  /* display3XL × 1.25 (landing hero) */
+  --text-hero-display: 3.75rem;
+  --text-hero-display--line-height: 1;
+  --text-hero-display-sm: 4.6875rem;
+  --text-hero-display-sm--line-height: 1;
+  --text-hero-display-md: 5.625rem;
+  --text-hero-display-md--line-height: 1;
+  --text-hero-display-lg: 7.5rem;
+  --text-hero-display-lg--line-height: 1;
+  /* Buttons: a darker outer edge, a lit top, a shaded bottom and a soft drop */
+  --shadow-button-inverse:
+    0 0 0 1px oklch(12% 0.05 270),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.18),
+    inset 0 -1px 0 0 rgb(0 0 0 / 0.3),
+    inset 0 0 0 1px rgb(255 255 255 / 0.05),
+    0 1px 2px 0 rgb(14 20 50 / 0.2),
+    0 2px 3px -1px rgb(14 20 50 / 0.25),
+    0 4px 6px -3px rgb(14 20 50 / 0.25);
+  --shadow-button-primary:
+    0 0 0 1px oklch(44% 0.2 268),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.3),
+    inset 0 -1px 0 0 rgb(0 0 0 / 0.15),
+    inset 0 0 0 1px rgb(255 255 255 / 0.08),
+    0 1px 2px 0 rgb(40 60 200 / 0.2),
+    0 2px 3px -1px rgb(40 60 200 / 0.3),
+    0 4px 6px -3px rgb(40 60 200 / 0.3);
+  --shadow-button-muted:
+    0 0 0 1px rgb(30 31 37 / 0.1),
+    inset 0 1px 0 0 rgb(255 255 255 / 1),
+    inset 0 -1px 0 0 rgb(30 31 37 / 0.06),
+    0 1px 2px 0 rgb(30 31 37 / 0.06),
+    0 2px 3px -1px rgb(30 31 37 / 0.08),
+    0 4px 6px -3px rgb(30 31 37 / 0.08);
+}
+:root {
+  font-family: var(--font-sans);
+  font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+}
+/* Key words in headings: wrap them in <em> */
+h1 em,
+h2 em {
+  font-style: italic;
+  font-weight: 600;
+}
+/* CSS fallback under GradientShader: the navy arch hanging from the top, an
+   ultramarine glow along its rim, melting into lavender and the page white.
+   The flip version rises from the bottom (the footer). */
+.arch-gradient {
+  background:
+    radial-gradient(
+      ellipse 150% 85% at 65% 0%,
+      var(--color-inverse) 0%,
+      var(--color-inverse) 38%,
+      oklch(30% 0.14 268) 52%,
+      var(--color-primary) 64%,
+      oklch(78% 0.1 275) 78%,
+      transparent 94%
+    ),
+    radial-gradient(ellipse 90% 50% at 0% 55%, oklch(60% 0.18 268 / 0.5) 0%, transparent 70%),
+    linear-gradient(to bottom, oklch(92% 0.04 275) 0%, var(--color-background) 100%);
+}
+/* Top arch with the colour band sitting lower (Conversemos hero) */
+.arch-gradient-lower {
+  background:
+    radial-gradient(
+      ellipse 150% 85% at 65% 22%,
+      var(--color-inverse) 0%,
+      var(--color-inverse) 38%,
+      oklch(30% 0.14 268) 52%,
+      var(--color-primary) 64%,
+      oklch(78% 0.1 275) 78%,
+      transparent 94%
+    ),
+    radial-gradient(ellipse 90% 50% at 0% 55%, oklch(60% 0.18 268 / 0.5) 0%, transparent 70%),
+    linear-gradient(to bottom, oklch(92% 0.04 275) 0%, var(--color-background) 100%);
+}
+.band-gradient {
+  background: linear-gradient(
+    200deg,
+    var(--color-background) 0%,
+    oklch(78% 0.1 275) 24%,
+    var(--color-primary) 36%,
+    oklch(30% 0.14 268) 44%,
+    var(--color-inverse) 50%,
+    oklch(30% 0.14 268) 56%,
+    var(--color-primary) 64%,
+    oklch(78% 0.1 275) 76%,
+    var(--color-background) 100%
+  );
+}
+.arch-gradient-flip {
+  background:
+    radial-gradient(
+      ellipse 150% 85% at 65% 100%,
+      var(--color-inverse) 0%,
+      var(--color-inverse) 38%,
+      oklch(30% 0.14 268) 52%,
+      var(--color-primary) 64%,
+      oklch(78% 0.1 275) 78%,
+      transparent 94%
+    ),
+    linear-gradient(to top, oklch(92% 0.04 275) 0%, var(--color-background) 100%);
+}
+/* Footer: lift the flip arch so blue sits higher behind the CTA */
+.arch-gradient-flip-footer {
+  background:
+    radial-gradient(
+      ellipse 150% 85% at 65% 78%,
+      var(--color-inverse) 0%,
+      var(--color-inverse) 38%,
+      oklch(30% 0.14 268) 52%,
+      var(--color-primary) 64%,
+      oklch(78% 0.1 275) 78%,
+      transparent 94%
+    ),
+    linear-gradient(to top, oklch(92% 0.04 275) 0%, var(--color-background) 100%);
+}

@@ -1,0 +1,41 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const regions = [
+  { name: "Frankfurt", ms: 38 }, { name: "London", ms: 41 }, { name: "Paris", ms: 44 },
+  { name: "Stockholm", ms: 52 }, { name: "Madrid", ms: 49 }, { name: "Milan", ms: 46 },
+  { name: "Virginia", ms: 61 }, { name: "Oregon", ms: 72 }, { name: "Montreal", ms: 66 },
+  { name: "São Paulo", ms: 118 }, { name: "Mexico City", ms: 97 }, { name: "Johannesburg", ms: 134 },
+  { name: "Mumbai", ms: 109 }, { name: "Singapore", ms: 88 }, { name: "Tokyo", ms: 93 },
+  { name: "Seoul", ms: 96 }, { name: "Sydney", ms: 121 }, { name: "Auckland", ms: 128 },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <LabeledGrid label="Regions">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        Response time by <em>region</em>
+      </Text>
+      <Text tag="p" variant="textBase" class="mt-4 text-muted-foreground">
+        Median time for the dashboard to respond over the last hour.
+      </Text>
+      <ul class="grid mt-10 border-t gap-x-8 sm:grid-cols-2 lg:grid-cols-3 border-border">
+        {
+          regions.map((region) => (
+            <li class="flex items-baseline justify-between py-3 border-b gap-2 border-border">
+              <Text tag="span" variant="textSM" class="text-foreground">
+                {region.name}
+              </Text>
+              <Text tag="span" variant="textSM" class="text-muted-foreground">
+                {region.ms} ms
+              </Text>
+            </li>
+          ))
+        }
+      </ul>
+    </LabeledGrid>
+  </Wrapper>
+</section>

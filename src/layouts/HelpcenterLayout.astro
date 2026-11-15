@@ -1,0 +1,120 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, sideCol, mainCol } from "@/components/fundations/containers/grid";
+// Icons
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+// Content
+import { getCollection } from "astro:content";
+const { frontmatter } = Astro.props;
+const entries = (await getCollection("helpcenter")).sort((a, b) => a.data.order - b.data.order);
+const categories = [...new Set(entries.map((entry) => entry.data.category))].map((category) => ({
+  category,
+  items: entries.filter((entry) => entry.data.category === category),
+}));
+const ordered = categories.flatMap((group) => group.items);
+const index = ordered.findIndex((entry) => entry.data.title === frontmatter.title);
+const next = ordered[index + 1];
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-40 pb-32 lg:pt-52">
+      <div class:list={["grid gap-12", grid]}>
+        <aside class:list={["order-2 lg:order-1", sideCol]}>
+          <nav aria-label="Help articles" class="flex flex-col gap-8 lg:sticky lg:top-28">
+            {
+              categories.map((group) => (
+                <div>
+                  <Text tag="p" variant="textXS" class="uppercase text-muted-foreground">
+                    {group.category}
+                  </Text>
+                  <ul class="flex flex-col mt-3 gap-2">
+                    {group.items.map((entry) => {
+                      const current = entry.data.title === frontmatter.title;
+                      return (
+                        <li>
+                          <a
+                            href={`/helpcenter/${entry.id}`}
+                            aria-current={current ? "page" : undefined}
+                            class:list={[
+                              "block text-sm transition-colors",
+                              current
+                                ? "text-foreground font-medium"
+                                : "text-muted-foreground hover:text-foreground",
+                            ]}
+                          >
+                            {entry.data.title}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))
+            }
+          </nav>
+        </aside>
+        <article class:list={["order-1 max-w-2xl lg:order-2", mainCol]}>
+          <nav aria-label="Breadcrumb">
+            <ol class="flex flex-wrap items-center gap-1 text-xs uppercase text-muted-foreground">
+              <li>
+                <a href="/helpcenter/home" class="transition-colors hover:text-foreground">Help center</a>
+              </li>
+              <li aria-hidden="true"><ChevronRight class="size-3.5 text-faint-foreground" /></li>
+              <li>{frontmatter.category}</li>
+            </ol>
+          </nav>
+          <Text
+            tag="h1"
+            variant="displayLG"
+            class="mt-6 tracking-tight text-balance text-foreground"
+          >
+            {frontmatter.title}
+          </Text>
+          <Text tag="p" variant="textLG" class="mt-6 text-muted-foreground text-pretty">
+            {frontmatter.intro}
+          </Text>
+          <div class="pt-10 mt-10 border-t border-border">
+            <Wrapper variant="prose" class="prose-headings:tracking-tight">
+              <slot />
+            </Wrapper>
+          </div>
+          <div class="flex flex-wrap items-center justify-between pt-8 mt-16 border-t gap-4 border-border">
+            <Text tag="p" variant="textSM" class="font-medium text-foreground">
+              Was this article helpful?
+            </Text>
+            <div class="flex gap-2">
+              <Button size="sm" variant="default" type="button">Yes</Button>
+              <Button size="sm" variant="muted" type="button">No</Button>
+            </div>
+          </div>
+          {
+            next && (
+              <a
+                href={`/helpcenter/${next.id}`}
+                class="flex items-center justify-between pt-8 mt-8 border-t group gap-4 border-border"
+              >
+                <span>
+                  <Text tag="span" variant="textXS" class="block uppercase text-muted-foreground">
+                    Next article
+                  </Text>
+                  <Text tag="span" variant="textBase" class="block mt-3 font-medium text-foreground transition-colors group-hover:text-muted-foreground">
+                    {next.data.title}
+                  </Text>
+                </span>
+                <ChevronRight
+                  aria-hidden="true"
+                  class="size-4 shrink-0 text-faint-foreground transition group-hover:translate-x-0.5 group-hover:text-foreground"
+                />
+              </a>
+            )
+          }
+        </article>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

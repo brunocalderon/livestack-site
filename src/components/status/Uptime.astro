@@ -1,0 +1,130 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+const DAYS = 90;
+const today = new Date();
+const dayLabel = (daysAgo: number) =>
+  new Date(today.getTime() - daysAgo * 86400000).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+// Days ago with downtime, per component: "minor" is degraded, "major" is an outage
+type Level = "ok" | "minor" | "major";
+const groups = [
+  {
+    name: "Core",
+    components: [
+      { name: "Check network", uptime: "99.998%", incidents: { 41: "minor" } },
+      { name: "Alerting", uptime: "99.991%", incidents: { 3: "minor", 58: "major" } },
+      { name: "Dashboard", uptime: "99.989%", incidents: { 22: "minor" } },
+      { name: "Public API", uptime: "99.995%", incidents: { 22: "minor" } },
+    ],
+  },
+  {
+    name: "Status pages",
+    components: [
+      { name: "Hosted pages", uptime: "100%", incidents: {} },
+      { name: "Custom domains", uptime: "99.997%", incidents: { 67: "minor" } },
+      { name: "Subscriber email", uptime: "99.993%", incidents: { 12: "minor" } },
+    ],
+  },
+  {
+    name: "Notifications",
+    components: [
+      { name: "SMS and voice", uptime: "99.982%", incidents: { 3: "minor", 35: "major" } },
+      { name: "Email", uptime: "99.999%", incidents: {} },
+      { name: "Slack and Discord", uptime: "99.996%", incidents: { 79: "minor" } },
+    ],
+  },
+].map((group) => ({
+  ...group,
+  components: group.components.map((component) => ({
+    ...component,
+    days: Array.from({ length: DAYS }, (_, i) => {
+      const daysAgo = DAYS - 1 - i;
+      const level: Level = (component.incidents as Record<number, Level>)[daysAgo] ?? "ok";
+      return { daysAgo, level };
+    }),
+  })),
+}));
+const levelClass: Record<Level, string> = {
+  ok: "bg-primary",
+  minor: "bg-inverse/30",
+  major: "bg-inverse",
+};
+const levelText: Record<Level, string> = {
+  ok: "No downtime",
+  minor: "Degraded performance",
+  major: "Outage",
+};
+---
+
+<section>
+  <Wrapper variant="standard" class="pb-24">
+    <LabeledGrid label="Uptime">
+      <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+        Uptime over the last <em>90 days</em>
+      </Text>
+      <ul class="flex flex-wrap items-center mt-6 gap-6">
+        {
+          (Object.keys(levelText) as Level[]).map((level) => (
+            <li class="flex items-center gap-2">
+              <span aria-hidden="true" class:list={["size-2.5", levelClass[level]]} />
+              <Text tag="span" variant="textXS" class="text-muted-foreground">
+                {levelText[level]}
+              </Text>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="flex flex-col mt-12">
+        {
+          groups.map((group) => (
+            <div class="py-10 border-t border-border">
+              <Text tag="h3" variant="textSM" class="text-muted-foreground">
+                {group.name}
+              </Text>
+              <ul class="flex flex-col mt-6 gap-8">
+                {group.components.map((component) => (
+                  <li>
+                    <div class="flex items-baseline justify-between gap-4">
+                      <Text tag="p" variant="textSM" class="font-medium text-foreground">
+                        {component.name}
+                      </Text>
+                      <Text tag="p" variant="textXS" class="text-muted-foreground">
+                        {component.uptime} uptime
+                      </Text>
+                    </div>
+                    <div
+                      class="flex h-8 mt-3 gap-0.5"
+                      role="img"
+                      aria-label={`${component.name}: ${component.uptime} uptime over the last 90 days`}
+                    >
+                      {component.days.map((day) => (
+                        <span
+                          title={`${dayLabel(day.daysAgo)}: ${levelText[day.level]}`}
+                          class:list={[
+                            "flex-1 transition-opacity hover:opacity-70",
+                            levelClass[day.level],
+                            day.daysAgo >= 30 && "hidden md:block",
+                          ]}
+                        />
+                      ))}
+                    </div>
+                    <div class="flex justify-between mt-2 text-xs text-faint-foreground">
+                      <span class="md:hidden">30 days ago</span>
+                      <span class="hidden md:inline">90 days ago</span>
+                      <span>Today</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

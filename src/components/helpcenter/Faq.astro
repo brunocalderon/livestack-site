@@ -1,0 +1,91 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+// Icons
+import Plus from "@/components/fundations/icons/Plus.astro";
+const faqs = [
+  {
+    question: "How often does Navy check my site?",
+    answer:
+      "Every 3 minutes on Free and every 30 seconds on Team and Business. Each check runs from the regions you pick, out of 18.",
+  },
+  {
+    question: "How do you avoid false alarms?",
+    answer:
+      "When a check fails, Navy runs it again from three other regions. You only get an alert once they all agree the service is down.",
+  },
+  {
+    question: "Where can alerts go?",
+    answer:
+      "Email, SMS, Slack, Discord, PagerDuty and any webhook. Escalation policies decide who hears about it first and who hears next.",
+  },
+  {
+    question: "Can I put the status page on my own domain?",
+    answer:
+      "Yes. Point a CNAME at Navy and we issue and renew the certificate for you. Private pages can sit behind SSO on Business.",
+  },
+  {
+    question: "Can I manage monitors as code?",
+    answer:
+      "Yes. Define monitors in YAML and apply them with the CLI, the REST API or our Terraform provider.",
+  },
+  {
+    question: "What happens when I reach my monitor limit?",
+    answer:
+      "Your existing monitors keep running. You can't add new ones until you remove some or move to a bigger plan.",
+  },
+  {
+    question: "How long do you keep check history?",
+    answer:
+      "90 days on Free and one year on paid plans. You can export response times and incident timelines at any time.",
+  },
+  {
+    question: "Is there a free plan?",
+    answer:
+      "Yes. Ten monitors, 3-minute checks and one status page, free for as long as you need them. No credit card required.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="FAQ">
+    <div class="grid gap-12 lg:grid-cols-9 lg:gap-x-8">
+      <div class="lg:col-span-4">
+        <Text
+          tag="h2"
+          variant="displayMD"
+          class="text-balance text-foreground"
+        >
+          Questions <em>before</em> you switch
+        </Text>
+        <Text tag="p" variant="textBase" class="mt-4 text-muted-foreground">
+          Anything else, ask the team. A real engineer replies, usually within
+          the hour.
+        </Text>
+        <ArrowLink href="/forms/contact" class="mt-8">Contact us</ArrowLink>
+      </div>
+      <div class="border-t divide-y lg:col-span-5 divide-border border-border">
+        {
+          faqs.map((faq) => (
+            <details class="group">
+              <summary class="flex items-center justify-between w-full py-5 list-none cursor-pointer select-none gap-6 text-foreground hover:text-muted-foreground">
+                <Text tag="span" variant="textBase" class="font-medium">
+                  {faq.question}
+                </Text>
+                <Plus size="sm" class="transition-transform duration-300 shrink-0 text-faint-foreground group-open:rotate-45" />
+              </summary>
+              <Text tag="p" variant="textSM" class="max-w-xl pb-6 -mt-1 text-muted-foreground text-pretty">
+                {faq.answer}
+              </Text>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

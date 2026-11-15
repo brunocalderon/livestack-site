@@ -1,0 +1,153 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import ArrowLink from "@/components/fundations/elements/ArrowLink.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+import ChevronLeft from "@/components/fundations/icons/ChevronLeft.astro";
+// Components
+import BlogEntry from "@/components/blog/BlogEntry.astro";
+// Content
+import { getCollection } from "astro:content";
+const { frontmatter } = Astro.props;
+const teamSlug = Astro.url.pathname.split("/").filter(Boolean).pop();
+const posts = (await getCollection("posts"))
+  .filter((post) => post.data.team === teamSlug)
+  .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
+const others = (await getCollection("team")).filter((member) => member.id !== teamSlug);
+const firstName = frontmatter.name.split(" ")[0];
+const [lead, ...rest] = (frontmatter.bio ?? "").split("\n").filter((paragraph) => paragraph.trim());
+const socials = [
+  { label: "X", href: frontmatter.socials?.twitter },
+  { label: "LinkedIn", href: frontmatter.socials?.linkedin },
+  { label: "Website", href: frontmatter.socials?.website },
+  { label: "Email", href: frontmatter.socials?.email },
+].filter((social) => social.href);
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-32 pb-24">
+      <div class="grid lg:grid-cols-2">
+        <div class="overflow-hidden aspect-square">
+          <Image
+            width={1000}
+            height={1000}
+            alt={frontmatter.name}
+            src={frontmatter.image.url}
+            class="object-cover object-top size-full"
+          />
+        </div>
+        <div class="flex flex-col justify-between p-8 gap-16 bg-inverse lg:p-10">
+          <div class="flex items-center justify-between gap-4">
+            <a
+              href="/team/home"
+              class="inline-flex items-center gap-1 text-sm font-medium text-inverse-foreground/75 transition-colors hover:text-inverse-foreground"
+            >
+              <ChevronLeft class="size-3.5" aria-hidden="true" />
+              Team
+            </a>
+            <Text tag="p" variant="textXS" class="uppercase text-inverse-foreground/75">
+              {frontmatter.role}
+            </Text>
+          </div>
+          <div>
+            <Text
+              tag="h1"
+              variant="displayLG"
+              class="tracking-tight text-balance text-inverse-foreground"
+            >
+              {frontmatter.name}
+            </Text>
+            {
+              lead && (
+                <Text tag="p" variant="textBase" class="max-w-lg mt-6 text-inverse-foreground/75 text-pretty">
+                  {lead}
+                </Text>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="pb-24">
+      <LabeledGrid label="About">
+        <div class="flex flex-col max-w-2xl gap-5">
+          {
+            rest.map((paragraph) => (
+              <Text tag="p" variant="textLG" class="text-foreground text-pretty">
+                {paragraph}
+              </Text>
+            ))
+          }
+        </div>
+        <dl class="grid max-w-2xl pt-8 mt-12 border-t gap-8 border-border sm:grid-cols-2">
+            {
+              socials.length > 0 && (
+                <div>
+                  <dt>
+                    <Text tag="span" variant="textXS" class="uppercase text-muted-foreground">
+                      Elsewhere
+                    </Text>
+                  </dt>
+                  <dd class="flex flex-wrap mt-3 gap-x-4 gap-y-1">
+                    {socials.map((social) => (
+                      <a
+                        href={social.href}
+                        class="text-sm text-foreground underline underline-offset-4 decoration-border transition-colors hover:decoration-foreground"
+                      >
+                        {social.label}
+                      </a>
+                    ))}
+                  </dd>
+                </div>
+              )
+            }
+            {
+              others.length > 0 && (
+                <div>
+                  <dt>
+                    <Text tag="span" variant="textXS" class="uppercase text-muted-foreground">
+                      Works with
+                    </Text>
+                  </dt>
+                  <dd class="flex flex-col mt-3 gap-1">
+                    {others.map((member) => (
+                      <a
+                        href={`/team/${member.id}`}
+                        class="text-sm text-foreground transition-colors hover:text-muted-foreground"
+                      >
+                        {member.data.name}
+                      </a>
+                    ))}
+                  </dd>
+                </div>
+              )
+            }
+          </dl>
+      </LabeledGrid>
+    </Wrapper>
+  </section>
+  {
+    posts.length > 0 && (
+      <section>
+        <Wrapper variant="standard" class="pb-32">
+          <LabeledGrid label="Writing">
+            <Text tag="h2" variant="displayMD" class="max-w-2xl text-balance text-foreground">
+              Posts by <em>{firstName}</em>
+            </Text>
+            <ArrowLink href="/blog/home" class="mt-8">View all posts</ArrowLink>
+            <div slot="full" class="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => <BlogEntry post={post} />)}
+            </div>
+          </LabeledGrid>
+        </Wrapper>
+      </section>
+    )
+  }
+</BaseLayout>
