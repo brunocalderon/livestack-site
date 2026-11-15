@@ -92,7 +92,7 @@ Images in frontmatter are objects `{ url, alt }` where `url` is an Astro `image(
 
 ## Customization
 
-- **Site URL:** `site` in `astro.config.mjs` (`https://yourwebsite.com`). Align with **RSS** (`context.site`) and **sitemap**.
+- **Site URL:** `site` in `astro.config.mjs` (production: `https://withlivestack.com`). Align with **RSS** (`context.site`) and **sitemap**; `Astro.site` in `Seo.astro` builds canonical and `og:image` absolute URLs.
 - **Global SEO placeholders:** `src/components/fundations/head/Seo.astro` — replace demo title/description/canonical/OG/Twitter with real values or wire per-page props if you extend the pattern.
 - **Brand (colors, type, shadows):** colours in `src/styles/colors.css` (`--color-background`, `--color-foreground`, `--color-primary`, ...); fonts, display sizes and the button shadows in the `src/styles/global.css` `@theme` block.
 - **Gradient shader:** `src/components/assets/GradientShader.astro` reads the colour tokens, so a rebrand in `colors.css` recolours it. It has three shapes (default arch from the top, `flip` from the bottom, `band` across the middle), each with a CSS fallback in `global.css` (`.arch-gradient`, `.arch-gradient-flip`, `.band-gradient`). Pages with a gradient hero pass `navTone="dark"` to `BaseLayout`.
