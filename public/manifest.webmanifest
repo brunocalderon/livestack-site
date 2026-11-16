@@ -4,8 +4,8 @@
   "description": "Livestack — experiencias, operaciones y negocios conectados.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F2F0EF",
-  "theme_color": "#F2F0EF",
+  "background_color": "#FAFAFA",
+  "theme_color": "#FAFAFA",
   "icons": [
     {
       "src": "/favicon-512x512.png",

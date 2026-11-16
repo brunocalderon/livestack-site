@@ -51,16 +51,19 @@ const features = [
             </ArrowLink>
           )}
         </div>
-        <dl class="border-b lg:col-span-5 border-border">
+        <dl class="border-b lg:col-span-5 border-border" data-experience-lifecycle-list>
           {
             features.map((feature) => (
-              <div class="grid py-6 border-t gap-2 sm:grid-cols-2 sm:gap-8 border-border">
-                <dt>
+              <div
+                class="grid items-start py-6 border-t gap-2 sm:grid-cols-2 sm:gap-8 sm:items-stretch border-border"
+                data-experience-lifecycle-row
+              >
+                <dt class="min-h-0">
                   <Text tag="span" variant="textBase" class="font-medium text-foreground">
                     {feature.title}
                   </Text>
                 </dt>
-                <dd>
+                <dd class="min-h-0">
                   <Text tag="span" variant="textSM" class="text-muted-foreground text-pretty">
                     {feature.text}
                   </Text>
@@ -73,3 +76,28 @@ const features = [
     </LabeledGrid>
   </Wrapper>
 </section>
+
+<script>
+  const equalizeLifecycleRows = (list: HTMLElement) => {
+    const rows = [...list.querySelectorAll<HTMLElement>("[data-experience-lifecycle-row]")];
+    if (rows.length === 0) return;
+
+    rows.forEach((row) => {
+      row.style.minHeight = "";
+    });
+
+    const maxHeight = Math.max(...rows.map((row) => row.getBoundingClientRect().height));
+    const height = `${maxHeight}px`;
+    rows.forEach((row) => {
+      row.style.minHeight = height;
+    });
+  };
+
+  const lists = document.querySelectorAll<HTMLElement>("[data-experience-lifecycle-list]");
+  for (const list of lists) {
+    const run = () => equalizeLifecycleRows(list);
+    run();
+    new ResizeObserver(run).observe(list);
+    window.addEventListener("resize", run, { passive: true });
+  }
+</script>

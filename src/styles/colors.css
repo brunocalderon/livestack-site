@@ -1,13 +1,17 @@
+:root {
+  /* Livestack alabaster (#FAFAFA) */
+  --livestack-alabaster: oklch(98.48% 0 0);
+}
+
 @theme {
-  /* A cool lavender-white ground and deep indigo ink in three steps */
-  --color-background: oklch(98.8% 0.006 275);
-  /* Livestack nav bar (#F2F0EF) */
-  --color-nav: oklch(95.3% 0.003 67);
+  /* Page ground, nav, and neutral fills */
+  --color-background: var(--livestack-alabaster);
+  --color-nav: var(--livestack-alabaster);
   --color-foreground: oklch(20% 0.04 275);
   --color-muted-foreground: oklch(48% 0.03 275);
   --color-faint-foreground: oklch(64% 0.025 275);
-  /* A cool light fill for inputs and panels, hairlines and control borders */
-  --color-muted: oklch(97.2% 0.01 275);
+  /* Panels and light grounds (alabaster); hairlines and control borders */
+  --color-muted: var(--livestack-alabaster);
   --color-border: oklch(91% 0.016 275);
   --color-input: oklch(82% 0.025 275);
   /* The one accent, the electric ultramarine of the shader wave: the accent
@@ -22,9 +26,8 @@
   --color-inverse-foreground: oklch(1 0 0);
   /* The lit top of the default button's gradient */
   --color-inverse-highlight: oklch(30% 0.06 270);
-  /* Pale tints pulled from the wave's glow. Grounds for stat cards and small
-     highlights, always with ink text */
-  --color-mist: oklch(95% 0.02 275);
+  /* Lilac keeps a wave tint; mist/frost match alabaster for neutral highlights */
+  --color-mist: var(--livestack-alabaster);
   --color-lilac: oklch(91% 0.045 280);
-  --color-frost: oklch(94% 0.025 245);
+  --color-frost: var(--livestack-alabaster);
 }

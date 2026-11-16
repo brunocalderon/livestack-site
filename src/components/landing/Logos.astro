@@ -11,8 +11,39 @@ import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
 // Icons
 import ArrowRight from "@/components/fundations/icons/ArrowRight.astro";
 // Content
+import type { ImageMetadata } from "astro";
+import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
-const cards = [
+
+type StatCard = {
+  type: "stat";
+  customer: string;
+  valueLines: [string, string];
+  label: string;
+  tint: string;
+};
+
+type QuoteCard = {
+  type: "quote";
+  customer: string;
+  person: string;
+  role: string;
+  image: ImageMetadata;
+};
+
+type Card = StatCard | QuoteCard;
+
+type CardWithEntry = Card & { entry: CollectionEntry<"customers"> };
+
+function isStatCard(card: CardWithEntry): card is StatCard & CardWithEntry {
+  return card.type === "stat";
+}
+
+function isQuoteCard(card: CardWithEntry): card is QuoteCard & CardWithEntry {
+  return card.type === "quote";
+}
+
+const cards: Card[] = [
   {
     type: "stat",
     customer: "3",
@@ -53,8 +84,10 @@ const showCardFooters = false;
 const showQuoteCards = false;
 /** Set true to show the customer stories link below the section intro */
 const showStoriesLink = false;
-const visibleEntries = showQuoteCards ? entries : entries.filter((card) => card.type === "stat");
-const statEntries = visibleEntries.filter((card) => card.type === "stat");
+const visibleEntries: CardWithEntry[] = showQuoteCards
+  ? entries
+  : entries.filter(isStatCard);
+const statEntries = visibleEntries.filter(isStatCard);
 /** lg: row1 card | card | gap; row2 gap | card | card (order: 3, 1, 2, 4) */
 const statGridPlacements = [
   "lg:col-start-1 lg:row-start-1",
@@ -127,7 +160,7 @@ const statGridPlacements = [
       {
         showQuoteCards &&
           visibleEntries
-            .filter((card) => card.type === "quote")
+            .filter(isQuoteCard)
             .map((card) => (
               <div class="grid bg-muted sm:col-span-2 sm:grid-cols-2 group">
                 <div class="relative overflow-hidden aspect-4/5 sm:aspect-auto">

@@ -1,3 +1,8 @@
 {
-    "window.title": "${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}[Branch: main]"
+  "window.title": "${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}[Branch: main]",
+  "css.lint.unknownAtRules": "ignore",
+  "files.associations": {
+    "src/styles/global.css": "tailwindcss",
+    "src/styles/colors.css": "tailwindcss"
+  }
 }

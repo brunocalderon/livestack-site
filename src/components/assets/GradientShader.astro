@@ -227,7 +227,7 @@ const { flip = false, band = false, rise = 0, drop = 0, class: className } = Ast
       uPrimary: token("--color-primary", "oklch(52% 0.22 268)"),
       uLavender: "oklch(78% 0.1 275)",
       uHaze: "oklch(92% 0.04 275)",
-      uGround: token("--color-background", "oklch(98.8% 0.006 275)"),
+      uGround: token("--color-background", "oklch(98.48% 0 0)"),
     };
     for (const [name, value] of Object.entries(colors)) {
       gl.uniform3fv(gl.getUniformLocation(program, name), toRgb(value));

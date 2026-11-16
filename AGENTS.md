@@ -143,12 +143,16 @@ From `README.md` (Node.js 22.12+, npm):
 
 - When dependencies change, keep the Tech stack table and Node requirement in AGENTS.md aligned with `package.json` and `README.md`.
 - Bump npm dependencies to the latest versions when asked; pin or add `overrides` only when install or build hits peer conflicts.
-- Temporarily hide nav chrome with a flag instead of deleting markup (e.g. `showMenu` in `Navigation.astro`).
+- Temporarily hide nav chrome with a flag instead of deleting markup (`navMinimal` on `BaseLayout` / `minimal` on `Navigation.astro`, which toggles `showMenu`).
 - Landing/marketing copy for Livestack is in Spanish; keep Navy emphasis patterns (`<em>` on key words).
+- SEO title, description, and absolute OG/Twitter URLs must use the `site` value in `astro.config.mjs` (`https://withlivestack.com`), not template or stray domain placeholders.
 
 ## Learned Workspace Facts
 
 - This repo rebrands the Lexington **Navy** Astro template for **Livestack** (`livestack-site`).
 - Brand logo asset: `src/images/brand/livestack-logo.png`, rendered via `src/components/assets/Logo.astro` with `tone` (`adaptive` | `light` | `dark`) and default nav height `h-10`.
-- `Navigation.astro` uses `showMenu = false`, so the header is logo-only until main links and CTAs are turned back on.
-- Spanish Livestack hero copy and CTA live in `src/components/landing/Hero.astro`; the customers/logos band copy is in `src/components/landing/Logos.astro`.
+- Home uses the full nav (`navMinimal` default); set `navMinimal` on `BaseLayout` for logo-only chrome (e.g. `404.astro`). Spanish nav links and the Conversemos CTA live in `Navigation.astro`.
+- Public routes at launch: `/`, `/conversemos`, and `/404`; other Navy template pages sit under `src/pages/_disabled/` (underscore-prefixed, not routed).
+- Contact page is `/conversemos` via `src/components/forms/Conversemos.astro`, not the disabled template `/forms/contact` route.
+- Spanish Livestack hero copy and CTA live in `src/components/landing/Hero.astro`; the outcomes band copy and stat cards are in `src/components/landing/Logos.astro` (`showQuoteCards = false` hides quote cards for now).
+- Share metadata uses `public/og-image.jpg` (from hero `GradientShader` capture) plus favicon/manifest assets in `public/`.

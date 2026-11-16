@@ -2,9 +2,9 @@ import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 
-const makeImageSchema = (image: () => z.ZodTypeAny) =>
+const makeImageSchema = <T extends z.ZodTypeAny>(url: T) =>
   z.object({
-    url: image(),
+    url,
     alt: z.string(),
   });
 
@@ -25,7 +25,7 @@ const customers = defineCollection({
       results: z.array(z.string()),
       about: z.string(),
       details: z.record(z.string(), z.string()),
-      logo: makeImageSchema(image),
+      logo: makeImageSchema(image()),
     }),
 });
 
@@ -44,7 +44,7 @@ const integrations = defineCollection({
           url: z.string().optional(),
         })
       ),
-      logo: makeImageSchema(image),
+      logo: makeImageSchema(image()),
       tags: z.array(z.string()),
     }),
 });
@@ -84,7 +84,7 @@ const team = defineCollection({
       name: z.string(),
       bio: z.string().optional(),
       role: z.string().optional(),
-      image: makeImageSchema(image),
+      image: makeImageSchema(image()),
       socials: z
         .object({
           twitter: z.string().optional(),
@@ -104,7 +104,7 @@ const postsCollection = defineCollection({
       pubDate: z.coerce.date(),
       description: z.string(),
       team: z.string(),
-      image: makeImageSchema(image),
+      image: makeImageSchema(image()),
       tags: z.array(z.string()),
     }),
 });
