@@ -1,15 +1,9 @@
 <script>
   import Lenis from "lenis";
   import "lenis/dist/lenis.css";
-
-  declare global {
-    interface Window {
-      lenis?: Lenis;
-    }
-  }
+  import { setLenis } from "@/lib/lenis";
 
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    // Shared so other scripts can scroll through Lenis
-    window.lenis = new Lenis({ autoRaf: true, anchors: true });
+    setLenis(new Lenis({ autoRaf: true, anchors: true }));
   }
 </script>

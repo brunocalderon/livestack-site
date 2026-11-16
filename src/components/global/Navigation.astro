@@ -37,7 +37,7 @@ const barRowClass = `relative flex items-center justify-between md:gap-12 lg:gri
   data-nav={tone}
   data-minimal={minimal ? "" : undefined}
   class:list={[
-    "fixed inset-x-0 top-0 w-full mx-auto z-51 shadow-nav transition-shadow duration-300 transition-colors",
+    "fixed inset-x-0 top-0 w-full mx-auto z-51 shadow-nav transition duration-300",
     minimal
       ? "bg-transparent shadow-none"
       : "bg-nav nav-dark:bg-transparent nav-dark:shadow-none nav-clear:bg-transparent nav-clear:shadow-none",
@@ -189,39 +189,45 @@ const barRowClass = `relative flex items-center justify-between md:gap-12 lg:gri
 }
 
 <script>
+  import { getLenis } from "@/lib/lenis";
+
   const navWrapper = document.getElementById("nav-wrapper")!;
   const mobileMenu = document.getElementById("mobile-menu");
   const menuToggle = document.getElementById("menu-toggle");
   const menuClose = document.getElementById("menu-close");
 
   if (mobileMenu && menuToggle && menuClose) {
+    const menu = mobileMenu;
+    const toggle = menuToggle;
+    const closeBtn = menuClose;
+
     function toggleMenu(open: boolean) {
       navWrapper.toggleAttribute("data-menu-suppressed", open);
       navWrapper.dataset.nav = "light";
-      mobileMenu.toggleAttribute("data-open", open);
-      menuToggle.setAttribute("aria-expanded", String(open));
+      menu.toggleAttribute("data-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
       document.documentElement.classList.toggle("overflow-hidden", open);
       document.documentElement.toggleAttribute("data-mobile-menu-open", open);
       if (open) {
-        window.lenis?.stop();
-        menuClose.focus();
+        getLenis()?.stop();
+        closeBtn.focus();
       } else {
-        window.lenis?.start();
-        menuToggle.focus();
+        getLenis()?.start();
+        toggle.focus();
         requestAnimationFrame(() => {
-          if (!mobileMenu.hasAttribute("data-open")) {
+          if (!menu.hasAttribute("data-open")) {
             navWrapper.dispatchEvent(new Event("nav-tone-sync", { bubbles: false }));
           }
         });
       }
     }
-    menuToggle.addEventListener("click", () => toggleMenu(true));
-    menuClose.addEventListener("click", () => toggleMenu(false));
-    mobileMenu.querySelectorAll("a").forEach((link) => {
+    toggle.addEventListener("click", () => toggleMenu(true));
+    closeBtn.addEventListener("click", () => toggleMenu(false));
+    menu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => toggleMenu(false));
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && mobileMenu.hasAttribute("data-open")) toggleMenu(false);
+      if (event.key === "Escape" && menu.hasAttribute("data-open")) toggleMenu(false);
     });
   }
 
@@ -268,7 +274,7 @@ const barRowClass = `relative flex items-center justify-between md:gap-12 lg:gri
     window.addEventListener("scroll", requestTick, { passive: true });
     window.addEventListener("resize", requestTick);
     window.addEventListener("load", () => {
-      window.lenis?.on("scroll", requestTick);
+      getLenis()?.on("scroll", requestTick);
       updateTone();
     });
     navWrapper.addEventListener("nav-tone-sync", updateTone);
