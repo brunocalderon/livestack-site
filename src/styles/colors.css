@@ -10,8 +10,8 @@
   --color-foreground: oklch(20% 0.04 275);
   --color-muted-foreground: oklch(48% 0.03 275);
   --color-faint-foreground: oklch(64% 0.025 275);
-  /* Panels and light grounds (alabaster); hairlines and control borders */
-  --color-muted: var(--livestack-alabaster);
+  /* Light panels; hairlines and control borders */
+  --color-muted: oklch(97.2% 0.01 275);
   --color-border: oklch(91% 0.016 275);
   --color-input: oklch(82% 0.025 275);
   /* The one accent, the electric ultramarine of the shader wave: the accent
@@ -26,8 +26,8 @@
   --color-inverse-foreground: oklch(1 0 0);
   /* The lit top of the default button's gradient */
   --color-inverse-highlight: oklch(30% 0.06 270);
-  /* Lilac keeps a wave tint; mist/frost match alabaster for neutral highlights */
-  --color-mist: var(--livestack-alabaster);
+  /* Pale tints from the wave glow — stat cards, industry tiles, highlights */
+  --color-mist: oklch(95% 0.02 275);
   --color-lilac: oklch(91% 0.045 280);
-  --color-frost: var(--livestack-alabaster);
+  --color-frost: oklch(94% 0.025 245);
 }
