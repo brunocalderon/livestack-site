@@ -161,13 +161,17 @@ From `README.md` (Node.js 22.12+, npm):
 - Temporarily hide nav chrome with a flag instead of deleting markup (`navMinimal` on `BaseLayout` / `minimal` on `Navigation.astro`, which toggles `showMenu`).
 - Landing/marketing copy for Livestack is in Spanish; keep Navy emphasis patterns (`<em>` on key words).
 - SEO title, description, and absolute OG/Twitter URLs must use the `site` value in `astro.config.mjs` (`https://withlivestack.com`), not template or stray domain placeholders.
+- Page and nav grounds use alabaster (`#FAFAFA` / `--livestack-alabaster`); keep semantic colour tokens in `colors.css`, not a split theme in `global.css`.
+- Landing section display headings: two lines via `<span class="block">` at punctuation; heading + intro share `grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3` with intro copy in column 1 only (`sm:col-span-1 lg:col-span-1`).
 
 ## Learned Workspace Facts
 
 - This repo rebrands the Lexington **Navy** Astro template for **Livestack** (`livestack-site`).
 - Brand logo asset: `src/images/brand/livestack-logo.png`, rendered via `src/components/assets/Logo.astro` with `tone` (`adaptive` | `light` | `dark`) and default nav height `h-10`.
 - Home uses the full nav (`navMinimal` default); set `navMinimal` on `BaseLayout` for logo-only chrome (e.g. `404.astro`). Spanish nav links and the Conversemos CTA live in `Navigation.astro`.
-- Public routes at launch: `/`, `/conversemos`, and `/404`; other Navy template pages sit under `src/pages/_disabled/` (underscore-prefixed, not routed).
-- Contact page is `/conversemos` via `src/components/forms/Conversemos.astro`, not the disabled template `/forms/contact` route.
+- Public routes at launch: `/`, `/conversemos`, `/conversemos/mensaje-recibido`, and `/404`; other Navy template pages sit under `src/pages/_disabled/` (underscore-prefixed, not routed).
+- Contact is `/conversemos` (`Conversemos.astro`): FormGong POST with `FORMGONG_ACCESS_KEY` (`astro:env/server`); thank-you at `/conversemos/mensaje-recibido` (`MensajeRecibido.astro`, FormGong `_redirect`).
+- Home anchors: `#que-hacemos` → `Logos.astro`, `#soluciones` → `HowItWorks.astro`, lifecycle band → `StatusPages.astro`, `#industrias` → `OnCall.astro`.
+- `mist`, `frost`, and `muted` stay distinct oklch panel tints; alabaster is for page background and nav only.
 - Spanish Livestack hero copy and CTA live in `src/components/landing/Hero.astro`; the outcomes band copy and stat cards are in `src/components/landing/Logos.astro` (`showQuoteCards = false` hides quote cards for now).
 - Share metadata uses `public/og-image.jpg` (from hero `GradientShader` capture) plus favicon/manifest assets in `public/`.

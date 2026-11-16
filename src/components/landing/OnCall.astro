@@ -72,7 +72,11 @@ const showIndustryDescriptions = false;
           See every alert channel
         </ArrowLink>
       )}
-      <ol slot="full" role="list" class="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+      <ol
+        slot="full"
+        role="list"
+        class="grid gap-x-0 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10"
+      >
         {
           timeline.map((step) => (
             <li
