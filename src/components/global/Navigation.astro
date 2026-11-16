@@ -37,14 +37,16 @@ const barRowClass = `relative flex items-center justify-between md:gap-12 lg:gri
   data-nav={tone}
   data-minimal={minimal ? "" : undefined}
   class:list={[
-    "fixed inset-x-0 top-0 w-full mx-auto z-51 transition-colors duration-300",
-    minimal ? "bg-transparent" : "bg-nav nav-dark:bg-transparent nav-clear:bg-transparent",
-    "data-menu-suppressed:bg-nav data-menu-suppressed:transition-none",
+    "fixed inset-x-0 top-0 w-full mx-auto z-51 shadow-nav transition-shadow duration-300 transition-colors",
+    minimal
+      ? "bg-transparent shadow-none"
+      : "bg-nav nav-dark:bg-transparent nav-dark:shadow-none nav-clear:bg-transparent nav-clear:shadow-none",
+    "data-menu-suppressed:bg-nav data-menu-suppressed:shadow-nav data-menu-suppressed:transition-none",
   ]}
 >
   <Wrapper variant="standard" class={barChromeClass}>
     <div class={barRowClass}>
-      <a href="/" class:list={["md:flex-1", sideCol]}>
+      <a href="/" class:list={["relative z-10 md:flex-1", sideCol]}>
         <span class="sr-only">Go to homepage</span>
         <Logo tone="adaptive" class="transition-[filter]" />
       </a>
@@ -66,7 +68,7 @@ const barRowClass = `relative flex items-center justify-between md:gap-12 lg:gri
             <nav aria-label="Main" class="hidden md:contents">
               <ul
                 role="list"
-                class="flex flex-row items-center justify-center gap-6 lg:col-span-6 lg:justify-start"
+                class="absolute left-1/2 z-10 flex -translate-x-1/2 flex-row items-center justify-center gap-6"
               >
                 {navigationLinks.map((link) => (
                   <li>
@@ -76,7 +78,7 @@ const barRowClass = `relative flex items-center justify-between md:gap-12 lg:gri
                   </li>
                 ))}
               </ul>
-              <div class="flex items-center justify-end flex-1 gap-4 lg:col-span-3">
+              <div class="relative z-10 flex flex-1 items-center justify-end gap-4 lg:col-span-3 lg:col-start-10">
                 {showOverviewLink && (
                   <a href="/system/overview" class={linkClass}>
                     Overview

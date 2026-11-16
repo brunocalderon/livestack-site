@@ -33,20 +33,28 @@ const stats = [
 const showStats = false;
 ---
 
-<section>
+<section id="nosotros">
   <Wrapper variant="standard" class="py-24">
     <LabeledGrid label="What we believe">
-      <Text
-        tag="h2"
-        variant="displayMD"
-        class="max-w-xl tracking-tight text-balance text-foreground"
-      >
-      La tecnología debería <em>potenciar las experiencias</em>, no interponerse en ellas.
-      </Text>
-      <Text tag="p" variant="textBase" class="max-w-xl mt-4 text-muted-foreground text-pretty">
-        Creamos tecnología para que los negocios puedan dedicar menos tiempo a gestionar sistemas y más tiempo a generar momentos que importan.
-        <br/><em>Tu marca. Tu audiencia. Tu negocio.</em>
-      </Text>
+      <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Text
+          tag="h2"
+          variant="displayMD"
+          class="tracking-tight text-pretty text-foreground sm:col-span-2 sm:max-w-none lg:col-span-3"
+        >
+          <span class="block">La tecnología no debe ser un obstáculo para el negocio.</span>
+          <span class="block"><em>Debe ser un acelerador.</em></span>
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="max-w-none text-muted-foreground text-pretty sm:col-span-1 lg:col-span-2"
+        >
+          En Livestack creemos que la tecnología no debe ser una capa adicional sobre tu negocio, sino una capacidad
+          estratégica que transforme la manera en que opera, evoluciona y genera valor. Creamos soluciones para que
+          las personas dediquen menos tiempo a gestionar sistemas y más tiempo a crear momentos que importan.
+        </Text>
+      </div>
       {
         showStats && (
           <div slot="full">

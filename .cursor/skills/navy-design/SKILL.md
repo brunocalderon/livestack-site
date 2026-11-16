@@ -92,7 +92,7 @@ reduced motion) and only animates while on screen.
 - Default: hangs from the top (gradient heroes, the auth panel, the 404).
 - `flip`: rises from the bottom (the footer).
 - `band`: a tilted wave across the middle that fades to the page at both
-  edges (`landing/Band.astro`, between sections, no content).
+  edges (`landing/GradientBand.astro`, between sections, no content).
 
 Always put the matching CSS fallback behind it: `.arch-gradient`,
 `.arch-gradient-flip` or `.band-gradient` from `global.css`. Gradient heroes
@@ -125,7 +125,7 @@ where the navigation turns transparent with white links.
   action. Full width, heading and text on the left, actions on the right,
   `tone` `inverse`, `primary`, `lilac` or `muted`. No grid inside.
 - **Card rows**: gapless, `flex flex-col p-6 gap-24 lg:gap-62` (see
-  `landing/OnCall.astro`), a small uppercase tag on top, a `textBase
+  `landing/Industrias.astro`), a small uppercase tag on top, a `textBase
   font-medium` title and `textSM mt-1` text at the bottom.
 - **Hairline grids**: parent `border-t border-l border-border`, each item
   `border-b border-r border-border`, so empty cells never show a fill.

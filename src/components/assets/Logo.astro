@@ -22,6 +22,6 @@ const toneClass: Record<NonNullable<Props["tone"]>, string> = {
   alt="Livestack"
   width={livestackLogo.width}
   height={livestackLogo.height}
-  class:list={["h-10 w-auto max-w-full object-contain object-left transition-[filter]", toneClass[tone], className]}
+  class:list={["h-4 w-auto max-w-full object-contain object-left lg:h-6", toneClass[tone], className, "transition-[filter]"]}
   {...rest}
 />

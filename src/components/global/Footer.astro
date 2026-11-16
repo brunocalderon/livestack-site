@@ -67,46 +67,47 @@ const legal = [
 const showFooterNav = false;
 /** Set true to show Privacy and Terms links */
 const showLegalLinks = false;
+const { showCta = true } = Astro.props;
 ---
 
-<footer id="nosotros" data-nav-clear class="relative overflow-hidden">
+<footer data-nav-clear class="relative flex min-h-200 flex-col overflow-hidden">
   <div aria-hidden="true" class="absolute inset-0 arch-gradient-flip-footer"></div>
   <GradientShader flip rise={0.24} class="absolute inset-0 size-full" />
   <div data-nav-dark aria-hidden="true" class="absolute inset-x-0 bottom-0 h-[58%]"></div>
-  <Wrapper variant="standard" class="relative pt-24">
-    <LabeledGrid>
-      <Text
-        slot="side"
-        tag="p"
-        variant="textSM"
-        class="font-medium uppercase text-nav"
-      >
-        <span aria-hidden="true">///</span> Let's build what's next
-      </Text>
-      <div>
-        <Text
-          tag="h2"
-          variant="displayMD"
-          class="tracking-tight text-balance text-nav lg:max-w-none lg:whitespace-nowrap"
-        >
-          El futuro de las experiencias, <em>está conectado.</em>
-        </Text>
-        <Text tag="p" variant="textBase" class="max-w-md mt-4 text-nav text-pretty">
-          Descubre todo lo que tu negocio puede hacer con Livestack.
-        </Text>
-        <Button
-          isLink={true}
-          variant="muted"
-          size="sm"
-          href="/conversemos"
-          class="mt-8 w-fit bg-nav from-nav to-muted"
-        >
-          Conversemos
-        </Button>
-      </div>
-    </LabeledGrid>
-  </Wrapper>
-  <Wrapper variant="standard" class="relative pb-10 pt-40">
+  {
+    showCta && (
+      <Wrapper variant="standard" class="relative pt-100">
+        <LabeledGrid>
+          <Text slot="side" tag="p" variant="textSM" class="font-medium uppercase text-nav">
+            <span aria-hidden="true">///</span> Let's build what's next
+          </Text>
+          <div>
+            <Text
+              tag="h2"
+              variant="displayMD"
+              class="tracking-tight text-balance text-nav lg:max-w-none lg:whitespace-nowrap"
+            >
+              El futuro de las experiencias, <em>está conectado.</em>
+            </Text>
+            <Text tag="p" variant="textBase" class="max-w-md mt-4 text-nav text-pretty">
+              Descubre todo lo que tu negocio puede hacer con Livestack.
+            </Text>
+            <Button
+              isLink={true}
+              variant="muted"
+              size="sm"
+              href="/conversemos"
+              class="mt-8 w-fit bg-nav from-nav to-muted"
+            >
+              Conversemos
+            </Button>
+          </div>
+        </LabeledGrid>
+      </Wrapper>
+    )
+  }
+  <div aria-hidden="true" class="relative min-h-0 flex-1"></div>
+  <Wrapper variant="standard" class:list={["relative pb-10", showCta ? "pt-6" : "pt-8"]}>
     {
       showFooterNav && (
         <div class={`grid gap-y-12 ${grid}`}>

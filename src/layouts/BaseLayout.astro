@@ -11,7 +11,13 @@ import Navigation from "@/components/global/Navigation.astro";
 // the hideNav and hideFooter props
 // <BaseLayout hideNav={true} hideFooter={true}>
 // navTone="dark" is for pages that open on an ink band
-const { hideNav = false, hideFooter = false, navTone = "light", navMinimal = false } = Astro.props;
+const {
+  hideNav = false,
+  hideFooter = false,
+  hideFooterCta = false,
+  navTone = "light",
+  navMinimal = false,
+} = Astro.props;
 ---
 
 <html lang="en" class="selection:bg-inverse selection:text-inverse-foreground">
@@ -24,7 +30,7 @@ const { hideNav = false, hideFooter = false, navTone = "light", navMinimal = fal
     <main class="relative z-10 grow">
       <div class="relative"><slot /></div>
     </main>
-    {!hideFooter && <Footer />}
+    {!hideFooter && <Footer showCta={!hideFooterCta} />}
     <SmoothScroll />
   </body>
 </html>
