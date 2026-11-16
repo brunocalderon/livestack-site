@@ -1,0 +1,45 @@
+---
+// Assets
+import GradientShader from "@/components/assets/GradientShader.astro";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { grid, mainCol, mainStart } from "@/components/fundations/containers/grid";
+---
+
+<section class="relative overflow-hidden">
+  <div class="flex flex-col min-h-svh">
+    <div aria-hidden="true" class="absolute inset-0 arch-gradient"></div>
+    <GradientShader class="absolute inset-0 size-full" />
+    <Wrapper
+      variant="standard"
+      class={`relative grid content-center flex-1 w-full pt-40 pb-16 ${grid}`}
+    >
+      <div class:list={[mainCol, mainStart]}>
+        <Text tag="p" variant="textSM" class="font-medium uppercase text-inverse-foreground/70">
+          Mensaje recibido
+        </Text>
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="max-w-2xl mt-6 tracking-tight text-balance text-inverse-foreground"
+        >
+          El comienzo de <em>algo grande</em>.
+        </Text>
+        <Text tag="p" variant="textBase" class="max-w-md mt-4 text-inverse-foreground/70 text-pretty">
+          Hemos recibido tu mensaje. Pronto nos pondremos en contacto contigo para conocer tu negocio
+          y explorar lo que podemos construir juntos.
+        </Text>
+        <div class="flex flex-wrap items-center gap-4 mt-8">
+          <Button isLink={true} variant="default" size="sm" href="/" class="w-fit">
+            Volver al inicio
+          </Button>
+          <Button isLink={true} variant="muted" size="sm" href="/conversemos" class="w-fit">
+            Enviar otro mensaje
+          </Button>
+        </div>
+      </div>
+    </Wrapper>
+  </div>
+</section>

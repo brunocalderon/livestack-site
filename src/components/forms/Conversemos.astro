@@ -30,6 +30,8 @@ const channels = [
 ];
 /** Set true to show Ventas / Soporte / Alianzas contact blocks above the form */
 const showChannels = false;
+const site = Astro.site ?? new URL("https://withlivestack.com");
+const thankYouUrl = new URL("/conversemos/mensaje-recibido", site).href;
 ---
 
 <section class="relative overflow-hidden">
@@ -89,6 +91,7 @@ const showChannels = false;
         >
           <input type="hidden" name="access_key" value={FORMGONG_ACCESS_KEY} />
           <input type="hidden" name="_lang" value="es" />
+          <input type="hidden" name="_redirect" value={thankYouUrl} />
           <div class="grid gap-5 sm:grid-cols-2">
             <div>
               <label for="conversemos-firstName" class="text-sm font-medium text-foreground">
