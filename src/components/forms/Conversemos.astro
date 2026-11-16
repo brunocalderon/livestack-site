@@ -1,5 +1,6 @@
 ---
 // Assets
+import { FORMGONG_ACCESS_KEY } from "astro:env/server";
 import GradientShader from "@/components/assets/GradientShader.astro";
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
@@ -79,11 +80,15 @@ const showChannels = false;
           </dl>
         )}
         <form
+          action="https://formgong.com/submit"
+          method="POST"
           class:list={[
-            "flex flex-col gap-5",
+            "relative flex flex-col gap-5",
             showChannels && "pt-12 mt-12 border-t border-border",
           ]}
         >
+          <input type="hidden" name="access_key" value={FORMGONG_ACCESS_KEY} />
+          <input type="hidden" name="_lang" value="es" />
           <div class="grid gap-5 sm:grid-cols-2">
             <div>
               <label for="conversemos-firstName" class="text-sm font-medium text-foreground">
@@ -180,6 +185,12 @@ const showChannels = false;
               placeholder="Cuéntanos un poco sobre tu negocio, tus desafíos o lo que te gustaría conseguir."
               class:list={[textarea, "mt-2"]}
             />
+          </div>
+          <div
+            aria-hidden="true"
+            style="position:absolute;inset-inline-start:0;top:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"
+          >
+            <input name="botcheck" tabindex="-1" autocomplete="off" />
           </div>
           <Button size="base" variant="default" type="submit" class="self-start mt-2">
             Enviar mensaje

@@ -1,4 +1,4 @@
-# AGENTS.md — Navy (`@lexington/navy`)
+# AGENTS.md — Livestack (`@livestack/site`)
 
 **Design rules:** [.cursor/skills/navy-design/SKILL.md](./.cursor/skills/navy-design/SKILL.md) - read before creating or changing any UI.  
 
@@ -107,11 +107,26 @@ When the user asks to commit (or uses **`/git-commit`**), create **Conventional 
 
 1. Inspect `git status`, then `git diff --staged` (or `git diff` if nothing staged).
 2. Stage only relevant files; never commit secrets (`.env`, credentials, keys).
-3. Write `type[scope]: description` in imperative mood (`feat`, `fix`, `docs`, `chore`, etc.).
-4. Commit with a HEREDOC for multi-line bodies when needed.
-5. Do not amend, skip hooks, or force-push `main` unless the user explicitly asks.
+3. **Bump semver** in `package.json` (`version`, currently `MAJOR.MINOR.PATCH`) on every commit, then run `npm install` so `package-lock.json` stays in sync. Use [SemVer](https://semver.org/) from the staged changes and commit type:
+   - **MAJOR** — `BREAKING CHANGE` in the body/footer, or a commit type/scope suffix `!` (breaking API or behaviour).
+   - **MINOR** — `feat` (new user-facing capability, section, integration, or notable product copy).
+   - **PATCH** — everything else that ships (`fix`, `chore`, `docs`, `style`, `refactor`, `perf`, `build`, `ci`, dependency bumps, content tweaks).
+   When a commit mixes types, use the **highest** applicable bump.
+4. Write `type[scope]: description` in imperative mood (`feat`, `fix`, `docs`, `chore`, etc.).
+5. Commit with a HEREDOC for multi-line bodies when needed; include the version bump in the same commit (stage `package.json` and `package-lock.json`).
+6. Do not amend, skip hooks, or force-push `main` unless the user explicitly asks.
 
 Follow the full workflow in the agent skill **git-commit** (Conventional Commits spec, breaking-change footers, safety rules).
+
+## Release
+
+When the user sends **`release`** in chat (or asks to release), run this end-to-end workflow:
+
+1. **Bump semver** in `package.json` using the rules in **Git commits** (step 3). If there are uncommitted changes, choose the bump from the full diff; if the tree is already clean, bump **PATCH** unless the user specifies otherwise.
+2. **Create one or more commits** — stage all intended changes (including `package.json` and `package-lock.json` after `npm install`), split into logical Conventional Commits when the diff is large, and **include the version bump in the final commit** of the release (or a dedicated `chore(release): vX.Y.Z` commit if that is clearer).
+3. **Push to `main`** — `git push origin main` (or `git push -u origin HEAD` when upstream is missing). Warn before any force-push; do not force-push `main` unless the user explicitly asks.
+
+Do not release with unstaged secrets (`.env`, credentials). Verify `git status` is clean after push.
 
 ## Commands
 

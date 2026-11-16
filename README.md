@@ -1,4 +1,4 @@
-# Navy
+# Livestack (`@livestack/site`)
 
 ![Theme preview](https://lexingtonthemes.com/OpenGraph/navy/twitter.png)
 
@@ -13,6 +13,10 @@
 ## Requirements
 - Node.js 22.12 or newer (required by Astro 7)
 - npm
+
+## Environment variables
+
+Copy `.env.example` to `.env` and set `FORMGONG_ACCESS_KEY` (FormGong dashboard). Required for `npm run dev` and `npm run build` so `/conversemos` can submit the contact form. Set the same variable in your deploy environment (e.g. CI secrets).
 
 ## Commands
 
