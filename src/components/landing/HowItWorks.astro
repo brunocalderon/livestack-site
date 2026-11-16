@@ -40,17 +40,24 @@ const steps = [
 <section id="soluciones">
   <Wrapper variant="standard" class="flex flex-col justify-center py-24">
     <LabeledGrid label="The platform">
-      <Text
-        tag="h2"
-        variant="displayMD"
-        class="max-w-xl tracking-tight text-balance text-foreground lg:max-w-none lg:whitespace-nowrap"
-      >
-        Todo funciona mejor, cuando <em>está conectado.</em>
-      </Text>
-      <Text tag="p" variant="textBase" class="max-w-md mt-4 text-muted-foreground text-pretty">
-        Especializados por separado. Poderosos en conjunto. Seis soluciones diseñadas para resolver desafíos
-        específicos de tu negocio. Utiliza las que necesitas hoy e incorpora nuevas capacidades a medida que creces.
-      </Text>
+      <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Text
+          tag="h2"
+          variant="displayMD"
+          class="tracking-tight text-pretty text-foreground sm:col-span-2 sm:max-w-none lg:col-span-3"
+        >
+          <span class="block">Todo funciona mejor,</span>
+          <span class="block">cuando <em>está conectado.</em></span>
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="max-w-none text-muted-foreground text-pretty sm:col-span-1 lg:col-span-1"
+        >
+          Especializados por separado. Poderosos en conjunto. Seis soluciones diseñadas para resolver desafíos
+          específicos de tu negocio. Utiliza las que necesitas hoy e incorpora nuevas capacidades a medida que creces.
+        </Text>
+      </div>
       <div class="grid mt-16 gap-x-10 gap-y-24 sm:grid-cols-2 lg:grid-cols-3">
         {
           steps.map((step) => (

@@ -35,16 +35,23 @@ const features = [
     <LabeledGrid label="The experience lifecycle">
       <div class="grid gap-12 lg:grid-cols-9 lg:gap-x-8">
         <div class="lg:col-span-4">
-          <Text
-            tag="h2"
-            variant="displayMD"
-            class="tracking-tight text-balance text-foreground"
-          >
-            Antes, durante, <em>y mucho después.</em>
-          </Text>
-          <Text tag="p" variant="textBase" class="mt-4 text-muted-foreground text-pretty">
-            Cada experiencia representa una oportunidad para atraer, vender, conectar y fidelizar.
-          </Text>
+          <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+            <Text
+              tag="h2"
+              variant="displayMD"
+              class="tracking-tight text-pretty text-foreground sm:col-span-2 sm:max-w-none lg:col-span-3"
+            >
+              <span class="block">Antes, durante,</span>
+              <span class="block"><em>y mucho después.</em></span>
+            </Text>
+            <Text
+              tag="p"
+              variant="textBase"
+              class="max-w-none text-muted-foreground text-pretty sm:col-span-1 lg:col-span-1"
+            >
+              Cada experiencia representa una oportunidad para atraer, vender, conectar y fidelizar.
+            </Text>
+          </div>
           {showPlansLink && (
             <ArrowLink href="/pricing" class="mt-8">
               See status page plans
