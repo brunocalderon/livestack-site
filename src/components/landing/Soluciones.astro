@@ -5,36 +5,38 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
 const steps = [
   {
+    title: "Backstage",
+    kicker: "Strategy, Growth & Technology",
+    text: "Combinamos consultoría, marketing, growth y tecnología para acelerar tu crecimiento, optimizar operaciones y transformar oportunidades en resultados.",
+  },
+  {
     title: "Acceso Premier",
     kicker: "Ticketing & Access",
-    text: "Infraestructura de ticketing flexible que permite maximizar tus ingresos, mantener el control de cada transacción y conocer en profundidad a tus fans.",
+    text: "Infraestructura flexible que maximiza tus ingresos, mantiene el control transaccional y entrega información completa de tus asistentes.",
   },
   {
     title: "NAW",
     kicker: "Wallet & Cashless Payments",
-    text: "Unificamos pagos, cashless, puntos de venta, compra autoatendida y entregas más rápidas, liberando a tu personal para que vendan más.",
+    text: "Unifica pagos, cashless, puntos de venta, compra autoatendida y gestión de pedidos. Reduce esperas, agiliza entregas y libera a tu equipo para atender mejor.",
   },
   {
     title: "LandingKit",
     kicker: "Growth & Performance",
-    text: "Formularios, listas, embajadores y landings, para convertir conexiones en crecimiento y gestionar a tu audiencia.",
+    text: "Convierte cada interacción en una oportunidad de crecimiento. Landing pages, formularios y campañas, gestion de rrpp y audiencias propias.",
   },
   {
     title: "Signal",
     kicker: "Marketing & Engagement",
-    text: "E-mail y mensajería con segmentación y automatización. Entrega el mensaje correcto en el momento correcto.",
+    text: "Conecta con tu audiencia en el momento indicado y a través del canal correcto. Segmenta tus contactos y automatiza campañas personalizadas.",
   },
   {
     title: "Círculo",
     kicker: "Membership & Loyalty",
-    text: "Que una visita se convierta en muchas. Membresía, comunidades y fidelización.",
-  },
-  {
-    title: "Backstage",
-    kicker: "Operations & Finance",
-    text: "Todo bajo control. Operación, inventario y gestión financiera.",
+    text: "Membresías, beneficios exclusivos y experiencias personalizadas que fortalecen tu comunidad y aumentan el valor de cada cliente a lo largo del tiempo.",
   },
 ];
+/** Set true to show product names (e.g. Acceso Premier) above each kicker */
+const showSolutionTitles = false;
 ---
 
 <section id="soluciones">
@@ -63,11 +65,20 @@ const steps = [
         {
           steps.map((step) => (
             <div>
-              <Text tag="h3" variant="textBase" class="font-medium text-foreground">
-                {step.title}
-              </Text>
+              {showSolutionTitles && (
+                <Text tag="h3" variant="textBase" class="font-medium text-foreground">
+                  {step.title}
+                </Text>
+              )}
               {"kicker" in step && step.kicker && (
-                <Text tag="p" variant="textSM" class="mt-1 font-medium text-muted-foreground text-pretty">
+                <Text
+                  tag="h3"
+                  variant="textBase"
+                  class:list={[
+                    "font-medium text-foreground text-pretty",
+                    showSolutionTitles && "mt-1",
+                  ]}
+                >
                   {step.kicker}
                 </Text>
               )}
