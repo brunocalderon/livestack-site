@@ -3,40 +3,58 @@
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
-const steps = [
+
+type SolutionStep = {
+  title: string;
+  kicker: string;
+  text: string;
+  /** Product marketing site; kicker becomes a link when set */
+  href?: string;
+};
+
+const steps: SolutionStep[] = [
   {
     title: "Backstage",
     kicker: "Strategy, Growth & Technology",
     text: "Combinamos consultoría, marketing, growth y tecnología para acelerar tu crecimiento, optimizar operaciones y transformar oportunidades en resultados.",
+    href: "",
   },
   {
-    title: "Acceso Premier",
+    title: "Arrival",
     kicker: "Ticketing & Access",
     text: "Infraestructura flexible que maximiza tus ingresos, mantiene el control transaccional y entrega información completa de tus asistentes.",
+    href: "https://heyarrival.com",
   },
   {
     title: "NAW",
     kicker: "Wallet & Cashless Payments",
     text: "Unifica pagos, cashless, puntos de venta, compra autoatendida y gestión de pedidos. Reduce esperas, agiliza entregas y libera a tu equipo para atender mejor.",
+    href: "https://naw.cash",
   },
   {
-    title: "LandingKit",
+    title: "Gathr",
     kicker: "Growth & Performance",
     text: "Convierte cada interacción en una oportunidad de crecimiento. Landing pages, formularios y campañas, gestion de rrpp y audiencias propias.",
+    href: "https://gathrkit.com",
   },
   {
     title: "Signal",
     kicker: "Marketing & Engagement",
     text: "Conecta con tu audiencia en el momento indicado y a través del canal correcto. Segmenta tus contactos y automatiza campañas personalizadas.",
+    href: "https://signalmailing.com",
   },
   {
     title: "Círculo",
     kicker: "Membership & Loyalty",
     text: "Membresías, beneficios exclusivos y experiencias personalizadas que fortalecen tu comunidad y aumentan el valor de cada cliente a lo largo del tiempo.",
+    href: "https://usacirculo.com",
   },
 ];
+
 /** Set true to show product names (e.g. Acceso Premier) above each kicker */
 const showSolutionTitles = false;
+/** Set true to link kickers to each step's `href` */
+const showSolutionLinks = false;
 ---
 
 <section id="soluciones">
@@ -70,18 +88,33 @@ const showSolutionTitles = false;
                   {step.title}
                 </Text>
               )}
-              {"kicker" in step && step.kicker && (
-                <Text
-                  tag="h3"
-                  variant="textBase"
-                  class:list={[
-                    "font-medium text-foreground text-pretty",
-                    showSolutionTitles && "mt-1",
-                  ]}
-                >
-                  {step.kicker}
-                </Text>
-              )}
+              {step.kicker &&
+                (showSolutionLinks && step.href ? (
+                  <Text
+                    tag="a"
+                    href={step.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="textBase"
+                    class:list={[
+                      "font-medium text-foreground text-pretty transition-colors hover:text-muted-foreground",
+                      showSolutionTitles && "mt-1",
+                    ]}
+                  >
+                    {step.kicker}
+                  </Text>
+                ) : (
+                  <Text
+                    tag="h3"
+                    variant="textBase"
+                    class:list={[
+                      "font-medium text-foreground text-pretty",
+                      showSolutionTitles && "mt-1",
+                    ]}
+                  >
+                    {step.kicker}
+                  </Text>
+                ))}
               {Array.isArray(step.text) ? (
                 step.text.map((line, lineIndex) => (
                   <Text
