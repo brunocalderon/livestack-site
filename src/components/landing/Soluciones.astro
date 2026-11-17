@@ -1,6 +1,7 @@
 ---
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
 
@@ -55,11 +56,48 @@ const steps: SolutionStep[] = [
 const showSolutionTitles = false;
 /** Set true to link kickers to each step's `href` */
 const showSolutionLinks = false;
+/** Set true to show the product grid below the section intro */
+const showSolutionGrid = false;
+const serviceIntro = {
+  lead: "Un servicio 360° para hacer crecer tu negocio.",
+  paragraphs: [
+    "Combinamos estrategia, tecnología, marketing y ejecución para transformar desafíos en oportunidades de crecimiento.",
+    "Nos integramos a tu equipo, conectamos las herramientas que ya utilizas y desarrollamos nuevas capacidades para simplificar tu operación, mejorar la experiencia de tus clientes y generar resultados medibles.",
+  ],
+};
+
+const servicePillars = [
+  {
+    title: "Estrategia",
+    tagline: "Transformamos oportunidades en planes de acción.",
+    text: "Entendemos tu negocio, identificamos oportunidades de mejora y diseñamos estrategias que conectan tus objetivos con iniciativas concretas de crecimiento.",
+  },
+  {
+    title: "Crecimiento",
+    tagline: "Atraemos, convertimos y fidelizamos.",
+    text: "Combinamos marketing, creatividad, datos y experimentación para conectar con nuevas audiencias, optimizar conversiones y construir relaciones duraderas con tus clientes.",
+  },
+  {
+    title: "Tecnología",
+    tagline: "Hacemos que la tecnología trabaje para ti.",
+    text: "Desarrollamos soluciones, integramos plataformas y automatizamos procesos para que tu negocio opere de forma más inteligente, eficiente y escalable.",
+  },
+  {
+    title: "Ejecución",
+    tagline: "De las ideas a los resultados.",
+    text: "No nos quedamos en las recomendaciones. Trabajamos junto a tu equipo para implementar soluciones, medir su impacto y optimizar continuamente cada iniciativa.",
+  },
+];
+
+const serviceClose = {
+  text: "Cada negocio tiene sus propios desafíos, oportunidades y ambiciones. En Livestack combinamos visión estratégica, experiencia tecnológica y capacidad de ejecución para ayudarte a dar el siguiente paso. Desde identificar nuevas oportunidades hasta diseñar, implementar y optimizar soluciones, trabajamos junto a tu equipo para transformar ideas en resultados concretos y construir las capacidades que impulsarán tu crecimiento.",
+  cta: "Conversemos sobre tu negocio",
+};
 ---
 
 <section id="soluciones">
   <Wrapper variant="standard" class="flex flex-col justify-center py-24">
-    <LabeledGrid label="The platform">
+    <LabeledGrid label="The service">
       <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
         <Text
           tag="h2"
@@ -69,19 +107,52 @@ const showSolutionLinks = false;
           <span class="block">Todo funciona mejor,</span>
           <span class="block">cuando <em>está conectado.</em></span>
         </Text>
-        <Text
-          tag="p"
-          variant="textBase"
-          class="max-w-none text-muted-foreground text-pretty sm:col-span-1 lg:col-span-2"
-        >
-          Especializadas por diseño. Poderosas por integración. Seis soluciones que ponen la tecnología al servicio de
-          tu negocio, no al revés. Incorpora las capacidades que necesitas hoy y evoluciona a tu propio ritmo, sin
-          añadir complejidad a tu operación.
-        </Text>
+        <div class="grid max-w-none gap-y-4 sm:col-span-1 lg:col-span-2">
+          <Text tag="p" variant="textBase" class="font-medium text-pretty text-foreground">
+            {serviceIntro.lead}
+          </Text>
+          {serviceIntro.paragraphs.map((paragraph) => (
+            <Text tag="p" variant="textBase" class="text-muted-foreground text-pretty">
+              {paragraph}
+            </Text>
+          ))}
+        </div>
       </div>
-      <div class="grid mt-16 gap-x-10 gap-y-24 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          steps.map((step) => (
+      <div class="mt-16 grid gap-x-10 gap-y-24 sm:grid-cols-2">
+        {servicePillars.map((pillar) => (
+          <div>
+            <Text tag="h3" variant="textBase" class="font-medium text-foreground">
+              {pillar.title}
+            </Text>
+            <Text tag="p" variant="textSM" class="mt-1 font-medium text-foreground text-pretty">
+              {pillar.tagline}
+            </Text>
+            <Text tag="p" variant="textSM" class="mt-2 text-muted-foreground text-pretty">
+              {pillar.text}
+            </Text>
+          </div>
+        ))}
+      </div>
+      <div class="mt-24 max-w-xl">
+        <Text
+          tag="h3"
+          variant="displayMD"
+          class="tracking-tight text-pretty text-foreground"
+        >
+          <span class="block">Tu próximo desafío,</span>
+          <span class="block">es <em class="font-semibold not-italic">nuestro punto de partida.</em></span>
+        </Text>
+        <Text tag="p" variant="textBase" class="mt-4 text-muted-foreground text-pretty">
+          {serviceClose.text}
+        </Text>
+        <Button isLink={true} href="/conversemos" size="sm" variant="default" class="mt-8 w-fit">
+          {serviceClose.cta}
+        </Button>
+      </div>
+      {showSolutionGrid && (
+        <div class="grid mt-16 gap-x-10 gap-y-24 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            steps.map((step) => (
             <div>
               {showSolutionTitles && (
                 <Text tag="h3" variant="textBase" class="font-medium text-foreground">
@@ -134,9 +205,10 @@ const showSolutionLinks = false;
                 </Text>
               )}
             </div>
-          ))
-        }
-      </div>
+            ))
+          }
+        </div>
+      )}
     </LabeledGrid>
   </Wrapper>
 </section>

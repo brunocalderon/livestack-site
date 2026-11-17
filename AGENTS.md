@@ -162,8 +162,8 @@ From `README.md` (Node.js 22.12+, npm):
 - Landing/marketing copy for Livestack is in Spanish; keep Navy emphasis patterns (`<em>` on key words).
 - SEO title, description, and absolute OG/Twitter URLs must use the `site` value in `astro.config.mjs` (`https://withlivestack.com`), not template or stray domain placeholders.
 - Page and nav grounds use alabaster (`#FAFAFA` / `--livestack-alabaster`); keep semantic colour tokens in `colors.css`, not a split theme in `global.css`.
-- Landing section display headings: two lines via `<span class="block">` at punctuation; heading + intro share `grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3` with heading `lg:col-span-3`, intro `lg:col-span-2` on desktop (`ExperienceLifecycle.astro` intro uses `lg:col-span-3`), and `max-w-none` on body copy.
-- Soluciones keeps product names off via `showSolutionTitles = false` for now; kickers use the section title typography (`textBase`, `font-medium`, `text-foreground`).
+- Landing section display headings: two lines via `<span class="block">` at punctuation; semibold phrases use `<em class="font-semibold not-italic">` (not hero italic); heading + intro share `grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3` with heading `lg:col-span-3`, intro `lg:col-span-2` on desktop (`ExperienceLifecycle.astro` intro uses `lg:col-span-3`), and `max-w-none` on body copy.
+- Soluciones leads with the 360° service intro, four pillars, and a closing CTA; legacy product grid, product titles, and kicker links stay off via `showSolutionGrid`, `showSolutionTitles`, and `showSolutionLinks` (`SolutionStep.href` reserved for later). Section primary CTAs use `Button` with `isLink`, not `ArrowLink`.
 
 ## Learned Workspace Facts
 
@@ -176,6 +176,6 @@ From `README.md` (Node.js 22.12+, npm):
 - `mist`, `frost`, and `muted` stay distinct oklch panel tints; alabaster is for page background and nav only.
 - Spanish Livestack hero copy and CTA live in `src/components/landing/Hero.astro`; the outcomes copy and stat cards are in `src/components/landing/QueHacemos.astro` (`showQuoteCards = false` hides quote cards for now).
 - Share metadata uses `public/og-image.jpg` (from hero `GradientShader` capture) plus favicon/manifest assets in `public/`.
-- Landing sections use Livestack-named components (`QueHacemos`, `Soluciones`, `ExperienceLifecycle`, `Industrias`, `WhatWeBelieve`, `GradientBand`), not the original Navy template filenames.
+- Landing sections use Livestack-named components (`QueHacemos`, `Soluciones`, `ExperienceLifecycle`, `Industrias`, `WhatWeBelieve`, `GradientBand`), not the original Navy template filenames; `Soluciones.astro` is the 360° service block (`serviceIntro`, four `servicePillars`, `serviceClose`) while the six-product `steps` grid stays behind `showSolutionGrid`.
 - Scripts that pause or listen to smooth scroll use `getLenis()` / `setLenis()` from `src/lib/lenis.ts`, not `window.lenis` (Lenis’s built-in `Window` types are metadata-only).
 - `Industrias.astro` shows industry descriptions; Conversemos industry select options match those labels and order. Footer CTA is hidden on Conversemos routes; home footer CTA spacing uses `pt-100`.
