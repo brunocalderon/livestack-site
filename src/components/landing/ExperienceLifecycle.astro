@@ -8,24 +8,24 @@ import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
 const showPlansLink = false;
 const features = [
   {
-    title: "1. Genera demanda.",
-    text: "Llega a nuevas audiencias y transforma el interés en ventas.",
+    title: "Genera demanda.",
+    text: "El crecimiento comienza mucho antes de la primera compra. Diseñamos estrategias para aumentar tu visibilidad, conectar con las audiencias correctas y convertir cada punto de contacto en una oportunidad comercial.",
   },
   {
-    title: "2. Maximiza cada oportunidad.",
-    text: "Monetiza accesos, productos, servicios y experiencias.",
+    title: "Maximiza cada oportunidad.",
+    text: "Cada cliente, visita e interacción representa una oportunidad para generar más valor. Te ayudamos a identificar nuevas fuentes de ingresos, optimizar tu oferta comercial y aprovechar mejor cada momento de la experiencia.",
   },
   {
-    title: "3. Haz que todo fluya.",
-    text: "Simplifica los pagos, los accesos y la operación.",
+    title: "Haz que todo fluya.",
+    text: "La tecnología debería simplificar tu negocio, no hacerlo más complejo. Conectamos sistemas, personas y procesos para eliminar obstáculos, reducir tareas manuales y hacer que cada interacción sea más rápida, simple y eficiente.",
   },
   {
-    title: "4. Construye relaciones.",
-    text: "Convierte asistentes ocasionales en clientes recurrentes.",
+    title: "Construye relaciones.",
+    text: "Una transacción puede ser el comienzo de una relación duradera. Te ayudamos a conocer mejor a tus clientes, comprender sus preferencias y crear experiencias relevantes que los motiven a regresar. Porque crecer también significa conseguir que quienes ya te conocen sigan eligiéndote.",
   },
   {
-    title: "5. Crece con inteligencia.",
-    text: "Transforma los datos de hoy en las oportunidades de mañana.",
+    title: "Crece con inteligencia.",
+    text: "Cada interacción genera información valiosa, pero su verdadero potencial está en lo que haces con ella. Unificamos datos, conectamos indicadores y transformamos información dispersa en conocimiento útil para tomar mejores decisiones.",
   },
 ];
 ---
@@ -33,32 +33,30 @@ const features = [
 <section>
   <Wrapper variant="standard" class="py-24">
     <LabeledGrid label="The experience lifecycle">
-      <div class="grid gap-12 lg:grid-cols-9 lg:gap-x-8">
-        <div class="lg:col-span-4">
-          <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Text
-              tag="h2"
-              variant="displayMD"
-              class="tracking-tight text-pretty text-foreground sm:col-span-2 sm:max-w-none lg:col-span-3"
-            >
-              <span class="block">Antes, durante,</span>
-              <span class="block"><em>y mucho después.</em></span>
-            </Text>
-            <Text
-              tag="p"
-              variant="textBase"
-              class="max-w-none text-muted-foreground text-pretty sm:col-span-1 lg:col-span-3"
-            >
-              Cada experiencia representa una oportunidad para atraer, vender, conectar y fidelizar.
-            </Text>
-          </div>
-          {showPlansLink && (
-            <ArrowLink href="/pricing" class="mt-8">
-              See status page plans
-            </ArrowLink>
-          )}
+      <div class="flex flex-col gap-12">
+        <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Text
+            tag="h2"
+            variant="displayMD"
+            class="tracking-tight text-pretty text-foreground sm:col-span-2 sm:max-w-none lg:col-span-3"
+          >
+            <span class="block">Antes, durante,</span>
+            <span class="block"><em>y mucho después.</em></span>
+          </Text>
+          <Text
+            tag="p"
+            variant="textBase"
+            class="max-w-none text-muted-foreground text-pretty sm:col-span-1 lg:col-span-3"
+          >
+            Cada experiencia representa una oportunidad para atraer, vender, conectar y fidelizar.
+          </Text>
         </div>
-        <dl class="border-b lg:col-span-5 border-border" data-experience-lifecycle-list>
+        {showPlansLink && (
+          <ArrowLink href="/pricing" class="mt-8">
+            See status page plans
+          </ArrowLink>
+        )}
+        <dl class="border-b border-border" data-experience-lifecycle-list>
           {
             features.map((feature) => (
               <div
