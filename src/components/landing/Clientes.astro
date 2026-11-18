@@ -1,0 +1,48 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import LabeledGrid from "@/components/fundations/containers/LabeledGrid.astro";
+import LogoCarousel from "@/components/landing/LogoCarousel.astro";
+// Content
+import { getCollection } from "astro:content";
+
+const customers = (await getCollection("customers"))
+  .filter((entry) => entry.data.published)
+  .sort((a, b) => a.data.customer.localeCompare(b.data.customer, "es"));
+
+const logos = customers.map((entry) => ({
+  src: entry.data.logo.url,
+  alt: entry.data.logo.alt,
+  name: entry.data.customer,
+}));
+---
+
+<section id="clientes">
+  <Wrapper variant="standard" class="py-24">
+    <LabeledGrid label="Our customers">
+      <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Text
+          tag="h2"
+          variant="displayLG"
+          class="tracking-tight text-pretty text-foreground sm:col-span-2 sm:max-w-none lg:col-span-3"
+        >
+          <span class="block">Experiencias que</span>
+          <span class="block"><em>nos conectan.</em></span>
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="max-w-none text-muted-foreground text-pretty sm:col-span-1 lg:col-span-2"
+        >
+          Algunos de los clientes a los que hemos acompañado con una visión integral de sus negocios:
+          desde atraer nuevas audiencias y maximizar sus ingresos, hasta optimizar la operación,
+          fortalecer las relaciones con sus clientes y convertir los datos en nuevas oportunidades.
+        </Text>
+      </div>
+      <div slot="full" class="pt-6">
+        <LogoCarousel logos={logos} />
+      </div>
+    </LabeledGrid>
+  </Wrapper>
+</section>

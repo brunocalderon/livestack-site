@@ -1,5 +1,5 @@
 ---
-customer: Corvane
+customer: Surfestival
 testimonial: "When a carrier route slows down at 9 a.m. on a sale day, Navy tells us within a minute, and our status page tells our customers before they have to ask."
 ctaTitle: How Corvane keeps message delivery visible during peak sending hours
 partnership: Corvane has run its API and delivery monitoring on Navy since 2024.
@@ -14,14 +14,15 @@ results:
   - "Support tickets during incidents fell by 64% after the public status page launched"
   - "Over 3,200 brands subscribed to status updates by email in the first quarter"
 details:
-  Industry: "Marketing Technology"
-  Location: "New York"
+  Industry: "Festivales"
+  Location: "Pichilemu, Chile"
   Employees: "1000+"
   Identity Provider: "Okta"
   Workloads: "Messaging APIs, Carrier Gateways, Webhooks"
 logo:
-  url: "/src/images/customers/1.svg"
-  alt: "Corvane logo"
+  url: "/src/images/customers/surfestival.png"
+  alt: "Surfestival logo"
+published: true
 ---
 
 ## Peak hours without surprises at Corvane

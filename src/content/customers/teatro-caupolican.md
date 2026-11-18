@@ -1,5 +1,5 @@
 ---
-customer: Halvik
+customer: Teatro Caupolican
 testimonial: "We used to lose a certificate a quarter to someone's forgotten calendar reminder, and since moving to Navy we haven't had a single one expire."
 ctaTitle: How Halvik stopped losing certificates to expiry
 partnership: Halvik's security engineering team adopted Navy in 2023 to cover certificates, DNS and ingestion endpoints.
@@ -14,14 +14,15 @@ results:
   - "More than 600 certificates monitored automatically from a single YAML file"
   - "DNS misconfigurations caught an average of 40 minutes before customer impact"
 details:
-  Industry: "Cybersecurity"
-  Location: "Foster City, California"
+  Industry: "Recintos"
+  Location: "Santiago, Chile"
   Employees: "1000+"
   Identity Provider: "Microsoft Entra ID"
   Workloads: "SSL Certificates, DNS, Log Ingestion Endpoints"
 logo:
-  url: "/src/images/customers/2.svg"
+  url: "/src/images/customers/teatro-caupolican.png"
   alt: "Halvik logo"
+published: true
 ---
 
 ## Keeping certificates valid at Halvik

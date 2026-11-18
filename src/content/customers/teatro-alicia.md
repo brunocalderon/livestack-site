@@ -1,5 +1,5 @@
 ---
-customer: Tessly
+customer: Teatro Alicia
 testimonial: "Requiring three regions to agree before paging anyone took our false alarms to almost zero, and our on-call engineers finally sleep through the night."
 ctaTitle: How Tessly cut alert noise across 400 endpoints
 partnership: Tessly moved its regional API monitoring to Navy in 2024.
@@ -14,14 +14,15 @@ results:
   - "400 regional endpoints monitored every 30 seconds from 18 regions"
   - "Mean time to acknowledge real incidents fell from 9 minutes to 2 minutes"
 details:
-  Industry: "Data & AI"
-  Location: "San Francisco"
+  Industry: "Recinto"
+  Location: "Lo Barnechea, Chile"
   Employees: "5000+"
   Identity Provider: "Okta"
   Workloads: "Regional APIs, Workspaces, SQL Endpoints"
 logo:
-  url: "/src/images/customers/3.svg"
+  url: "/src/images/customers/teatro-alicia.png"
   alt: "Tessly logo"
+published: true
 ---
 
 ## Fewer pages, faster response at Tessly

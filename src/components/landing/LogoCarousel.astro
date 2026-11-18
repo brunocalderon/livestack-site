@@ -1,0 +1,70 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import type { ImageMetadata } from "astro";
+
+export type LogoCarouselItem = {
+  src: ImageMetadata;
+  alt: string;
+  name: string;
+};
+
+interface Props {
+  logos: LogoCarouselItem[];
+}
+
+const { logos } = Astro.props;
+
+const logoCellClass =
+  "flex h-44 shrink-0 items-center justify-center px-12";
+---
+
+{
+  logos.length > 0 && (
+    <div
+      class="relative -mx-8 overflow-hidden sm:-mx-8 lg:-mx-0"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Logotipos de clientes"
+    >
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-background to-transparent sm:w-20"
+      />
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-background to-transparent sm:w-20"
+      />
+      <div class="logo-marquee-viewport scrollbar-hide">
+        <div class="logo-marquee-track flex w-max gap-0">
+          {[false, true].map((duplicate) => (
+            <ul
+              class="flex shrink-0 list-none"
+              role="list"
+              aria-hidden={duplicate || undefined}
+            >
+              {logos.map((logo) => (
+                <li class={logoCellClass}>
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={logo.src.width}
+                    height={logo.src.height}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-36 w-auto max-h-full object-contain"
+                  />
+                  <Text tag="span" class="sr-only">
+                    {logo.name}
+                  </Text>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}

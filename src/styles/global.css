@@ -141,3 +141,26 @@ h2 em {
     ),
     linear-gradient(to top, oklch(92% 0.04 275) 0%, var(--color-background) 100%);
 }
+/* Landing: auto-scrolling customer logo strip (manual scroll when motion is reduced) */
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.logo-marquee-viewport {
+  overflow: hidden;
+}
+.logo-marquee-track {
+  animation: logo-marquee 48s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-viewport {
+    overflow-x: auto;
+  }
+  .logo-marquee-track {
+    animation: none;
+  }
+}

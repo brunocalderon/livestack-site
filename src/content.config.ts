@@ -26,6 +26,7 @@ const customers = defineCollection({
       about: z.string(),
       details: z.record(z.string(), z.string()),
       logo: makeImageSchema(image()),
+      published: z.boolean().default(false),
     }),
 });
 

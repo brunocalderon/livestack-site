@@ -1,5 +1,5 @@
 ---
-customer: Selvo
+customer: Walk The Talk
 testimonial: "Our monitors live in Terraform next to the services they watch, so nothing ships to production without a check already in place."
 ctaTitle: How Selvo manages 1,200 monitors as code with Terraform
 partnership: Selvo's infrastructure team adopted the Navy Terraform provider in 2024.
@@ -14,14 +14,15 @@ results:
   - "Every new production service launches with monitors on day one"
   - "Stale monitors reduced from around 180 to zero after the first cleanup"
 details:
-  Industry: "Cloud Data"
-  Location: "Bozeman, Montana"
+  Industry: "Eventos"
+  Location: "Santiago, Chile"
   Employees: "4000+"
   Identity Provider: "Okta"
   Workloads: "Query APIs, Data Sharing Endpoints, Cron Jobs"
 logo:
-  url: "/src/images/customers/4.svg"
-  alt: "Selvo logo"
+  url: "/src/images/customers/wtt.png"
+  alt: "WTT Logo"
+published: true
 ---
 
 ## Monitors as code at Selvo
