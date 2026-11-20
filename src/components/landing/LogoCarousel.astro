@@ -24,19 +24,11 @@ const logoCellClass =
 {
   logos.length > 0 && (
     <div
-      class="relative -mx-8 overflow-hidden sm:-mx-8 lg:-mx-0"
+      class="relative w-full max-w-full overflow-hidden"
       role="region"
       aria-roledescription="carousel"
       aria-label="Logotipos de clientes"
     >
-      <div
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-background to-transparent sm:w-20"
-      />
-      <div
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-background to-transparent sm:w-20"
-      />
       <div class="logo-marquee-viewport scrollbar-hide">
         <div class="logo-marquee-track flex w-max gap-0">
           {[false, true].map((duplicate) => (

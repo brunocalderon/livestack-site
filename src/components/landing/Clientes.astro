@@ -18,10 +18,10 @@ const logos = customers.map((entry) => ({
 }));
 ---
 
-<section id="clientes">
+<section id="clientes" class="overflow-hidden">
   <Wrapper variant="standard" class="py-24">
     <LabeledGrid label="Our customers">
-      <div class="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="grid min-w-0 gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
         <Text
           tag="h2"
           variant="displayLG"
@@ -40,7 +40,7 @@ const logos = customers.map((entry) => ({
           fortalecer las relaciones con sus clientes y convertir los datos en nuevas oportunidades.
         </Text>
       </div>
-      <div slot="full" class="pt-6">
+      <div slot="full" class="min-w-0 pt-6">
         <LogoCarousel logos={logos} />
       </div>
     </LabeledGrid>
